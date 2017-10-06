@@ -23,4 +23,14 @@ public class EZCommController {
 	      return "index";
 
 }
+	@RequestMapping(path={"/EZComm/login"},method=RequestMethod.GET)
+	   public String HomePage2(Model model) {
+	      model.addAttribute("message","Hello Team EZComm");
+	     
+	      //Java 8 LocalDate
+	      
+	      
+	      return "login";
+
+}
 }
