@@ -38,6 +38,7 @@ Thumbs.db
 
 .classpath
 .settings
+.project
 target
 target/*
 /build/

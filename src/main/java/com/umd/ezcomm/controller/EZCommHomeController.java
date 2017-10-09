@@ -16,8 +16,14 @@ public class EZCommHomeController {
 	 * @return
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String homePage(HttpServletRequest request, HttpServletResponse response) {
+	public String loginPage(HttpServletRequest request, HttpServletResponse response) {
 
 		return "login";
+	}
+
+	@RequestMapping(value = "/homepage", method = RequestMethod.POST)
+	public String homePage(HttpServletRequest request, HttpServletResponse response) {
+
+		return "home";
 	}
 }

@@ -26,7 +26,7 @@
                    
                         <div class="panel-body" >
 
-                        <form action="LoginServlet" method="post" >
+                        <form action="homepage" method="post" >
                             <div class="form-group">
                                 <label for="exampleInputEmail1">User Name</label> <input
                                     type="text" class="form-control" name="txtUserName" id="txtUserName"
