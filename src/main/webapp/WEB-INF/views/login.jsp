@@ -1,58 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+  pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Log In</title>
+<link href="<%=request.getContextPath()%>/resources/css/style_log.css" rel="stylesheet" type="text/css">
+
 </head>
-<body>
-	<br>
-    <div class="container-fluid">
-        <div class="panel panel-success">
-            <div class="panel-heading" align="center">
-                <h4><b><font color="black" style="font-family: fantasy;">My First Login Demo</font> </b></h4>
-            </div>
-            <div class="panel-body"align="center">
-                 
-                <div class="container " style="margin-top: 10%; margin-bottom: 10%;">
-   
-                    <div class="panel panel-success" style="max-width: 35%;" align="left">
-                       
-                        <div class="panel-heading form-group">
-                            <b><font color="white">
-                                Login Form</font> </b>
-                        </div>
-                   
-                        <div class="panel-body" >
 
-                        <form action="homepage" method="post" >
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">User Name</label> <input
-                                    type="text" class="form-control" name="txtUserName" id="txtUserName"
-                                    placeholder="Enter User Name" required="required">
-                                   
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label> <input
-                                    type="password" class="form-control" name="txtPass" id="txtPass"
-                                    placeholder="Password" required="required">
-                            </div>
-                            <button type="submit" style="width: 30%; font-size:1.1em;" class="btn btn-large btn btn-success btn-lg btn-block" ><b>Login</b></button>
-                                                  
-                        </form>
-                        <div><a href="/EZComm">Back to Homepage!</a>
-                        </div>
+<body class="login" mycollectionplug="bind">
+<div class="login_m">
+<div class="login_boder">
 
-                        </div>
-                    </div>
-                   
-                </div>
-               
-            </div>
-            <div class="panel-footer" align="center"><font style="color: #111">Copyright @2017  <a >ezcomm.umd.com</a>, All Rights Reserved. </font></div>
-        </div>
-    </div>
-    
-</body>
-</html>
+<div class="login_padding" id="login_model">
+
+  <h2>User ID</h2>
+  <label>
+    <input type="text" id="username" class="txt_input txt_input2">
+  </label>
+  <h2>Password</h2>
+  <label>
+    <input type="password" name="textfield2" id="userpwd" class="txt_input">
+  </label>
+ 
+ 
+
+ 
+  <!-- <p class="forgot"><a id="iforget" href="javascript:void(0);">Forgot your password?</a></p> -->
+  <div class="rem_sub">
+  <div class="rem_sub_l">
+   <label ><a class = "forgotPw" id="iforget" href="javascript:void(0);">Forgot your password?</a></label>
+   </div>
+    <label>
+      <input type="submit" class="sub_button" name="button" id="button" value="Log In" style="opacity: 0.7;">
+    </label>
+  </div>
+</div>
+
+<!--login_padding  Sign up end-->
+</div><!--login_boder end-->
+</div><!--login_m end-->
+ <br> <br>
+
+
+
+</body></html>
