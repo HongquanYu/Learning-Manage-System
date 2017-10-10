@@ -12,9 +12,10 @@
 <div class="login_m">
 <div class="login_boder">
 
+<form action="homepage" method="post" >
 <div class="login_padding" id="login_model">
 
-  <h2>User ID</h2>
+  <h2>User Id</h2>
   <label>
     <input type="text" id="username" class="txt_input txt_input2">
   </label>
@@ -23,10 +24,10 @@
     <input type="password" name="textfield2" id="userpwd" class="txt_input">
   </label>
  
- 
 
  
   <!-- <p class="forgot"><a id="iforget" href="javascript:void(0);">Forgot your password?</a></p> -->
+  
   <div class="rem_sub">
   <div class="rem_sub_l">
    <label ><a class = "forgotPw" id="iforget" href="javascript:void(0);">Forgot your password?</a></label>
@@ -36,11 +37,15 @@
     </label>
   </div>
 </div>
+</form>
 
 <!--login_padding  Sign up end-->
 </div><!--login_boder end-->
 </div><!--login_m end-->
  <br> <br>
+ 
+  <div class="panel-footer" align="center"><font style="color: #111">Copyright @2017  <a >ezcomm.umd.com</a>, All Rights Reserved. </font></div>
+
 
 
 
