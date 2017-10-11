@@ -6,24 +6,19 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import com.umd.ezcomm.model.dao.UserDAO;
+
+/*
+ * This controller direct to the login page
+ */
 
 @Controller
-public class EZCommHomeController {
+public class HomeController {
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 * 
-	 * @return
-	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String loginPage(HttpServletRequest request, HttpServletResponse response) {
-
+	public String home(HttpServletRequest request, HttpServletResponse response) {
+		
 		return "login";
-	}
-
-	@RequestMapping(value = "/homepage", method = RequestMethod.POST)
-	public String homePage(HttpServletRequest request, HttpServletResponse response) {
-
-		return "home";
 	}
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+<!--
+	<bean id="jdbcuserdao" class="com.umd.ezcomm.model.dao.impl.JdbcUserDAO">
+		<constructor-arg value="10" type="int"></constructor-arg>
+	</bean>
+-->	
+	<!-- DataSource set to DBCP -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+        destroy-method="close">
+        <!--  -->
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/EZComm" />
+        <property name="username" value="root" />
+        <property name="password" value="helloworld" />
+    </bean>
+    
+    <!-- JDBC use Spring jdbcTemplate -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource">
+            <ref bean="dataSource" />
+        </property>
+    </bean>
+    
+    <bean id="DBManagerImpl" class="com.umd.ezcomm.model.dao.impl.DBManagerImpl">
+        <property name="template">
+            <ref bean="jdbcTemplate" />
+        </property>
+    </bean>
+    
+    <!-- transaction based on annotation -->
+    <bean id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    
+</beans>  

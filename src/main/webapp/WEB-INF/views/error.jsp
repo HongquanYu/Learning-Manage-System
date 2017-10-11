@@ -2,6 +2,6 @@
 <%@ page session="false" %>
 <html>
 <body>
-	<h1 style="text-align:center">This is the home page!</h1>
+	<h1 style="text-align:center">No such a user in DB!</h1>
 </body>
 </html>
