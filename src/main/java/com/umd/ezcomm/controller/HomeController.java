@@ -17,6 +17,7 @@ import com.umd.ezcomm.model.dao.UserDAO;
 public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
+
 	public String home(HttpServletRequest request, HttpServletResponse response) {
 		
 		return "login";

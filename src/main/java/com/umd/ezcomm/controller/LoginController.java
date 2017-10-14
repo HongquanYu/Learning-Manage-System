@@ -23,13 +23,20 @@ public class LoginController {
 	/*
 	 * The LoginController show login page, and 
 	 */
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(HttpServletRequest request, HttpServletResponse response) {
+		
+		return "login";
+	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPage(HttpServletRequest request, HttpServletResponse response) {
 		String nn = request.getParameter("txtUserName");
-		String pp = request.getParameter("txtPass");
+		String pp = request.getParameter("txtPassd");
 		
-		System.out.println("Made it to the controller");
+//		System.out.println("Made it to the controller");
+//		System.out.println("------user name: " + nn);
+//		System.out.println("------user pass: " + pp);
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 	    DBManagerImpl test = (DBManagerImpl) context.getBean("DBManagerImpl");
