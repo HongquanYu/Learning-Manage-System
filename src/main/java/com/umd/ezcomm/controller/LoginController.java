@@ -24,6 +24,11 @@ public class LoginController {
 	/*
 	 * The LoginController user do the user authentication.
 	 */
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(HttpServletRequest request, HttpServletResponse response) {
+		
+		return "login";
+	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPage(HttpServletRequest request, HttpServletResponse response) {
