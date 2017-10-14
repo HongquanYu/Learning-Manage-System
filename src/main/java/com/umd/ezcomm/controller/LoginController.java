@@ -24,20 +24,11 @@ public class LoginController {
 	/*
 	 * The LoginController user do the user authentication.
 	 */
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(HttpServletRequest request, HttpServletResponse response) {
-		
-		return "login";
-	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPage(HttpServletRequest request, HttpServletResponse response) {
 		String nn = request.getParameter("txtUserName");
 		String pp = request.getParameter("txtPassd");
-		
-//		System.out.println("Made it to the controller");
-//		System.out.println("------user name: " + nn);
-		
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		JdbcUserDAO test = (JdbcUserDAO) context.getBean("JdbcUserDAO");
