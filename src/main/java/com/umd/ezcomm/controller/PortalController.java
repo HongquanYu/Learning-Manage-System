@@ -14,7 +14,7 @@ import com.umd.ezcomm.model.dao.UserDAO;
  */
 
 @Controller
-public class HomeController {
+public class PortalController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpServletRequest request, HttpServletResponse response) {

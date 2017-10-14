@@ -1,12 +1,7 @@
 package com.umd.ezcomm.model.dao.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.sql.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import com.umd.ezcomm.model.User;
 import com.umd.ezcomm.model.dao.UserDAO;
 
@@ -19,98 +14,86 @@ import com.umd.ezcomm.model.dao.UserDAO;
 
 public class JdbcUserDAO implements UserDAO {
 
-	private DataSource dataSource;
-
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
+	private JdbcTemplate template;
+	
+	public void setTemplate(JdbcTemplate template) {
+		this.template = template;
 	}
 
 	@Override
 	public void insert(User user) {
 		String sql = "INSERT INTO student " + "(id, name, age) VALUES (?, ?, ?)";
-		Connection conn = null;
-
-		try {
-			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, user.getUserID());
-			ps.setString(2, user.getName());
-			ps.setInt(3, user.getAge());
-			ps.executeUpdate();
-			ps.close();
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-
-		} finally {
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
+		
 	}
 
 	@Override
 	public User findByUserID(int userID) {
 		String sql = "SELECT * FROM student WHERE id = ?";
+		return null;
+	}
 
-		Connection conn = null;
 
-		try {
-			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, userID);
-			User user = null;
-			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-				user = new User(rs.getInt("id"), rs.getString("name"), rs.getInt("age"));
-			}
-			rs.close();
-			ps.close();
-			return user;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
+	@Override
+    @Transactional
+    public boolean userAuth(String uname, String psd){
+    		String SQL = "SELECT COUNT(*) FROM EZComm.student WHERE username = \"" + uname + 
+    					"\" And password = \"" + psd + "\";";
+    		Integer cnt = template.queryForObject(SQL, Integer.class);
+    	
+    		return cnt != null && cnt > 0;
+    }
+
+	@Override
+	public User findByUserName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public int findByTel(int tel) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public User getProfile(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public int getGPAbyName(String name) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
-	public boolean isLegalUser(String uname, String psd) {
-		String sql = "SELECT username, password FROM student "
-				+ "WHERE username = ? AND password = ?";
-		
-		Connection conn = null;
-		try {
-			conn = dataSource.getConnection();
-			PreparedStatement pss = conn.prepareStatement(sql);
-			pss.setString(1, uname);
-			pss.setString(2, psd);
-			User user = null;
-			ResultSet rs = pss.executeQuery();
-			if (rs.next()) {
-				user = new User(rs.getString("username"), rs.getString("password"));
-			}
-			rs.close();
-			pss.close();
-			return user == null ? false : true;
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		} finally {
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
+	public int getGPAbyUserID(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public boolean updateUserName(String name) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateUserPassword(String psd) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public boolean updateUserEmail(String email) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
 

@@ -11,5 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  *  @Email: hyu12346@terpmail.umd.edu
  */
 public interface DBManager {
-	//JdbcTemplate template;
+	public long getNum();
+	public boolean userAuth(String uname, String psd);
+	
 }

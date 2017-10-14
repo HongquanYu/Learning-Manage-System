@@ -32,6 +32,12 @@
         </property>
     </bean>
     
+    <bean id="JdbcUserDAO" class="com.umd.ezcomm.model.dao.impl.JdbcUserDAO">
+        <property name="template">
+            <ref bean="jdbcTemplate" />
+        </property>
+    </bean>
+    
     <!-- transaction based on annotation -->
     <bean id="transactionManager"
         class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

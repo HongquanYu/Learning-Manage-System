@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.umd.ezcomm.model.dao.impl.DBManagerImpl;
+import com.umd.ezcomm.model.dao.impl.JdbcUserDAO;
 
 /** @author: Hongquan Yu
  *  @date: Oct 9, 2017
@@ -21,7 +22,7 @@ import com.umd.ezcomm.model.dao.impl.DBManagerImpl;
 public class LoginController {
 	
 	/*
-	 * The LoginController show login page, and 
+	 * The LoginController user do the user authentication.
 	 */
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -31,11 +32,11 @@ public class LoginController {
 		
 //		System.out.println("Made it to the controller");
 //		System.out.println("------user name: " + nn);
-//		System.out.println("------user pass: " + pp);
+		
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-	    DBManagerImpl test = (DBManagerImpl) context.getBean("DBManagerImpl");
-	    
+		JdbcUserDAO test = (JdbcUserDAO) context.getBean("JdbcUserDAO");
+
 	    if (test.userAuth(nn, pp))
 	    		return "home";
 		return "error";
