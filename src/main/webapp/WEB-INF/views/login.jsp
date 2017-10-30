@@ -19,7 +19,7 @@
 
 			<form action="/EZComm/login" method="post">
 				<div class="login_padding" id="login_model">
-					<h2>User Id</h2>
+					<h2>Username</h2>
 					<label> <input type="text" name="txtUserName"
 						id="txtUserName" class="txt_input txt_input2" required="required">
 					</label>

@@ -7,9 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.umd.ezcomm.model.dao.impl.DBManagerImpl;
-import com.umd.ezcomm.model.dao.impl.JdbcUserDAO;
+import com.umd.ezcomm.model.dao.impl.UserServiceImpl;
 
 /** @author: Hongquan Yu
  *  @date: Oct 9, 2017
@@ -21,9 +19,7 @@ import com.umd.ezcomm.model.dao.impl.JdbcUserDAO;
 @Controller
 public class LoginController {
 	
-	/*
-	 * The LoginController user do the user authentication.
-	 */
+	/* The LoginController user do the user authentication. */
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPage(HttpServletRequest request, HttpServletResponse response) {
@@ -31,7 +27,7 @@ public class LoginController {
 		String pp = request.getParameter("txtPassd");
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		JdbcUserDAO test = (JdbcUserDAO) context.getBean("JdbcUserDAO");
+		UserServiceImpl test = (UserServiceImpl) context.getBean("UserServiceImpl");
 
 	    if (test.userAuth(nn, pp))
 	    		return "home";

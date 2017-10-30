@@ -14,9 +14,9 @@
         destroy-method="close">
         <!--  -->
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/EZComm" />
-        <property name="username" value="root" />
-        <property name="password" value="helloworld" />
+        <property name="url" value="jdbc:mysql://ec2-13-58-118-71.us-east-2.compute.amazonaws.com:3306/ezcomm" />
+        <property name="username" value="jerry" />
+        <property name="password" value="jerrypassword" />
     </bean>
     
     <!-- JDBC use Spring jdbcTemplate -->
@@ -26,13 +26,13 @@
         </property>
     </bean>
     
-    <bean id="DBManagerImpl" class="com.umd.ezcomm.model.dao.impl.DBManagerImpl">
+    <bean id="UserServiceImpl" class="com.umd.ezcomm.model.dao.impl.UserServiceImpl">
         <property name="template">
             <ref bean="jdbcTemplate" />
         </property>
     </bean>
     
-    <bean id="JdbcUserDAO" class="com.umd.ezcomm.model.dao.impl.JdbcUserDAO">
+    <bean id="CourseServiceImpl" class="com.umd.ezcomm.model.dao.impl.CourseServiceImpl">
         <property name="template">
             <ref bean="jdbcTemplate" />
         </property>

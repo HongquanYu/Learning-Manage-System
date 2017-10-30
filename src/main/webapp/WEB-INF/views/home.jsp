@@ -163,10 +163,6 @@
 		</font>
 	</div>
 
-	<!--  <footer>
-      <div class="footer" >
-<p class="foot">© 2017 ezcomm.umd.com, All Rights Reserved.</p>
-          </div> -->
 	</footer>
 
 	<!-- Optional JavaScript -->
