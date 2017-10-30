@@ -1,5 +1,7 @@
 package com.umd.ezcomm.model.dao.service;
 
+import java.util.List;
+
 /** @author: Hongquan Yu
  *  @date: Oct 29, 2017
  *
@@ -8,4 +10,6 @@ package com.umd.ezcomm.model.dao.service;
  */
 public interface CourseService {
 	public String getCourseName(int cID);
+	
+	public List<CourseInfo> getCourseList();
 }
