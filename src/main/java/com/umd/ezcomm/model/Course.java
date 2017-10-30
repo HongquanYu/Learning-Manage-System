@@ -1,5 +1,6 @@
 package com.umd.ezcomm.model;
 
+import java.io.File;
 import java.util.List;
 
 /** @author: Hongquan Yu

@@ -6,7 +6,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.umd.ezcomm.model.dao.impl.CourseServiceImpl;
 import com.umd.ezcomm.model.dao.impl.UserServiceImpl;
 
 /** @author: Hongquan Yu
@@ -23,7 +22,7 @@ public class HomePageController {
 		String pp = request.getParameter("txtPassd");
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		CourseServiceImpl test = (CourseServiceImpl) context.getBean("CourseServiceImpl");
+		UserServiceImpl test = (UserServiceImpl) context.getBean("UserServiceImpl");
 
 	    if (test.userAuth(nn, pp))
 	    		return "home";

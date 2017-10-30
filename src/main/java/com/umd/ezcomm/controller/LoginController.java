@@ -28,9 +28,13 @@ public class LoginController {
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		UserServiceImpl test = (UserServiceImpl) context.getBean("UserServiceImpl");
-
-	    if (test.userAuth(nn, pp))
-	    		return "home";
-		return "error";
+		boolean isValid = test.userAuth(nn, pp);
+		
+		// valid user, we need to retrieve value for presenting in webpage
+		if (isValid) {
+			
+		}
+		
+		return isValid ? "home" : "error";
 	}
 }
