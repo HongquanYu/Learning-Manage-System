@@ -8,9 +8,6 @@ import java.util.List;
  *  @From: University of Maryland, College Park
  *  @Email: hyu12346@terpmail.umd.edu
  */
-public class Student extends User{
-	private String id;
-	private String name;
-	private int GPA;
+public class Instructor extends User {
 	private List<Course> courses;
 }
