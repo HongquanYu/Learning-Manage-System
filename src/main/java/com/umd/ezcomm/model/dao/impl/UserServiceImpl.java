@@ -19,11 +19,12 @@ public class UserServiceImpl implements UserService {
 		this.template = template;
 	}
 	
-	@Transactional
-    public long getNum(){
-        return template.queryForLong("SELECT COUNT(*) FROM User");
-    }
+//	@Transactional
+//    public long getNum(){
+//        return template.queryForLong("SELECT COUNT(*) FROM User");
+//    }
 	
+	@Override
     @Transactional
 	public boolean userAuth(String uname, String psd) {
 		String SQL = "SELECT COUNT(*) FROM User WHERE Name = \"" + uname + "\" And Password = \"" + psd + "\";";
@@ -34,20 +35,41 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean updatePassword(String pwd) {
-		// TODO Auto-generated method stub
-		return false;
+	@Transactional
+	public boolean updatePassword(String n, String pwd) {
+		String SQL = "UPDATE User SET Password = \"" + pwd + "\" WHERE Name = \"" + n + "\";";
+		
+		int row = template.update(SQL);
+		
+		return row == 1 ? true : false;
 	}
 
 	@Override
-	public boolean updateEmail(String email) {
-		// TODO Auto-generated method stub
-		return false;
+	@Transactional
+	public boolean updateEmail(String n, String email) {
+		String SQL = "UPDATE User SET Email = \"" + email + "\" WHERE Name = \"" + n + "\";";
+
+		int row = template.update(SQL);
+
+		return row == 1 ? true : false;
 	}
 
 	@Override
-	public boolean updateStatus(String status) {
-		// TODO Auto-generated method stub
-		return false;
+	@Transactional
+	public boolean updateStatus(String n, String status) {
+		String SQL = "UPDATE User SET jobStatus = \"" + status + "\" WHERE Name = \"" + n + "\";";
+		
+		int row = template.update(SQL);
+		
+		return row == 1 ? true : false;
+	}
+
+	@Override
+	@Transactional
+	public String getUID(String name) {
+		String SQL = "SELECT UID FROM User WHERE Name = \"" + name + "\";";
+		
+		String ID = template.queryForObject(SQL, String.class);
+		return ID;
 	}
 }

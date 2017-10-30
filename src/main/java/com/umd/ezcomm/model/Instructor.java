@@ -10,4 +10,18 @@ import java.util.List;
  */
 public class Instructor extends User {
 	private List<Course> courses;
+	private String jobStatus;
+	
+	public List<Course> getCourses() {
+		return courses;
+	}
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+	public String getJobStatus() {
+		return jobStatus;
+	}
+	public void setJobStatus(String jobStatus) {
+		this.jobStatus = jobStatus;
+	}
 }
