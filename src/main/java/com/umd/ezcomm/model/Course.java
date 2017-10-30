@@ -1,5 +1,7 @@
 package com.umd.ezcomm.model;
 
+import java.util.List;
+
 /** @author: Hongquan Yu
  *  @date: Oct 29, 2017
  *
@@ -7,19 +9,11 @@ package com.umd.ezcomm.model;
  *  @Email: hyu12346@terpmail.umd.edu
  */
 public class Course {
-	private int ID;
-	private String name;
-	
-	public int getID() {
-		return ID;
-	}
-	public void setID(int iD) {
-		ID = iD;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	private String ID;
+	private String Name;
+	private String instructor;
+	private List<Assignment> assignment;
+	private List<File> file;
+	private File syllabus;
+	private List<Student> students;
 }
