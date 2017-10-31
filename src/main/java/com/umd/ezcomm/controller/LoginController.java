@@ -7,7 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.umd.ezcomm.model.dao.impl.UserServiceImpl;
+import com.umd.ezcomm.model.dao.service.impl.UserServiceImpl;
 
 /** @author: Hongquan Yu
  *  @date: Oct 9, 2017

@@ -1,4 +1,4 @@
-package com.umd.ezcomm.model;
+package com.umd.ezcomm.model.domain;
 
 /** @author: Hongquan Yu
  *  @date: Oct 29, 2017

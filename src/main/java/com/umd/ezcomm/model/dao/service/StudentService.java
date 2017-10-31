@@ -1,7 +1,7 @@
 package com.umd.ezcomm.model.dao.service;
 
 import java.util.List;
-import com.umd.ezcomm.model.Course;
+import com.umd.ezcomm.model.domain.Course;
 
 /** @author: Hongquan Yu
  *  @date: Oct 30, 2017

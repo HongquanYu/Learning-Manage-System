@@ -1,13 +1,11 @@
-package com.umd.ezcomm.model.dao.impl;
+package com.umd.ezcomm.model.dao.service.impl;
 
 import java.io.File;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
-import com.umd.ezcomm.model.Assignment;
-import com.umd.ezcomm.model.Course;
-import com.umd.ezcomm.model.CourseInfo;
-import com.umd.ezcomm.model.Student;
 import com.umd.ezcomm.model.dao.service.CourseService;
+import com.umd.ezcomm.model.domain.Assignment;
+import com.umd.ezcomm.model.domain.Student;
 
 /** @author: Hongquan Yu
  *  @date: Oct 29, 2017

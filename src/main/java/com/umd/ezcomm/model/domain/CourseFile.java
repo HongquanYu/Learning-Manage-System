@@ -1,4 +1,4 @@
-package com.umd.ezcomm.model;
+package com.umd.ezcomm.model.domain;
 
 import java.io.File;
 

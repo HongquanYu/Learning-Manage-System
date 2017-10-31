@@ -1,4 +1,4 @@
-package com.umd.ezcomm.model.dao.impl;
+package com.umd.ezcomm.model.dao.service.impl;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;

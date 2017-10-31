@@ -26,13 +26,13 @@
         </property>
     </bean>
     
-    <bean id="UserServiceImpl" class="com.umd.ezcomm.model.dao.impl.UserServiceImpl">
+    <bean id="UserServiceImpl" class="com.umd.ezcomm.model.dao.service.impl.UserServiceImpl">
         <property name="template">
             <ref bean="jdbcTemplate" />
         </property>
     </bean>
     
-    <bean id="CourseServiceImpl" class="com.umd.ezcomm.model.dao.impl.CourseServiceImpl">
+    <bean id="CourseServiceImpl" class="com.umd.ezcomm.model.dao.service.impl.CourseServiceImpl">
         <property name="template">
             <ref bean="jdbcTemplate" />
         </property>
