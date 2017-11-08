@@ -23,7 +23,7 @@
 	<div class="container">
 		<!--navigation-->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#"><img
+			<a class="navbar-brand" href="/EZComm"><img
 				src="<%=request.getContextPath()%>/resources/background/logo.png"></a>
 
 
@@ -42,15 +42,15 @@
 						aria-haspopup="true" aria-expanded="false"> Course </a>
 						<div class="dropdown-menu"
 							aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="#">Course1</a> <a
-								class="dropdown-item" href="#">Course2</a> <a
-								class="dropdown-item" href="#">Course3</a>
+							<a class="dropdown-item" href="courseInfo">Course1</a> <a
+								class="dropdown-item" href="courseInfo">Course2</a> <a
+								class="dropdown-item" href="courseInfo">Course3</a>
 						</div></li>
-					<li class="nav-item"><a class="nav-link" href="#">Messages</a>
+					<li class="nav-item"><a class="nav-link" href="messages">Messages</a>
 					</li>
-					<li class="nav-item"><a class="nav-link " href="#">Grades</a>
+					<li class="nav-item"><a class="nav-link " href="grades">Grades</a>
 					</li>
-					<li class="nav-item"><a class="nav-link " href="#">Profile</a>
+					<li class="nav-item"><a class="nav-link " href="profiles">Profile</a>
 					</li>
 				</ul>
 				<form class="form-inline my-2 my-lg-0">
@@ -66,16 +66,16 @@
 			<div class="col-6 col-md-3">
 				<div class="list-group">
 					<span class=""></span>
-					<div class="alert alert-danger" role="alert">New Assignment!!
-					</div>
-					<a href="#" class="list-group-item list-group-item-action">Assignment2
-						<small class="text-muted">1 days later</small>
-					</a> <a href="#" class="list-group-item list-group-item-action">Assignment3<small
-						class="text-muted">1 days later</small></a> <a href="#"
-						class="list-group-item list-group-item-action">Assignment3<small
-						class="text-muted">1 days later</small></a> <a href="#"
-						class="list-group-item list-group-item-action">Assignment4<small
-						class="text-muted">1 days later</small></a>
+					<div class="alert alert-danger" role="alert">New Assignment!! </div>
+					
+					<a href="assignmentInfo" class="list-group-item list-group-item-action">Assignment2 
+					<small class="text-muted">1 days later</small> </a> 
+					<a href="assignmentInfo" class="list-group-item list-group-item-action">Assignment3
+					<small class="text-muted">1 days later</small></a> 
+					<a href="assignmentInfo" class="list-group-item list-group-item-action">Assignment3
+					<small class="text-muted">1 days later</small></a>
+					<a href="assignmentInfo" class="list-group-item list-group-item-action">Assignment4
+					<small class="text-muted">1 days later</small></a>
 				</div>
 
 
@@ -87,7 +87,7 @@
 						<div class="card-body">
 							<h4 class="card-title">ENPM613</h4>
 							<p class="card-text">Software Design and implementation</p>
-							<a href="#" class="btn btn-success">Enter the course</a>
+							<a href="courseInfo" class="btn btn-success">Enter the course</a>
 						</div>
 					</div>
 				</div>
@@ -97,7 +97,7 @@
 						<div class="card-body">
 							<h4 class="card-title">ENPM613</h4>
 							<p class="card-text">Software Design and implementation</p>
-							<a href="#" class="btn btn-success">Enter the course</a>
+							<a href="courseInfo" class="btn btn-success">Enter the course</a>
 						</div>
 					</div>
 				</div>
@@ -107,7 +107,7 @@
 						<div class="card-body">
 							<h4 class="card-title">ENPM613</h4>
 							<p class="card-text">Software Design and implementation</p>
-							<a href="#" class="btn btn-success">Enter the course</a>
+							<a href="courseInfo" class="btn btn-success">Enter the course</a>
 						</div>
 					</div>
 				</div>
@@ -120,7 +120,7 @@
 
 				<div class="list-group">
 
-					<a href="#"
+					<a href="messages"
 						class="list-group-item 
                list-group-item-info list-group-item-action flex-column align-items-start active">
 						<div class="d-flex w-100 justify-content-between">
@@ -130,7 +130,7 @@
 						<p class="mb-1">Hello Everyone, Please remember to sign up for
 							the Software development project teams, BEFORE submitting the
 							first team assignment, so the team assignments will be .......</p>
-					</a> <a href="#"
+					</a> <a href="messages"
 						class="list-group-item list-group-item-action flex-column align-items-start">
 						<div class="d-flex w-100 justify-content-between">
 							<h5 class="mb-2">From Emily</h5>
@@ -138,7 +138,7 @@
 						</div>
 						<p class="mb-1">Donec id elit non mi porta gravida at eget
 							metus. Maecenas sed diam eget risus varius blandit.</p>
-					</a> <a href="#"
+					</a> <a href="messages"
 						class="list-group-item list-group-item-action flex-column align-items-start">
 						<div class="d-flex w-100 justify-content-between">
 							<h5 class="mb-2">From Emma</h5>

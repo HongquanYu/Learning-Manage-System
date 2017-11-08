@@ -3,6 +3,7 @@ package com.umd.ezcomm.model.dao.service.impl;
 import java.io.File;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 import com.umd.ezcomm.model.dao.service.CourseService;
 import com.umd.ezcomm.model.domain.Assignment;
 import com.umd.ezcomm.model.domain.Student;
@@ -13,7 +14,7 @@ import com.umd.ezcomm.model.domain.Student;
  *  @From: University of Maryland, College Park
  *  @Email: hyu12346@terpmail.umd.edu
  */
-
+@Service
 public class CourseServiceImpl implements CourseService{
 	
 	private JdbcTemplate template;
@@ -51,25 +52,25 @@ public class CourseServiceImpl implements CourseService{
 
 	@Override
 	public List<Assignment> getAssignments(String name) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public List<File> getFiles(String name) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public File getSyllabus(String name) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public List<Student> getStudents(String name) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 }

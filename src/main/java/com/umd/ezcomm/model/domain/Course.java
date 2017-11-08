@@ -13,11 +13,18 @@ public class Course {
 	private String ID;
 	private String Name;
 	private String instructor;
+	private String description;
 	private List<Assignment> assignment;
 	private List<File> file;
 	private File syllabus;
 	private List<Student> students;
 	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public String getID() {
 		return ID;
 	}

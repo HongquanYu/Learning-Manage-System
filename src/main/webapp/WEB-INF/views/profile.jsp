@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <h1>Password Reset page</h1>
+    <h1>Personal Profile</h1>
 </body>
 </html>

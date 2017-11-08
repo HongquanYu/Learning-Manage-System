@@ -12,11 +12,18 @@ import com.umd.ezcomm.model.domain.Student;
  *  @Email: hyu12346@terpmail.umd.edu
  */
 public interface CourseService {
+	
 	public String getID(String name);
+
 	public String getName(String id);
+
 	public String getInstructorByID(String name);
+
 	public List<Assignment> getAssignments(String name);
+
 	public List<File> getFiles(String name);
+
 	public File getSyllabus(String name);
+
 	public List<Student> getStudents(String name);
 }

@@ -19,19 +19,19 @@
 
 			<form action="/EZComm/login" method="post">
 				<div class="login_padding" id="login_model">
-					<h2>Username</h2>
-					<label> <input type="text" name="txtUserName"
+					<h2>User Email</h2>
+					<label> <input type="text" name="userEmail"
 						id="txtUserName" class="txt_input txt_input2" required="required">
 					</label>
 					<h2>Password</h2>
-					<label> <input type="password" name="txtPassd"
+					<label> <input type="password" name="userPasd"
 						id="txtPassd" class="txt_input" required="required">
 					</label>
 
 					<div class="rem_sub">
 						<div class="rem_sub_l">
-							<label><a class="forgotPw" id="iforget"
-								href="javascript:void(0);">Forgot your password?</a></label>
+							<label><a class="forgotPw" id="iforget" href="resetPWD">Forgot
+									your password?</a></label>
 						</div>
 						<label> <input type="submit" class="sub_button"
 							name="button" id="button" value="Log In" style="opacity: 0.7;">
