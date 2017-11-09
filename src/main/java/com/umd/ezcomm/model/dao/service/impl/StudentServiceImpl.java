@@ -2,17 +2,11 @@
 
 package com.umd.ezcomm.model.dao.service.impl;
 
-import java.rmi.server.UID;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import com.umd.ezcomm.model.dao.service.StudentService;
 import com.umd.ezcomm.model.domain.Assignment;
-import com.umd.ezcomm.model.domain.Course;
 
 /** @author: Hongquan Yu
  *  @date: Nov 6, 2017

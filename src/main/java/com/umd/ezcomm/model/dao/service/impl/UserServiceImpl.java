@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -26,6 +28,14 @@ import com.umd.ezcomm.model.domain.Message;
 public class UserServiceImpl implements UserService {
 	
 	private JdbcTemplate template;
+	private NamedParameterJdbcTemplate temp;
+	
+	public void setTemp(NamedParameterJdbcTemplate temp) {
+		this.temp = temp;
+	}
+	
+	@Qualifier(value="dataSource")
+	private DataSource dataSource;
 	
 	public void setTemplate(JdbcTemplate template) {
 		this.template = template;
@@ -87,16 +97,28 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public List<Course> courseEnrolled(String id) {
-		List<Course> res = new LinkedList<Course>();
 		
-		String SQL = "SELECT * FROM User WHERE UID = :uid";
-		Map<String, String> paraMaps = new HashMap<>();
-		paraMaps.put("uid", id);
+//		NamedParameterJdbcTemplate temp = new NamedParameterJdbcTemplate(dataSource);
 		
-		/*NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(null);
+		String SQL = "SELECT CourseID, Name FROM Courses LEFT JOIN CourseList ON Courses.ID = "
+				+ "(SELECT CourseID FROM CourseList WHERE UID = 114871111)";
+//		Map<String, String> paraMaps = new HashMap<>();
+//		paraMaps.put("uid", id);
+//		s
+//		List<Course> res = temp.query(SQL, paraMaps, new RowMapper<Course>() {
+//			@Override
+//			public Course mapRow(ResultSet rs, int rowNum) throws SQLException {
+//				Course cou = new Course();
+//				
+//				cou.setID(rs.getString("ID"));
+//				cou.setName(rs.getString("Name"));
+//				
+//				return cou;
+//			}
+//		});
 		
-		res = template.query(SQL, paraMaps,);*/
-
+		List<Course> res = (List<Course>) template.queryForObject(SQL, Course.class);
+		
 		return res;
 	}
 
@@ -106,12 +128,9 @@ public class UserServiceImpl implements UserService {
 		return template.queryForObject(query, Integer.class);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.umd.ezcomm.model.dao.service.UserService#messageReceived(java.lang.String)
-	 */
 	@Override
 	public List<Message> messageReceived(String userID) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 }
