@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<title>Homepage Of EZComm</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<th:block th:replace="fragments/header ::head"></th:block>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" type="text/css">
+
+</head>
+<body>
+    <div th:insert="fragments/header ::umdHeader" class='no-print'></div>
+    
+	<div class="container">
+	
+	   <div th:replace="fragments/header ::ezcommHeader" class='no-print'></div> <br/> <br/>
+	   
+		<div class="row">
+			<div class="col-6 col-md-3">
+				<div class="list-group">
+					<span class=""></span>
+					<div class="alert alert-danger" role="alert">New Assignment!!
+					</div>
+
+					<a href="assignmentInfo"
+						class="list-group-item list-group-item-action">Assignment2 <small
+						class="text-muted">1 days later</small>
+					</a> <a href="assignmentInfo"
+						class="list-group-item list-group-item-action">Assignment3 <small
+						class="text-muted">1 days later</small></a> <a href="assignmentInfo"
+						class="list-group-item list-group-item-action">Assignment3 <small
+						class="text-muted">1 days later</small></a> <a href="assignmentInfo"
+						class="list-group-item list-group-item-action">Assignment4 <small
+						class="text-muted">1 days later</small></a>
+				</div>
+
+
+			</div>
+
+			<div class="col col-6 col-md-5">
+				<div class="col">
+					<div class="card" style="width: 26rem;">
+						<div class="card-body">
+							<h4 class="card-title">ENPM613</h4>
+							<p class="card-text">Software Design and implementation</p>
+							<a href="courseInfo" class="btn btn-success">Enter the course</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="col">
+					<div class="card" style="width: 26rem;">
+						<div class="card-body">
+							<h4 class="card-title">ENPM613</h4>
+							<p class="card-text">Software Design and implementation</p>
+							<a href="courseInfo" class="btn btn-success">Enter the course</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="col">
+					<div class="card" style="width: 26rem;">
+						<div class="card-body">
+							<h4 class="card-title">ENPM613</h4>
+							<p class="card-text">Software Design and implementation</p>
+							<a href="courseInfo" class="btn btn-success">Enter the course</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+            <div class="col-6 col-md-4">
+                <a href="#"><span class="glyphicon glyphicon-envelope"></span></a>
+                <div class="alert alert-warning" role="alert">New Messages!!</div>
+
+
+                <div class="list-group">
+
+                    <a href="messages"
+                        class="list-group-item 
+               list-group-item-info list-group-item-action flex-column align-items-start active">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-2">From Ioana Rus</h5>
+                            <small>3 days ago</small>
+                        </div>
+                        <p class="mb-1">Hello Everyone, Please remember to sign up for
+                            the Software development project teams, BEFORE submitting the
+                            first team assignment, so the team assignments will be .......</p>
+                    </a> <a href="messages"
+                        class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-2">From Emily</h5>
+                            <small class="text-mute">3 days ago</small>
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget
+                            metus. Maecenas sed diam eget risus varius blandit.</p>
+                    </a> <a href="messages"
+                        class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-2">From Emma</h5>
+                            <small class="text-mute">3 days ago</small>
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget
+                            metus. Maecenas sed diam eget risus varius blandit.</p>
+                    </a>
+
+
+                </div>
+            </div>
+		</div>
+
+
+	</div>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+</body>
+
+<br/> <div th:insert="fragments/footer ::footer" class='no-print'></div>
+
+</html>

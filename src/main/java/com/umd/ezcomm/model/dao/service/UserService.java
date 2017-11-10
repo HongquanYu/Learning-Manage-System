@@ -26,7 +26,7 @@ public interface UserService {
 	
 	public int getMessageNumber(String userID);
 	
-	public List<Course> courseEnrolled(String id);
+	public List<Course> courseEnrolled(String sid);
 	
 	public List<Message> messageReceived(String userID);
 	

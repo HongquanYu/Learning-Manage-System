@@ -4,14 +4,11 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.umd.ezcomm.model.dao.service.CourseService;
-import com.umd.ezcomm.model.dao.service.UserService;
 import com.umd.ezcomm.model.dao.service.impl.CourseServiceImpl;
 import com.umd.ezcomm.model.dao.service.impl.StudentServiceImpl;
 import com.umd.ezcomm.model.dao.service.impl.UserServiceImpl;
@@ -30,11 +27,10 @@ import com.umd.ezcomm.model.domain.Message;
 @Controller
 public class ServiceRequestController {
 
-//	@Autowired
-//	private UserService userService;
-//
-//	@Autowired
-//	private CourseService courseService;
+	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+	UserServiceImpl userService = (UserServiceImpl) context.getBean("UserServiceImpl");
+	CourseServiceImpl courseService = (CourseServiceImpl) context.getBean("CourseServiceImpl");
+	StudentServiceImpl studentService = (StudentServiceImpl) context.getBean("StudentServiceImpl");
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpServletRequest request, HttpServletResponse response) {
@@ -48,38 +44,53 @@ public class ServiceRequestController {
 		String ue = request.getParameter("userEmail");
 		String up = request.getParameter("userPasd");
 
-		@SuppressWarnings("resource")
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		UserServiceImpl userService = (UserServiceImpl) context.getBean("UserServiceImpl");
-		CourseServiceImpl courseService = (CourseServiceImpl) context.getBean("CourseServiceImpl");
-		StudentServiceImpl studentService = (StudentServiceImpl) context.getBean("StudentServiceImpl");
 		boolean isValid = userService.userAuth(ue, up);
 		
 		if (isValid) {
-			/* TODO:
-			 * 1, get course number, courseID, courseName
-			 * 2, get message number, messageID, message content
-			 * 3, get assignment number, assignmentID, assignment date */
-			
-			String userID = userService.getUID(ue);
-			
-			int courseNum = userService.getCourseNumber(userID);				// YES
-			int messageNum = userService.getMessageNumber(userID);			// 
-			int assignmentNum = studentService.getAssignmentNum(userID);		// YES
-			
-			List<Course> courses = userService.courseEnrolled(userID);		
-			List<Message> messages = userService.messageReceived(userID);
-			List<Assignment> assignemnts = studentService.getAssignments(userID);
-			
-			model.put("userID", userID);					// userID
-			
-			model.put("courseNum", courseNum);			// course number
-			model.put("messageNum", messageNum);			// message number
-			model.put("assignmentNum", assignmentNum);	// assignment number
-			
-			model.put("userCourses", courses);			// course list: id, name
-			model.put("userMessages", messages);			// message list: id, content
-			model.put("userAssignemnts", assignemnts);	// assignment list: id, date
+//			/* TODO:
+//			 * 1, get course number, courseID, courseName
+//			 * 2, get message number, messageID, message content
+//			 * 3, get assignment number, assignmentID, assignment date */
+//			
+//			String userID = userService.getUID(ue);
+//			
+//			int courseNum = userService.getCourseNumber(userID);				// YES
+//			int messageNum = userService.getMessageNumber(userID);			// 
+//			int assignmentNum = studentService.getAssignmentNum(userID);		// YES
+//			
+//			List<Course> courses;
+//			
+//			try {
+//				courses = userService.courseEnrolled(userID);
+//			} catch (Exception e) {
+//				
+//			}
+//			
+//			List<Message> messages;
+//			
+//			try {
+//				messages = userService.messageReceived(userID);
+//			} catch (Exception e) {
+//				
+//			}
+//			
+//			List<Assignment> assignemnts;
+//			
+//			try {
+//				assignemnts = studentService.getAssignments(userID);
+//			} catch (Exception e) {
+//				
+//			}
+//			
+//			model.put("userID", userID);					// userID
+//			
+//			model.put("courseNum", courseNum);			// course number
+//			model.put("messageNum", messageNum);			// message number
+//			model.put("assignmentNum", assignmentNum);	// assignment number
+//			
+//			model.put("userCourses", courses);			// course list: id, name
+//			model.put("userMessages", messages);			// message list: id, content
+//			model.put("userAssignemnts", assignemnts);	// assignment list: id, date
 		}
 
 		return isValid ? "home" : "error";

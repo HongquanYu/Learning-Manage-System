@@ -12,9 +12,10 @@
 		<!-- -->
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://ec2-13-58-118-71.us-east-2.compute.amazonaws.com:3306/ezcomm" />
-		<property name="username" value="jerry" />
-		<property name="password" value="jerrypassword" />
+			value="jdbc:mysql://127.0.0.1:3306/ENPM613" />
+			<!--             value="jdbc:mysql://ec2-13-58-118-71.us-east-2.compute.amazonaws.com:3306/ezcomm" /> -->
+		<property name="username" value="root" />
+		<property name="password" value="helloworld" />
 	</bean>
 
 	<!-- JDBC use Spring jdbcTemplate -->

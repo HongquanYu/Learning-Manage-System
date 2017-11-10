@@ -1,19 +1,16 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Log In</title>
-<link href="<%=request.getContextPath()%>/resources/css/style_log.css"
-	rel="stylesheet" type="text/css">
+<th:block th:replace="fragments/header ::head"></th:block>
 
 </head>
 
 <body class="login" mycollectionplug="bind">
+
+    <div th:insert="fragments/header ::umdHeader" class='no-print'></div>
 	<div class="login_m">
 		<div class="login_boder">
 
@@ -50,4 +47,7 @@
 		</font>
 	</div>
 </body>
+
+<div th:insert="fragments/footer ::footer" class='no-print'></div>
+
 </html>

@@ -12,13 +12,25 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
-		in the /WEB-INF/views directory -->
-	<beans:bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!-- ThymeLeaf -->
+	
+	<beans:bean id="templateResolver"
+		class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="suffix" value=".html" />
+		<beans:property name="templateMode" value="HTML" />
 	</beans:bean>
+	
+	<beans:bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+		<beans:property name="templateResolver" ref="templateResolver" />
+	</beans:bean>
+	
+	<beans:bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+		<beans:property name="templateEngine" ref="templateEngine" />
+		<beans:property name="order" value="1" />
+		<beans:property name="viewNames" value="*" />
+	</beans:bean>
+	
 	<context:component-scan base-package="com.umd.ezcomm" />
 	<resources mapping="/resources/**" location="/resources/" />
 

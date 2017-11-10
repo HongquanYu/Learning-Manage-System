@@ -3,10 +3,11 @@ package com.umd.ezcomm.model.dao.service.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -26,6 +27,9 @@ import com.umd.ezcomm.model.domain.Message;
 
 @Service
 public class UserServiceImpl implements UserService {
+	
+	@SuppressWarnings("unused")
+	private static final Logger log = LogManager.getLogger();
 	
 	private JdbcTemplate template;
 	private NamedParameterJdbcTemplate temp;
@@ -96,28 +100,28 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public List<Course> courseEnrolled(String id) {
+	public List<Course> courseEnrolled(String sid) {
 		
 //		NamedParameterJdbcTemplate temp = new NamedParameterJdbcTemplate(dataSource);
 		
-		String SQL = "SELECT CourseID, Name FROM Courses LEFT JOIN CourseList ON Courses.ID = "
-				+ "(SELECT CourseID FROM CourseList WHERE UID = 114871111)";
-//		Map<String, String> paraMaps = new HashMap<>();
-//		paraMaps.put("uid", id);
-//		s
-//		List<Course> res = temp.query(SQL, paraMaps, new RowMapper<Course>() {
-//			@Override
-//			public Course mapRow(ResultSet rs, int rowNum) throws SQLException {
-//				Course cou = new Course();
-//				
-//				cou.setID(rs.getString("ID"));
-//				cou.setName(rs.getString("Name"));
-//				
-//				return cou;
-//			}
-//		});
+		String SQL = "SELECT CourseID, Name FROM Courses INNER JOIN CourseList ON Courses.ID = "
+				+ "CourseList.CourseID WHERE UID = :sid";
+		Map<String, String> paraMaps = new HashMap<>();
+		paraMaps.put("sid", sid);
 		
-		List<Course> res = (List<Course>) template.queryForObject(SQL, Course.class);
+		List<Course> res = temp.query(SQL, paraMaps, new RowMapper<Course>() {
+			@Override
+			public Course mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Course cou = new Course();
+				
+				cou.setID(rs.getString("ID"));
+				cou.setName(rs.getString("Name"));
+				
+				return cou;
+			}
+		});
+		
+//		List<Course> res = (List<Course>) template.queryForObject(SQL, Course.class);
 		
 		return res;
 	}

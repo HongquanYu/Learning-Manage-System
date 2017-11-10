@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+@media print {
+	.no-print, .no-print * {
+	   display: none !important;ss
+	}
+}
+
+.thick {
+	clear: all;
+	border-top: 3px solid rgb(220,20,60);
+	margin-top: 0px;
+	padding: 0 10px;
+}
