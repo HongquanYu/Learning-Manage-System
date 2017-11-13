@@ -4,16 +4,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans  
                 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-	<!-- <bean id="jdbcuserdao" class="com.umd.ezcomm.model.dao.impl.JdbcUserDAO"> 
-		<constructor-arg value="10" type="int"></constructor-arg> </bean> -->
+
 	<!-- DataSource set to DBCP -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<!-- -->
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url"
-			value="jdbc:mysql://127.0.0.1:3306/ENPM613" />
-			<!--             value="jdbc:mysql://ec2-13-58-118-71.us-east-2.compute.amazonaws.com:3306/ezcomm" /> -->
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/ENPM613" />
 		<property name="username" value="root" />
 		<property name="password" value="helloworld" />
 	</bean>
@@ -25,10 +22,11 @@
 		</property>
 	</bean>
 
+    <!-- Service class use Spring jdbcTemplate and jdbcNamedParaTemplate -->
 	<bean id="UserServiceImpl" class="com.umd.ezcomm.model.dao.service.impl.UserServiceImpl">
 		<property name="template">
-			<ref bean="jdbcTemplate" />
-		</property>
+            <ref bean="jdbcTemplate" />
+        </property>
 	</bean>
 
 	<bean id="CourseServiceImpl" class="com.umd.ezcomm.model.dao.service.impl.CourseServiceImpl">

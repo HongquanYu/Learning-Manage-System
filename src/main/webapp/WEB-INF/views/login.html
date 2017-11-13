@@ -8,12 +8,18 @@
 
 </head>
 
-<body class="login" mycollectionplug="bind">
+<body class="login">
 
-    <div th:insert="fragments/header ::umdHeader" class='no-print'></div>
+    <div th:insert="fragments/header ::umdHeader" class='no-print'></div> <br/> <br/> <br/>
+    
+    <p class="error" th:if="${dataError}">There are some problems to access database.</p>
+    <p class="error" th:if="${illegalUser}">Invalid user email or password, try again.</p>
+            
 	<div class="login_m">
 		<div class="login_boder">
-
+		
+		     
+            
 			<form action="/EZComm/login" method="post">
 				<div class="login_padding" id="login_model">
 					<h2>User Email</h2>
@@ -40,12 +46,6 @@
 	</div>
 	<br>
 	<br>
-
-	<div class="panel-footer" align="center">
-		<font style="color: #111">Copyright @2017 <a>ezcomm.umd.com</a>,
-			All Rights Reserved.
-		</font>
-	</div>
 </body>
 
 <div th:insert="fragments/footer ::footer" class='no-print'></div>

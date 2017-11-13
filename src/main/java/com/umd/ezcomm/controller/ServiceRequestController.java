@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,8 @@ import com.umd.ezcomm.model.domain.Message;
 
 @Controller
 public class ServiceRequestController {
+	
+	private static final Logger log = LogManager.getLogger();
 
 	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 	UserServiceImpl userService = (UserServiceImpl) context.getBean("UserServiceImpl");
@@ -33,67 +37,49 @@ public class ServiceRequestController {
 	StudentServiceImpl studentService = (StudentServiceImpl) context.getBean("StudentServiceImpl");
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(HttpServletRequest request, HttpServletResponse response) {
+	public String portal(HttpServletRequest request, HttpServletResponse response) {
 		return "login";
 	}
 
-	/* The LoginController user do the user authentication. */
+	/* user authentication and load data. */
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginPage(HttpServletRequest request, Map<String, Object> model) {
+	public String userLogin(HttpServletRequest request, Map<String, Object> model) {
 		String ue = request.getParameter("userEmail");
 		String up = request.getParameter("userPasd");
 
-		boolean isValid = userService.userAuth(ue, up);
+		boolean isLegalUser = userService.userAuth(ue, up);
 		
-		if (isValid) {
-//			/* TODO:
-//			 * 1, get course number, courseID, courseName
-//			 * 2, get message number, messageID, message content
-//			 * 3, get assignment number, assignmentID, assignment date */
-//			
-//			String userID = userService.getUID(ue);
-//			
-//			int courseNum = userService.getCourseNumber(userID);				// YES
-//			int messageNum = userService.getMessageNumber(userID);			// 
-//			int assignmentNum = studentService.getAssignmentNum(userID);		// YES
-//			
-//			List<Course> courses;
-//			
-//			try {
-//				courses = userService.courseEnrolled(userID);
-//			} catch (Exception e) {
-//				
-//			}
-//			
-//			List<Message> messages;
-//			
-//			try {
-//				messages = userService.messageReceived(userID);
-//			} catch (Exception e) {
-//				
-//			}
-//			
-//			List<Assignment> assignemnts;
-//			
-//			try {
-//				assignemnts = studentService.getAssignments(userID);
-//			} catch (Exception e) {
-//				
-//			}
-//			
-//			model.put("userID", userID);					// userID
-//			
-//			model.put("courseNum", courseNum);			// course number
-//			model.put("messageNum", messageNum);			// message number
-//			model.put("assignmentNum", assignmentNum);	// assignment number
-//			
-//			model.put("userCourses", courses);			// course list: id, name
-//			model.put("userMessages", messages);			// message list: id, content
-//			model.put("userAssignemnts", assignemnts);	// assignment list: id, date
+		if (!isLegalUser) {
+			model.put("illegalUser", true);
+			return "login";
+		} else {
+			String userID = userService.getUID(ue);
+			
+			List<Course> courses = null;
+			List<Message> messages = null;
+			List<Assignment> assignments = null;
+			
+			try {
+				courses = userService.courseEnrolled(userID);
+				messages = userService.messageReceived(userID);
+				assignments = studentService.getAssignments(userID);
+			} catch (Exception e) {
+				log.info("data access error.");
+				model.put("dataException", true);
+			}
+			
+			model.put("userID", userID);
+			model.put("courseNum", courses == null ? 0 : courses.size());
+			model.put("messageNum", messages == null ? 0 : messages.size());
+			model.put("assignmentNum", assignments == null ? 0 : assignments.size());
+			
+			model.put("userCourses", courses);
+			model.put("userMessages", messages);
+			model.put("userAssignemnts", assignments);
 		}
 
-		return isValid ? "home" : "error";
+		return "home";
 	}
 
 

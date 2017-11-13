@@ -2,16 +2,11 @@ package com.umd.ezcomm.model.dao.service.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import javax.sql.DataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.umd.ezcomm.model.dao.service.UserService;
@@ -32,15 +27,7 @@ public class UserServiceImpl implements UserService {
 	private static final Logger log = LogManager.getLogger();
 	
 	private JdbcTemplate template;
-	private NamedParameterJdbcTemplate temp;
-	
-	public void setTemp(NamedParameterJdbcTemplate temp) {
-		this.temp = temp;
-	}
-	
-	@Qualifier(value="dataSource")
-	private DataSource dataSource;
-	
+
 	public void setTemplate(JdbcTemplate template) {
 		this.template = template;
 	}
@@ -100,30 +87,24 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public List<Course> courseEnrolled(String sid) {
-		
-//		NamedParameterJdbcTemplate temp = new NamedParameterJdbcTemplate(dataSource);
+	public List<Course> courseEnrolled(String userID) {
 		
 		String SQL = "SELECT CourseID, Name FROM Courses INNER JOIN CourseList ON Courses.ID = "
-				+ "CourseList.CourseID WHERE UID = :sid";
-		Map<String, String> paraMaps = new HashMap<>();
-		paraMaps.put("sid", sid);
+				+ "CourseList.CourseID WHERE UID = '" + userID + "';";
 		
-		List<Course> res = temp.query(SQL, paraMaps, new RowMapper<Course>() {
+		List<Course> course = template.query(SQL, new RowMapper<Course>() {
 			@Override
 			public Course mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Course cou = new Course();
+				Course c = new Course();
 				
-				cou.setID(rs.getString("ID"));
-				cou.setName(rs.getString("Name"));
+				c.setID(rs.getString("CourseID"));
+				c.setName(rs.getString("Name"));
 				
-				return cou;
+				return c;
 			}
 		});
 		
-//		List<Course> res = (List<Course>) template.queryForObject(SQL, Course.class);
-		
-		return res;
+		return course;
 	}
 
 	@Override
@@ -135,6 +116,28 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Message> messageReceived(String userID) {
 		
-		return null;
+		String SQL = "SELECT M.SenderID, M.Content, U.Name, M.Time FROM Messages M " + 
+				"INNER JOIN User U ON M.SenderID = U.UID " + 
+				"WHERE M.ReceiverID = '" + userID + "';";
+		
+		System.out.println("SQL: " + SQL);
+		
+		List<Message> message = template.query(SQL, new RowMapper<Message>() {
+			@Override
+			public Message mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Message m = new Message();
+				
+				m.setMessageID(rs.getInt("SenderID"));
+				m.setContent(rs.getString("Content"));
+				m.setSenderName(rs.getString("Name"));
+				m.setReceivedDate(rs.getDate("Time"));
+				
+				return m;
+			}
+		});
+		
+		System.out.println("message: " + message.toString() + ". Size: " + message.size());
+		
+		return message;
 	}
 }

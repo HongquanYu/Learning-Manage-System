@@ -9,6 +9,7 @@ import java.io.File;
  *  @Email: hyu12346@terpmail.umd.edu
  */
 public class CourseFile {
+	
 	private String id;
 	private String name;
 	private File file;		// file object, mediumblob in mysql
@@ -18,30 +19,39 @@ public class CourseFile {
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public File getFile() {
 		return file;
 	}
+
 	public void setFile(File file) {
 		this.file = file;
 	}
+
 	public String getCourseID() {
 		return courseID;
 	}
+
 	public void setCourseID(String courseID) {
 		this.courseID = courseID;
 	}
+
 	public boolean isPublished() {
 		return published;
 	}
+
 	public void setPublished(boolean published) {
 		this.published = published;
 	}
