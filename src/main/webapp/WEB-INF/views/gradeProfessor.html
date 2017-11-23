@@ -16,60 +16,92 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" type="text/css">
 
-<title>grade</title>
-</head>
 
+
+<title>grades</title>
+</head>
 <!-- body here -->
+
 <body>
 	<div th:insert="fragments/header ::umdHeader" class='no-print'></div>
 
 	<div class="container">
 		<div th:replace="fragments/header ::ezcommHeader" class='no-print'></div> 
 
-	<div class="row">
-		<div class="col-sm-2"></div>
-		<div class="col-sm-8">
-		<h3 class="text-center" style="margin-top: 50px">Select a semester from the dropdown below</h3>
+	
+	<div class="container">
 
-		<!-- Single button -->
-		<div class= "row"> 
-		<div class="col-sm-3"></div>
-			<div class="btn-group" style="width:50%;height:100%;margin-top:50px; ">
-		    	<select class="form-control" name = "algorithm">
-		      	<option>Fall 2017</option>
-		   	  	<option>Spring 2017</option>
-		   	  	<option>Fall 2016</option>
-		   	  	<option>Spring 2016</option>
-		     
-		   		</select>
-			</div>
+	<div class="row">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-8">
+	<h4 class="text-center" style="margin-top: 50px">Select a course and a semester from the dropdown below</h4>
+	<!-- Single button -->
+
+		<div class="row">
+		<div class="col-sm-6">
+		<div class="btn-group" style="width:100%;height:100%;margin-top:50px; ">
+		    <select class="form-control" name = "course">
+		      <option>ENPM 611</option>
+		   	  <option>ENPM 613</option>
+		    </select>
 		</div>
-		<!-- Table Here -->
+		</div>
+
+		<div class="col-sm-6">
+		<div class="btn-group" style="width:100%;height:100%;margin-top:50px;">
+			    <select class="form-control" name = "term">
+			      <option>Fall 2017</option>
+			   	  <option>Spring 2017</option>
+			   	  <option>Fall 2016</option>
+			   	  <option>Spring 2016</option>
+			     
+			    </select>
+		</div>
+		</div>
+		</div><!-- end of row -->
+
+	<!-- Table Here -->
 		<table class="table" style="margin-top: 50px">
   		<thead>
     		<tr class="active">
-      		<th>Course</th>
+      		<th>Student ID</th>
       		<th>Grade</th>
     		</tr>
   		</thead>
+
+
   		<tbody>
     		<tr>
-	    		<td>ENPM 613</td>
+	    		<td>1234567</td>
 	    		<td>A+</td>
     		</tr>
     		<tr>
-	    		<td>ENPM 696</td>
+	    		<td>7654321</td>
 	    		<td>A</td>
+   		 	</tr>
+			<tr>
+	    		<td>2323565</td>
+	    		<td>B</td>
     		</tr>
+    		<tr>
+	    		<td>1297547</td>
+	    		<td>C</td>
+    		</tr>
+    		<tr>
+	    		<td>8665978</td>
+	    		<td>B+</td>
+    		</tr>
+
   		</tbody>
 		</table>
-		</div><!-- end of "col-sm-8" -->
-		<div class="col-sm-2"></div>
-</div><!-- end of "row" --> 
+	</div> <!-- end of col-sm-8 -->
+	<div class="col-sm-2"></div>
+	</div><!-- end of row -->
 
-</div><!-- end of container -->
+	</div>
+
+	</div><!-- end of container -->
 </body>
-
 
 
 

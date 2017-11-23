@@ -120,8 +120,6 @@ public class UserServiceImpl implements UserService {
 				"INNER JOIN User U ON M.SenderID = U.UID " + 
 				"WHERE M.ReceiverID = '" + userID + "';";
 		
-		System.out.println("SQL: " + SQL);
-		
 		List<Message> message = template.query(SQL, new RowMapper<Message>() {
 			@Override
 			public Message mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -135,8 +133,6 @@ public class UserServiceImpl implements UserService {
 				return m;
 			}
 		});
-		
-		System.out.println("message: " + message.toString() + ". Size: " + message.size());
 		
 		return message;
 	}

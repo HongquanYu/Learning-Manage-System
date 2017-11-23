@@ -1,10 +1,109 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- header here-->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<th:block th:replace="fragments/header ::head"></th:block>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" type="text/css">
+
+<title>profile</title>
 </head>
+
+
+<!-- body here -->
 <body>
-    <h1>Personal Profile</h1>
+	<div th:insert="fragments/header ::umdHeader" class='no-print'></div>
+
+	<div class="container">
+		<div th:replace="fragments/header ::ezcommHeader" class='no-print'></div> 
+
+		<div class="row">
+			<div class="col-sm-2"></div>
+  			<div class="col-sm-8">
+  				<div class="row">
+  					<div class="col-sm-4"> 
+  						<!-- avatar information -->
+              <img src="http://studio46.com.br/wp-content/uploads/2017/11/dog-356x220.jpg" class="img-responsive center-block img-rounded" style="width: 80%;height: auto; margin-top: 20px; border-radius:6px">
+  					</div>
+  					<div class="col-sm-8">
+
+  						<!-- profile textual information -->
+                        <form class="form-horizontal">
+
+                        	<!-- several disabled inputs -->
+    						<div class="form-group">
+      							<label for="disabledInput" class="col-sm-2 control-label">Name</label>
+      							<div class="col-sm-10">
+       				 				<input class="form-control" id="disabledInput" type="text" placeholder="James David Barton" disabled="">
+      							</div>
+   					    	</div>
+
+   					    	<div class="form-group">
+      							<label for="UID" class="col-sm-2 control-label">UID</label>
+      							<div class="col-sm-10">
+       				 				<input class="form-control" id="disabledInput" type="text" placeholder="235863475" disabled="">
+      							</div>
+   					    	</div>
+
+   					    	<div class="form-group">
+      							<label for="age" class="col-sm-2 control-label">Age</label>
+      							<div class="col-sm-10">
+       				 				<input class="form-control" id="disabledInput" type="text" placeholder="20" disabled="">
+      							</div>
+   					    	</div>
+
+   					    	<div class="form-group">
+      							<label for="jobStatus" class="col-sm-4 control-label">Student Status</label>
+      							<div class="col-sm-10">
+       				 				<input class="form-control" id="disabledInput" type="text" placeholder="Full-time" disabled="">
+      							</div>
+   					    	</div>
+
+							<!-- data can be changed --> 
+   					    	<div class="form-group">
+      							<label for="email" class="col-sm-2 control-label">Email</label>
+      							<div class="col-sm-10">
+       				 				<input class="form-control" id="email" type="email" placeholder="jbarton@umd.edu" disabled="">
+      							</div>
+   					    	</div>
+
+							<!-- editBtn -->
+   					    	<div class="form-group">
+      							<label for="editBtn" class="col-sm-10 control-label"></label>
+      							<div class="col-sm-2">
+       				 				<button type="button" class="btn btn-danger">Edit Profile</button>
+      							</div>
+   					    	</div>   	   					
+
+   						</form>
+
+  					</div>
+  				</div>
+  			</div><!-- end of "col-sm-8" -->
+  			<div class="col-sm-2"></div>
+		</div>
+
+
+
+	</div><!-- end of container -->
 </body>
+
+
+
+
+<!-- footer here -->
+<footer>
+	<div th:insert="fragments/footer ::footer" class='no-print'></div>
+</footer>
+
 </html>

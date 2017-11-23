@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
+<!-- header here-->
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -10,54 +11,56 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" type="text/css">
 
+<title>course</title>
 </head>
 
+
+<!-- body here -->
 <body>
+
     <div th:insert="fragments/header ::umdHeader" class='no-print'></div>
 
 	<div class="container">
 	
-        <div th:replace="fragments/header ::ezcommHeader" class='no-print'></div> <br/> <br/>
+        <div th:replace="fragments/header ::ezcommHeader" class='no-print'></div> 
         
 		<!--navigation bar-->
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
-			<li class="nav-item"><a class="nav-link active"
-				id="syllabus-tab" data-toggle="tab" href="#syllabus" role="tab"
+			<li class="nav-item"><a class="nav-link active" 
+				id="syllabus-tab" data-toggle="tab"  role="tab"
 				aria-controls="Syllabus" aria-selected="true">Syllabus</a></li>
 			<li class="nav-item"><a class="nav-link" id="assignment-tab"
-				data-toggle="tab" href="#assignment" role="tab"
-				aria-controls="assignment" aria-selected="false">Assignment</a></li>
+				data-toggle="tab"  role="tab" 
+				aria-controls="assignment" aria-selected="false" onclick="goAssignmentPage(this)">Assignment</a></li>`
 
-			<li class="nav-item"><a class="nav-link" id="grades-tab"
-				data-toggle="tab" href="#grades" role="tab" aria-controls="grade"
-				aria-selected="false">Grade</a></li>
+			<li class="nav-item"><a class="nav-link " id="grades-tab"
+				data-toggle="tab"  role="tab" aria-controls="grade" herf="#grade"
+				aria-selected="false" onclick="goGradePage(this)">Grade</a></li>
 		</ul>
 
 		<div class="tab-content" id="myTabContent">
-
-
-			<!-------------------syllabus page---------------------->
+			<!--------------syllabus page---------------------->
+			<br>
 			<div class="tab-pane fade show active" id="syllabus" role="tabpanel"
 				aria-labelledby="syllabus-tab">
-
-				<div class="container">
+			
 					<!--the course information and teacher information-->
 					<div class="row courseinfo">
 						<div class="col-12 col-sm-6 col-md-8">
 							<div class="card">
 								<div class="card-header">
-									<h4>
+									<h4 class="mb-0">
 										<i class="fa fa-info-circle" style="font-size: 24px"></i>
-
 										Course Description
 									</h4>
 								</div>
 								<div class="card-body">
-									<blockquote class="blockquote mb-0">
 										<p>Introduction to the Engineering and Computing
 											professions, professional ethics. Overview of ECS curricula,
 											connections among ECS fields and to the basics of sciences,
@@ -65,9 +68,7 @@
 											needed to succeed as an ECS major. Engineering design and
 											quantitative methods using MATLAB. Multi-disciplinary team
 											projects designed to replicate decision processes in
-											real-world situations.</p>
-
-									</blockquote>
+											real-world situations.</p>								
 								</div>
 							</div>
 						</div>
@@ -75,17 +76,19 @@
 						<div class="col-6 col-md-4 teacher">
 							<div id="accordion" role="tablist">
 								<div class="card">
-									<div class="card-header" role="tab" id="headingOne">
-										<h5 class="mb-0">
-											<a data-toggle="collapse" href="#collapseOne"
-												aria-expanded="true" aria-controls="collapseOne"><i
-												class="material-icons">perm_identity</i> Teacher Info </a>
-										</h5>
+									<div class="card-header">
+										<h4 class="mb-0">
+											<i class="fa fa-info-circle"
+											style="font-size: 24px"></i>
+											Intructor Information
+										</h4>
 									</div>
 									<div id="collapseOne" class="collapse show" role="tabpanel"
 										aria-labelledby="headingOne" data-parent="#accordion">
 										<div class="card-body">
-											Email:isososo@umd.edu<br> Linkedin Address:...........<br>
+											Email:isososo@umd.edu<br> Office hours: Tue 5pm-7pm<br> 
+											Office room: ...<br> 
+											TA email:dksafjks@umd.edu<br>
 										</div>
 									</div>
 								</div>
@@ -93,10 +96,9 @@
 						</div>
 
 					</div>
-
-					<hr>
+					
+					<br>
 					<!--the table and score arrangement-->
-
 					<div class="row scheduleinfo">
 						<div class="col-12 col-sm-6 col-md-8">
 							<h4>
@@ -156,6 +158,7 @@
 								</tbody>
 							</table>
 						</div>
+
 						<!--graph-->
 						<div class="col-6 col-md-4 teacher">
 							<div class="text-center">
@@ -164,274 +167,35 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				
 			</div>
 
-			<!--------------assignment page---------------->
-
-			<div class="tab-pane fade show active" id="assignment"
-				role="tabpanel" aria-labelledby="assignment-tab">
-
-
-
-				<div class="alert alert-warning alert-dismissible fade show"
-					role="alert">
-					<strong>Hi Emily!</strong> you have <strong>3</strong> assignment
-					to do
-					<button type="button" class="close" data-dismiss="alert"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-
-
-				<!--arrays-->
-				<div class="container container1">
-
-
-					<h4>
-						<i class="material-icons" style="font-size: 36px">assignment</i>Coming
-						Assignment
-					</h4>
-					<hr>
-
-
-					<div class="row">
-						<div class="col">
-							<button type="button" class="btn btn-outline-danger"
-								data-toggle="popover" title="Popover title"
-								data-content="And here's some amazing content. It's very engaging. Right?">Assignment1</button>
-						</div>
-						<div class="col">
-							<button type="button" class="btn btn-outline-danger"
-								data-toggle="popover" title="Popover title"
-								data-content="And here's some amazing content. It's very engaging. Right?">Assignment1</button>
-						</div>
-						<div class="col">
-							<button type="button" class="btn btn-outline-danger"
-								data-toggle="popover" title="Popover title"
-								data-content="And here's some amazing content. It's very engaging. Right?">Assignment1</button>
-						</div>
-						<div class="col">
-							<button type="button" class="btn btn-outline-warning"
-								data-toggle="popover" title="Popover title"
-								data-content="And here's some amazing content. It's very engaging. Right?">Assignment1</button>
-						</div>
-
-						<div class="col">
-							<button type="button" class="btn btn-outline-warning"
-								data-toggle="popover" title="Popover title"
-								data-content="And here's some amazing content. It's very engaging. Right?">Assignment1</button>
-						</div>
-						<div class="col">
-							<button type="button" class="btn btn-outline-warning"
-								data-toggle="popover" title="Popover title"
-								data-content="And here's some amazing content. It's very engaging. Right?">Assignment1</button>
-						</div>
-
-					</div>
-
-
-					<div class="row">
-						<div class="col">
-							<button type="button" class="btn btn-outline-warning"
-								data-toggle="popover" title="Popover title"
-								data-content="And here's some amazing content. It's very engaging. Right?">Assignment1</button>
-						</div>
-						<div class="col">
-							<button type="button" class="btn btn-outline-warning"
-								data-toggle="popover" title="Popover title"
-								data-content="And here's some amazing content. It's very engaging. Right?">Assignment1</button>
-						</div>
-						<div class="col">
-							<button type="button" class="btn btn-outline-secondary"
-								data-toggle="popover" title="Popover title"
-								data-content="And here's some amazing content. It's very engaging. Right?">Assignment1</button>
-						</div>
-						<div class="col">
-							<button type="button" class="btn btn-outline-secondary"
-								data-toggle="popover" title="Popover title"
-								data-content="And here's some amazing content. It's very engaging. Right?">Assignment1</button>
-						</div>
-
-						<div class="col">
-							<button type="button" class="btn btn-outline-secondary"
-								data-toggle="popover" title="Popover title"
-								data-content="And here's some amazing content. It's very engaging. Right?">Assignment1</button>
-						</div>
-
-					</div>
-				</div>
-
-
-				<!--another arrays-->
-				<div class="container contain2">
-
-
-
-					<h4>
-						<i class="material-icons" style="font-size: 36px">assignment_turned_in</i>Former
-						Assignment
-					</h4>
-					<hr>
-
-
-					<div class="row">
-						<div class="col">
-							<button type="button" class="btn btn-outline-success"
-								data-toggle="popover" title="Popover title"
-								data-content="And here's some amazing content. It's very engaging. Right?">Assignment1</button>
-						</div>
-						<div class="col">
-							<button type="button" class="btn btn-outline-success"
-								data-toggle="popover" title="Popover title"
-								data-content="And here's some amazing content. It's very engaging. Right?">Assignment1</button>
-						</div>
-						<div class="col">
-							<button type="button" class="btn btn-outline-success"
-								data-toggle="popover" title="Popover title"
-								data-content="And here's some amazing content. It's very engaging. Right?">Assignment1</button>
-						</div>
-
-						<div class="col">
-							<button type="button" class="btn btn-outline-success"
-								data-toggle="popover" title="Popover title"
-								data-content="And here's some amazing content. It's very engaging. Right?">Assignment1</button>
-						</div>
-
-						<div class="col">
-							<button type="button" class="btn btn-outline-success"
-								data-toggle="popover" title="Popover title"
-								data-content="And here's some amazing content. It's very engaging. Right?">Assignment1</button>
-						</div>
-
-					</div>
-				</div>
-			</div>
-
-			<!--grade page-->
-			<div class="tab-pane fade show active" id="grades" role="tabpanel"
-				aria-labelledby="grades-tab">
-
-				<div class="row current">
-					<div class="col-6 col-md-4 info">
-						<div class="alert alert-info" role="alert">
-							<h4 class="alert-heading">
-								<i class="material-icons" style="font-size: 36px">sentiment_very_satisfied</i>
-
-							</h4>
-							<p>Your current score is
-							<h4>
-								<strong>93%</strong>
-							</h4>
-							<hr>
-						</div>
-					</div>
-					<div class="col-12 col-sm-6 col-md-8 table">
-
-						<table class="table table-hover">
-							<thead class="thead-light">
-								<tr>
-									<th scope="col"></th>
-									<th scope="col"><i class="fa fa-paste"
-										style="font-size: 24px"></i> Name</th>
-									<th scope="col"><i class="fa fa-pencil"
-										style="font-size: 24px"></i>Score</th>
-									<th scope="col">Class Average<i class="fa fa-percent"></i>
-
-									</th>
-									<th scope="col">Weight<i class="fa fa-percent"></i>
-
-									</th>
-									<th scope="col">Category</th>
-
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th scope="row"></th>
-									<td>test1</td>
-									<td>89/90</td>
-									<td>80%</td>
-									<td>20%</td>
-									<td>Quiz</td>
-
-								</tr>
-								<tr>
-									<th scope="row"></th>
-									<td>test2</td>
-									<td>60/90</td>
-									<td>80%</td>
-									<td>0%</td>
-									<td>Quiz</td>
-								</tr>
-								<tr>
-									<th scope="row"></th>
-									<td>test3</td>
-									<td>80/90</td>
-									<td>70%</td>
-									<td>5%</td>
-									<td>Quiz</td>
-								</tr>
-								<tr>
-									<th scope="row"></th>
-									<td>test3</td>
-									<td>80/90</td>
-									<td>70%</td>
-									<td>5%</td>
-									<td>Quiz</td>
-								</tr>
-								<tr>
-									<th scope="row"></th>
-									<td>test3</td>
-									<td>80/90</td>
-									<td>70%</td>
-									<td>5%</td>
-									<td>assignment</td>
-								</tr>
-								<tr>
-									<th scope="row"></th>
-									<td>test3</td>
-									<td>80/90</td>
-									<td>70%</td>
-									<td>5%</td>
-									<td>assignment</td>
-								</tr>
-								<tr>
-									<th scope="row"></th>
-									<td>test3</td>
-									<td>80/90</td>
-									<td>70%</td>
-									<td>5%</td>
-									<td>assignment</td>
-								</tr>
-								<tr>
-									<th scope="row"></th>
-									<td>test3</td>
-									<td>80/90</td>
-									<td>70%</td>
-									<td>5%</td>
-									<td>assignment</td>
-								</tr>
-							</tbody>
-						</table>
-
-					</div>
-				</div>
-			</div>
 		</div>
 
-	</div>
+	</div><!-- end of whole container -->	
+	<br>
 
-	<!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+	<script>
+		function goAssignmentPage(id)
+		{
+		window.location.href = "courseAssignment"
+		}
+
+		function goGradePage(id)
+		{
+		window.location.href = "courseGrade"
+		}
+	</script>
+
+
 </body>
 
-<br/> <div th:insert="fragments/footer ::footer" class='no-print'></div>
+
+ <!-- footer here -->
+<footer>
+	<div th:insert="fragments/footer ::footer" class='no-print'></div>
+</footer>
 
 </html>
-
 

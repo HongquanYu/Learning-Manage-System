@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- header here-->
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<th:block th:replace="fragments/header ::head"></th:block>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" type="text/css">
+
+<title>courseAssignment</title>
+</head>
+
+<!-- body here -->
+<body>
+
+    <div th:insert="fragments/header ::umdHeader" class='no-print'></div>
+
+	<div class="container">
+	
+        <div th:replace="fragments/header ::ezcommHeader" class='no-print'></div> 
+        
+		<!--navigation bar-->
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item"><a class="nav-link" 
+				id="syllabus-tab" data-toggle="tab"  role="tab"
+				aria-controls="Syllabus" aria-selected="false" onclick="goSyllabusPage(this)">Syllabus</a></li>
+
+			<li class="nav-item"><a class="nav-link " id="assignment-tab"
+				data-toggle="tab" role="tab"
+				aria-controls="assignment" aria-selected="false">Assignment</a></li>
+
+			<li class="nav-item"><a class="nav-link" id="grades-tab"
+				data-toggle="tab"  role="tab" aria-controls="grade" 
+				aria-selected="false" onclick="goGradePage(this)">Grade</a></li>
+		</ul>
+
+		<div class="tab-content" id="myTabContent">
+			
+			<!--------------assignment page---------------->
+
+			<br>
+			<div class="tab-pane fade show active" id="assignment"
+				role="tabpanel" aria-labelledby="assignment-tab">
+				
+				<!-- alert about assignment which need to do -->
+				<div class="alert alert-warning alert-dismissible fade show"
+					role="alert">
+					<strong>Hi Emily!</strong> you have <strong>3</strong> assignment
+					to do
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+
+				<!-- for coming assignment -->
+			
+					<h4>
+						<i class="material-icons" style="font-size: 36px">assignment</i>Coming
+						Assignment
+					</h4>
+
+					<hr>
+
+					<!-- first line for assignment--> 
+					<div class="row">
+						<div class="col  col-sm-2" >
+							<button type="button" class="btn btn-outline-danger" 
+								title="due: 15/11/17" onclick="goAssignmentDetailPage()"
+								>Assignment1</button>
+						</div>
+						<div class="col  col-sm-2" >
+							<button type="button" class="btn btn-outline-danger" 
+								title="due: 16/11/17"
+								>Assignment2</button>
+						</div>
+						<div class="col  col-sm-2" >
+							<button type="button" class="btn btn-outline-danger" 
+								title="due: 18/11/17"
+								>Assignment3</button>
+						</div>
+
+						<div class="col col-sm-2">
+							<button type="button" class="btn btn-outline-warning"
+								title="due: 10/11/17"
+								>Assignment4</button>
+						</div>
+						<div class="col col-sm-2">
+							<button type="button" class="btn btn-outline-warning"
+								title="due: 2/11/17"
+								>Assignment5</button>
+						</div>
+						<div class="col col-sm-2">
+							<button type="button" class="btn btn-outline-warning"
+								title="due: 2/11/17"
+								>Assignment6</button>
+						</div>
+					
+					</div>
+
+					<br>
+
+					<!-- second line for assignment--> 
+					<div class="row">
+						<div class="col col-sm-2">
+							<button type="button" class="btn btn-outline-warning"
+								title="due: 2/11/17"
+								>Assignment5</button>
+						</div>
+						<div class="col col-sm-2">
+							<button type="button" class="btn btn-outline-warning"
+								title="due: 2/11/17"
+								>Assignment5</button>
+						</div>
+						<div class="col col-sm-2">
+							<button type="button" class="btn btn-outline-secondary"
+								title="due: 2/11/17"
+								>Assignment5</button>
+						</div>
+		
+					</div>
+			
+					<hr>
+					<br>
+
+					<!-- for former assignment -->
+					<h4>
+						<i class="material-icons" style="font-size: 36px">assignment_turned_in</i>Former
+						Assignment
+					</h4>
+					<hr>
+
+					<!-- first line for fomar assignment -->
+					<div class="row">
+						<div class="col col-sm-2">
+							<button type="button" class="btn btn-outline-success"
+								title="Turn in at: 20/10/17"
+								>Assignment5</button>
+						</div>
+						<div class="col col-sm-2">
+							<button type="button" class="btn btn-outline-success"
+								title="Turn in a: 8/10/17"
+								>Assignment5</button>
+						</div>
+						<div class="col col-sm-2">
+							<button type="button" class="btn btn-outline-success"
+								title="Turn in at: 2/10/17"
+								>Assignment5</button>
+						</div>			
+					</div>			
+			</div><!-- end of the whole page except navbar -->
+
+		</div>
+
+	</div><!-- end of whole container -->
+	
+
+
+	<script>
+		// click navbar to syllabus page 
+		function goSyllabusPage(id)
+		{
+		window.location.href = "courseDetail"
+		}
+		// click navbar to grade page 
+		function goGradePage(id)
+		{
+		window.location.href = "courseGrade"
+		}
+		//click assignment btn to assignmentDetail page 
+		function goAssignmentDetailPage()
+		{
+		window.location.href = "assignmentInfo"
+		}
+
+	
+	</script>
+
+	<br>
+	<br>
+</body>
+
+
+ <!-- footer here -->
+<footer>
+	<div th:insert="fragments/footer ::footer" class='no-print'></div>
+</footer>
+
+</html>
+
+

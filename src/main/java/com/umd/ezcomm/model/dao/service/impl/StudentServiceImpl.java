@@ -38,7 +38,7 @@ public class StudentServiceImpl implements StudentService{
 
 	@Override
 	public int getAssignmentNum(String userID) {
-		System.out.println("userID: " + userID);
+		
 		String query = "SELECT COUNT(*) FROM AssignmentList AL " + 
 				"INNER JOIN CourseList CL ON AL.CourseID = CL.CourseID " +
 				"INNER JOIN Assignment A ON AL.AssignmentID = A.ID " +
