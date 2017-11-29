@@ -2,8 +2,11 @@ package com.umd.ezcomm.controller;
 
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
@@ -11,6 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.umd.ezcomm.model.dao.service.impl.CourseServiceImpl;
 import com.umd.ezcomm.model.dao.service.impl.StudentServiceImpl;
 import com.umd.ezcomm.model.dao.service.impl.UserServiceImpl;
@@ -28,7 +32,7 @@ import com.umd.ezcomm.model.domain.Message;
 
 @Controller
 public class ServiceRequestController {
-	
+
 	private static final Logger log = LogManager.getLogger();
 
 	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -41,47 +45,54 @@ public class ServiceRequestController {
 		return "login";
 	}
 
-	/* user authentication and load data. */
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public String homepage(HttpServletRequest request, HttpSession session, Map<String, Object> model) {
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String userLogin(HttpServletRequest request, Map<String, Object> model) {
-		String ue = request.getParameter("userEmail");
-		String up = request.getParameter("userPasd");
+		String ue = (String) session.getAttribute("userEmail");
+		String userID = userService.getUID(ue);
 
-		boolean isLegalUser = userService.userAuth(ue, up);
-		
-		if (!isLegalUser) {
-			model.put("illegalUser", true);
-			return "login";
-		} else {
-			String userID = userService.getUID(ue);
-			
-			List<Course> courses = null;
-			List<Message> messages = null;
-			List<Assignment> assignments = null;
-			
-			try {
-				courses = userService.courseEnrolled(userID);
-				messages = userService.messageReceived(userID);
-				assignments = studentService.getAssignments(userID);
-			} catch (Exception e) {
-				log.info("data access error.");
-				model.put("dataException", true);
-			}
-			
-			model.put("userID", userID);
-			model.put("courseNum", courses == null ? 0 : courses.size());
-			model.put("messageNum", messages == null ? 0 : messages.size());
-			model.put("assignmentNum", assignments == null ? 0 : assignments.size());
-			
-			model.put("userCourses", courses);
-			model.put("userMessages", messages);
-			model.put("userAssignemnts", assignments);
+		List<Course> courses = null;
+		List<Message> messages = null;
+		List<Assignment> assignments = null;
+
+		try {
+			courses = userService.courseEnrolled(userID);
+			messages = userService.messageReceived(userID);
+			assignments = studentService.getAssignments(userID);
+		} catch (Exception e) {
+			log.info("data access error.");
+			model.put("dataException", true);
 		}
+
+		model.put("userID", userID);
+		model.put("courseNum", courses == null ? 0 : courses.size());
+		model.put("messageNum", messages == null ? 0 : messages.size());
+		model.put("assignmentNum", assignments == null ? 0 : assignments.size());
+
+		model.put("userCourses", courses);
+		model.put("userMessages", messages);
+		model.put("userAssignemnts", assignments);
 
 		return "home";
 	}
 
+	/* user authentication and load data. */
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String userLogin(HttpServletRequest request, HttpSession session, Map<String, Object> model) {
+		String ue = request.getParameter("userEmail");
+		String up = request.getParameter("userPasd");
+		boolean isLegalUser = userService.userAuth(ue, up);
+		if (!isLegalUser) {
+			model.put("illegalUser", true);
+			return "login";
+		} else {
+			session.setAttribute("userEmail", ue);
+			session.setAttribute("isLegalUser", true);
+			return "redirect:/home.html";
+		}
+
+	}
 
 	@RequestMapping(value = "/courseInfo", method = RequestMethod.GET)
 	public String goToCourse(HttpServletRequest request, HttpServletResponse response) {
@@ -106,6 +117,12 @@ public class ServiceRequestController {
 	@RequestMapping(value = "/profiles", method = RequestMethod.GET)
 	public String goToProfile(HttpServletRequest request, HttpServletResponse response) {
 		return "profile";
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		session.invalidate();
+		return "login";
 	}
 
 	@RequestMapping(value = "/resetPWD", method = RequestMethod.GET)
