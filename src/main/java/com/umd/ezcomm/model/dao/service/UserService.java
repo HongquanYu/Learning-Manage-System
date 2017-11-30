@@ -15,6 +15,8 @@ public interface UserService {
 	public String getUID(String userEmail);
 
 	public boolean userAuth(String email, String pasd);
+	
+	public boolean isStudent(String uID);
 
 	public boolean updatePassword(String n, String p);
 

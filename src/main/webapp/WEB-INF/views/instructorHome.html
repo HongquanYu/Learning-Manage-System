@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- header here -->
+<head>
+<title>Homepage Of EZComm</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<th:block th:replace="fragments/instructorHeader ::head"></th:block>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+	type="text/css">
+</head>
+
+<!-- body here -->
+<body>
+	<div th:insert="fragments/instructorHeader ::umdHeader" class='no-print'></div>
+
+	<div class="container">
+
+		<div th:replace="fragments/instructorHeader ::ezcommHeader" class='no-print'></div>
+		<br /> <br />
+
+		<div style="text-align: center">
+			<h2>Welcome! Professor Irus * ▽ *</h2>
+		</div> <br />
+		<div class=" card-group">
+			<div class="card" style="width: 26rem;">
+				<div class="card-body">
+					<h4 class="card-title">ENPM613</h4>
+					<p class="card-text">Software Design and implementation</p>
+					<a href="instructorTabs" class="btn btn-warning">Enter the course</a>
+				</div>
+			</div>
+
+			<div class="card" style="width: 26rem;">
+				<div class="card-body">
+					<h4 class="card-title">ENPM613</h4>
+					<p class="card-text">Software Design and implementation</p>
+					<a href="instructorTabs" class="btn btn-warning">Enter the course</a>
+				</div>
+			</div>
+
+			<div class="card" style="width: 26rem;">
+				<div class="card-body">
+					<h4 class="card-title">ENPM613</h4>
+					<p class="card-text">Software Design and implementation</p>
+					<a href="instructorTabs" class="btn btn-warning">Enter the course</a>
+				</div>
+			</div>
+
+		</div><br> <br>
+		</div>
+</body>
+
+<!-- footer here -->
+<footer>
+	<div th:insert="fragments/footer ::footer" class='no-print'></div>
+</footer>
+
+</html>

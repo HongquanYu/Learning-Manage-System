@@ -15,13 +15,13 @@
 
 <body>
     <div th:fragment="umdHeader">
-        <script src="https://umd-header.umd.edu/build/bundle.js?search=0&search_domain=&events=0&news=0&schools=0&admissions=0&support=0&support_url=&wrapper=1100&sticky=0"></script>
+        <script src="https://umd-header.umd.edu/build/bundle.js?search=1&search_domain=eng&events=1&news=1&schools=1&admissions=1&support=1&support_url=&wrapper=1100&sticky=0"></script>
     </div>
 
-	<div th:fragment="ezcommHeader" class="container">
+	<div th:fragment="ezcommHeader">
 		<!--navigation-->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="home"><img th:src="@{/resources/background/logo.png}"></a>
+			<a class="navbar-brand" href="studentHome"><img th:src="@{/resources/background/logo.png}"></a>
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarTogglerDemo02"
@@ -34,7 +34,7 @@
 			
 				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 					<li class="nav-item dropdown">
-					   <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" 
+					   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" 
 					       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Course </a>
 					   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					       <th:block th:each="course : ${userCourses}" class="card-body">

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- header here-->
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<th:block th:replace="fragments/instructorHeader ::head"></th:block>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" type="text/css">
+
+<title>course</title>
+</head>
+
+
+<body>
+    <div th:insert="fragments/instructorHeader ::umdHeader" class='no-print'></div>
+    
+    <div class="container">
+       
+        <div th:replace="fragments/instructorHeader ::ezcommHeader" class='no-print'></div> <br />
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#syllabus" role="tab" data-toggle="tab">Syllabus</a>
+            </li>    
+            <li class="nav-item">
+                <a class="nav-link" href="#student" role="tab" data-toggle="tab">Student</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#assignment" role="tab" data-toggle="tab">Assignment</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#grades" role="tab" data-toggle="tab">Grade</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+
+                <div class="tab-pane fade show active" id="syllabus" role="tabpanel" >
+			
+					<!--the course information and teacher information-->
+					<div class="row courseinfo">
+						<div class="col-12 col-sm-6 col-md-8">
+							<div class="card">
+								<div class="card-header">
+									<h4 class="mb-0">
+										<i class="fa fa-info-circle" style="font-size: 24px"></i>
+										Course Description
+									</h4>
+								</div>
+								<div class="card-body">
+										<p>Introduction to the Engineering and Computing
+											professions, professional ethics. Overview of ECS curricula,
+											connections among ECS fields and to the basics of sciences,
+											other fields. Basic study, problem solving and other skills
+											needed to succeed as an ECS major. Engineering design and
+											quantitative methods using MATLAB. Multi-disciplinary team
+											projects designed to replicate decision processes in
+											real-world situations.</p>								
+								</div>
+							</div>
+						</div>
+
+						<div class="col-6 col-md-4 teacher">
+							<div id="accordion" role="tablist">
+								<div class="card">
+									<div class="card-header">
+										<h4 class="mb-0">
+											<i class="fa fa-info-circle"
+											style="font-size: 24px"></i>
+											Intructor Information
+										</h4>
+									</div>
+									<div id="collapseOne" class="collapse show" role="tabpanel"
+										aria-labelledby="headingOne" data-parent="#accordion">
+										<div class="card-body">
+											Email:isososo@umd.edu<br> Office hours: Tue 5pm-7pm<br> 
+											Office room: ...<br> 
+											TA email:dksafjks@umd.edu<br>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div> <br />
+					
+					<!--the table and score arrangement-->
+					<div class="row scheduleinfo">
+						<div class="col-12 col-sm-6 col-md-8">
+							<h4>
+								<i class="fa fa-file-text-o"></i> Syllabus
+							</h4>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col">Date</th>
+										<th scope="col">Info</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">Mon Sep 4, 2017</th>
+										<td>Prerequisite knowledge Quiz</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						</div>
+
+					<br>
+					<!--the table and score arrangement-->
+					<div class="row">
+						<div class="col-12 col-sm-6 col-md-8">
+							<h4>
+								<i class="fa fa-file-text-o"></i> Schedule
+							</h4>
+
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col">Date</th>
+										<th scope="col">Info</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">Mon Sep 4, 2017</th>
+										<td>Prerequisite knowledge Quiz</td>
+									</tr>
+									<tr>
+										<th scope="row">Tue Sep 5, 2017</th>
+										<td>Software Engineering Ethics quiz</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<!--graph-->
+						<div class="col-6 col-md-4 teacher">
+							<div class="text-center">
+								<img src="/Resource/img/Grade_Distribution_Pie_Chart.png"
+									class="distribution" alt="grades">
+							</div>
+						</div>
+					</div> <br /> <br />
+
+					<div class="card">
+						<div class="card-header">Creat new Syllabus</div>
+						<div class="card-block">
+							<blockquote class="card-blockquote">
+	
+								<div class="form-group row">
+									<label for="example-text-input" class="col-2 col-form-label">Course
+										Description</label>
+									<div class="col-10">
+										<input class="form-control" type="text" placeholder="10%"
+											value="" id="example-text-input">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="example-search-input" class="col-2 col-form-label">Teacher
+										Info</label>
+									<div class="col-10">
+										<input class="form-control" type="search" placeholder="......."
+											id="example-search-input">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="example-email-input" class="col-2 col-form-label">Schedule</label>
+									<div class="col-10">
+										<input class="form-control" type="email"
+											placeholder="11/12/2017" id="example-email-input">
+									</div>
+								</div>
+	
+	
+								<div class="container">
+									<div class="row">
+										<button type="submit" class="btn btn-primary  publish">Creat</button>
+										<button type="submit" class="btn btn-light cancel">Cancel</button>
+									</div>
+	
+								</div>
+							</blockquote>
+						</div>
+					</div>
+
+			</div>
+
+            <div role="tabpanel" class="tab-pane fade show" id="student">
+                <div class="container container1">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Student ID</th>
+                                <th scope="col">Student name</th>
+                                <th scope="col">Section</th>
+                                <th scope="col">Role</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">16378</th>
+                                <td>Emma</td>
+                                <td>ENPM613-0101</td>
+                                <td>Student</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade show" id="assignment">
+                <div class="container container1">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Due Time</th>
+                                <th scope="col">Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Prerequisite knowledge Quiz</th>
+                                <td>Mon Sep 4, 2017</td>
+                                <td>10%</td>
+                                <td><a href="#"> <i class="material-icons">create</i>
+                                </a></td>
+                                <td><a href="#"> <i class="material-icons">clear</i>
+                                </a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> <br /> <br />
+
+				<div class="card">
+					<div class="card-header">Creat new assignment</div>
+					<div class="card-block">
+						<blockquote class="card-blockquote">
+
+							<div class="form-group row">
+								<label for="example-text-input" class="col-2 col-form-label">Name</label>
+								<div class="col-10">
+									<input class="form-control" type="text" placeholder="10%"
+										value="" id="example-text-input">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="example-search-input" class="col-2 col-form-label">Detail</label>
+								<div class="col-10">
+									<input class="form-control" type="search" placeholder="......."
+										id="example-search-input">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="example-email-input" class="col-2 col-form-label">Deadline</label>
+								<div class="col-10">
+									<input class="form-control" type="email"
+										placeholder="11/12/2017" id="example-email-input">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="example-url-input" class="col-2 col-form-label">Percentage</label>
+								<div class="col-10">
+									<input class="form-control" type="url" placeholder="10%"
+										value="" id="example-url-input">
+								</div>
+							</div>
+
+							<div class="container">
+								<div class="row">
+									<button type="submit" class="btn btn-primary  publish">Creat</button>
+									<button type="submit" class="btn btn-light cancel">Cancel</button>
+								</div>
+
+							</div>
+						</blockquote>
+					</div>
+				</div>
+
+			</div>
+
+            <div role="tabpanel" class="tab-pane fade show" id="grades">
+
+                <div class="container container1">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Assignment ID</th>
+                                <th scope="col">Student ID</th>
+                                <th scope="col">Student name</th>
+                                <th scope="col"><i class="fa fa-pencil"
+                                    style="font-size: 24px"></i>Score</th>
+                                <th scope="col">Comments</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row"><a href="#"> Assignment1 </a></th>
+                                <td>1148927</td>
+                                <td>Emma</td>
+                                <td>80%</td>
+                                <td>4.1--good</td>
+                                <td><a href="#"> <i class="material-icons">create</i>
+                                </a></td>
+                                <td><a href="#"> <i class="material-icons">clear</i>
+                                </a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div> <br />
+</body>
+
+
+<!-- footer here -->
+<footer>
+    <div th:insert="fragments/footer ::footer" class='no-print'></div>
+</footer>
+</html>
+
+
+

@@ -136,4 +136,13 @@ public class UserServiceImpl implements UserService {
 		
 		return message;
 	}
+
+	@Override
+	public boolean isStudent(String uID) {
+		String SQL = "SELECT COUNT(*) FROM Student WHERE UID = " + uID + ";";
+		
+		Integer cnt = template.queryForObject(SQL, Integer.class);
+
+		return cnt != null && cnt > 0;
+	}
 }

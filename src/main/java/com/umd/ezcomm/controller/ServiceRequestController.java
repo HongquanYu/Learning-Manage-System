@@ -45,8 +45,8 @@ public class ServiceRequestController {
 		return "login";
 	}
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String homepage(HttpServletRequest request, HttpSession session, Map<String, Object> model) {
+	@RequestMapping(value = "/studentHome", method = RequestMethod.GET)
+	public String studentHomepage(HttpServletRequest request, HttpSession session, Map<String, Object> model) {
 
 		String ue = (String) session.getAttribute("userEmail");
 		String userID = userService.getUID(ue);
@@ -73,7 +73,39 @@ public class ServiceRequestController {
 		model.put("userMessages", messages);
 		model.put("userAssignemnts", assignments);
 
-		return "home";
+		return "studentHome";
+	}
+	
+	
+	@RequestMapping(value = "/instructorHome", method = RequestMethod.GET)
+	public String instructorHomepage(HttpServletRequest request, HttpSession session, Map<String, Object> model) {
+
+		String ue = (String) session.getAttribute("userEmail");
+		String userID = userService.getUID(ue);
+
+		List<Course> courses = null;
+		List<Message> messages = null;
+		List<Assignment> assignments = null;
+
+		try {
+			courses = userService.courseEnrolled(userID);
+			messages = userService.messageReceived(userID);
+			assignments = studentService.getAssignments(userID);
+		} catch (Exception e) {
+			log.info("data access error.");
+			model.put("dataException", true);
+		}
+
+		model.put("userID", userID);
+		model.put("courseNum", courses == null ? 0 : courses.size());
+		model.put("messageNum", messages == null ? 0 : messages.size());
+		model.put("assignmentNum", assignments == null ? 0 : assignments.size());
+
+		model.put("userCourses", courses);
+		model.put("userMessages", messages);
+		model.put("userAssignemnts", assignments);
+
+		return "instructorHome";
 	}
 
 	/* user authentication and load data. */
@@ -82,19 +114,32 @@ public class ServiceRequestController {
 	public String userLogin(HttpServletRequest request, HttpSession session, Map<String, Object> model) {
 		String ue = request.getParameter("userEmail");
 		String up = request.getParameter("userPasd");
+		String userID = userService.getUID(ue);
+		
+		boolean isStudent = userService.isStudent(userID);
 		boolean isLegalUser = userService.userAuth(ue, up);
+		
 		if (!isLegalUser) {
 			model.put("illegalUser", true);
 			return "login";
 		} else {
 			session.setAttribute("userEmail", ue);
 			session.setAttribute("isLegalUser", true);
-			return "redirect:/home.html";
+			return isStudent ? "redirect:/studentHome.html" : "redirect:/instructorHome.html";
 		}
-
 	}
 
-	@RequestMapping(value = "/courseInfo", method = RequestMethod.GET)
+	@RequestMapping(value = "/instructorTabs", method = RequestMethod.GET)
+	public String goToInstructorTabs(HttpServletRequest request, HttpServletResponse response) {
+		return "instructorTabs";
+	}
+	
+	@RequestMapping(value = "/studentTabs", method = RequestMethod.GET)
+	public String goToStudentTabs(HttpServletRequest request, HttpServletResponse response) {
+		return "studentTabs";
+	}
+
+	@RequestMapping(value = "/courseDetail", method = RequestMethod.GET)
 	public String goToCourse(HttpServletRequest request, HttpServletResponse response) {
 		return "courseDetail";
 	}
@@ -102,6 +147,21 @@ public class ServiceRequestController {
 	@RequestMapping(value = "/assignmentInfo", method = RequestMethod.GET)
 	public String goToAssignment(HttpServletRequest request, HttpServletResponse response) {
 		return "assignmentDetail";
+	}
+
+	@RequestMapping(value = "/courseAssignment", method = RequestMethod.GET)
+	public String goToCourseAssignment(HttpServletRequest request, HttpServletResponse response) {
+		return "courseAssignment";
+	}
+	
+	@RequestMapping(value = "/gradeProfessor", method = RequestMethod.GET)
+	public String goToInstructorGradePage(HttpServletRequest request, HttpServletResponse response) {
+		return "gradeProfessor";
+	}
+	
+	@RequestMapping(value = "/courseGrade", method = RequestMethod.GET)
+	public String goToCourseGrade(HttpServletRequest request, HttpServletResponse response) {
+		return "courseGrade";
 	}
 
 	@RequestMapping(value = "/messages", method = RequestMethod.GET)

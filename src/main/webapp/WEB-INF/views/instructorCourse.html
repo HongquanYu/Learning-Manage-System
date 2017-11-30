@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- header here-->
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<th:block th:replace="fragments/header ::head"></th:block>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" type="text/css">
+
+<title>course</title>
+</head>
+
+
+<body>
+    <div th:insert="fragments/header ::umdHeader" class='no-print'></div>
+    
+	<div class="container">
+	   
+	    <div th:replace="fragments/header ::ezcommHeader" class='no-print'></div>
+        <br />
+
+		<!----------navigation bar------------------->
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item"><a class="nav-link active"
+				id="syllabus-tab" data-toggle="tab"  role="tab"
+				aria-controls="Syllabus" aria-selected="true" >Syllabus</a></li>
+			<li class="nav-item"><a class="nav-link" id="assignment-tab"
+				data-toggle="tab" role="tab"
+				aria-controls="assignment" aria-selected="false" onclick="goTabAssignmentPage(this)">Assignment</a></li>
+
+			<li class="nav-item"><a class="nav-link" id="grade-tab"
+				data-toggle="tab"  role="tab" aria-controls="grade"
+				aria-selected="true" onclick="goTabGradePage(this)">Grade</a></li>
+
+
+			<li class="nav-item"><a class="nav-link" id="student-tab"
+				data-toggle="tab"  role="tab" aria-controls="student"
+				aria-selected="false" onclick="goTabStudentPage(this)">Students</a></li>
+
+		</ul>
+		<div class="tab-content" id="myTabContent">
+
+			<!-------------------syllabus page---------------------->
+			<div class="tab-pane fade show active" id="syllabus" role="tabpanel"
+				aria-labelledby="syllabus-tab">
+
+
+				<div>
+					<!--the course information and teacher information-->
+					<div class="row courseinfo">
+						<div class="col-12 col-sm-6 col-md-8">
+							<div class="card">
+								<div class="card-header">
+									<h4>
+										<i class="fa fa-info-circle" style="font-size: 24px"></i>
+
+										Course Description
+									</h4>
+
+									<a href="#"> <i class="material-icons">mode_edit</i>
+									</a> <a href="#"> <i class="material-icons">delete</i>
+									</a>
+
+
+								</div>
+								<div class="card-body">
+									<blockquote class="blockquote mb-0">
+										<p>Introduction to the Engineering and Computing
+											professions, professional ethics. Overview of ECS curricula,
+											connections among ECS fields and to the basics of sciences,
+											other fields. Basic study, problem solving and other skills
+											needed to succeed as an ECS major. Engineering design and
+											quantitative methods using MATLAB. Multi-disciplinary team
+											projects designed to replicate decision processes in
+											real-world situations.</p>
+
+									</blockquote>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-6 col-md-4 teacher">
+							<div id="accordion" role="tablist">
+								<div class="card">
+									<div class="card-header" role="tab" id="headingOne">
+										<h5 class="mb-0">
+											<a data-toggle="collapse" href="#collapseOne"
+												aria-expanded="true" aria-controls="collapseOne"><i
+												class="material-icons">perm_identity</i> Teacher Info </a>
+										</h5>
+									</div>
+									<div id="collapseOne" class="collapse show" role="tabpanel"
+										aria-labelledby="headingOne" data-parent="#accordion">
+										<div class="card-body">
+											Email:isososo@umd.edu<br> Linkedin Address:...........<br>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<hr>
+					<!--the table and score arrangement-->
+
+					<div class="row scheduleinfo">
+						<div class="col-12 col-sm-6 col-md-8">
+							<h4>
+								<i class="fa fa-file-text-o"></i> Schedule
+							</h4>
+							<a href="#"> <i class="material-icons">delete</i>
+							</a> <a href="#"> <i class="material-icons">add</i>
+							</a>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col">Date</th>
+										<th scope="col">Info</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">Mon Sep 4, 2017</th>
+										<td>Prerequisite knowledge Quiz</td>
+										<td><a href="#"> <i class="material-icons">create</i>
+										</a></td>
+										<td><a href="#"> <i class="material-icons">clear</i>
+										</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<br>
+					<button type="button" class="btn btn-default btn-primary ">
+						Publish</button>
+					<button type="button" class="btn btn-default btn-light ">
+						Cancel</button>
+
+				</div>
+
+			</div>
+			
+
+
+
+
+		
+			
+</div>
+</div>
+
+    <script>
+        function goTabAssignmentPage(id)
+        {
+        window.location.href = "tabAssignment"
+        }
+
+        function goTabGradePage(id)
+        {
+        window.location.href = "tabGrade"
+        }
+        
+        function goTabStudentPage(id)
+        {
+        window.location.href = "tabStudent"
+        }
+        
+    </script>
+</body>
+
+
+<!-- footer here -->
+<footer>
+    <div th:insert="fragments/footer ::footer" class='no-print'></div>
+</footer>
+</html>
+
+
+
