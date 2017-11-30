@@ -38,12 +38,14 @@
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Course </a>
                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                            <th:block th:each="course : ${userCourses}" class="card-body">
-                            <a href="courseInfo" th:text="${course.ID}" class="card-text">Course ID</a>
+                                <div style="text-align:center color:blue">
+                                    <a href="instructorCourse" th:text="${course.ID}" class="card-text">Course ID</a>
+                                </div>
                             </th:block>
                         </div>
                     </li>
                     
-                    <li class="nav-item"><a class="nav-link" href="messages">Message</a> </li>
+                    <li class="nav-item"><a class="nav-link" href="#">Message</a> </li>
                     
                     <li class="nav-item"><a class="nav-link " href="gradeProfessor">Grade</a> </li>
                     

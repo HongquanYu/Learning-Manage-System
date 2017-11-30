@@ -169,9 +169,9 @@ public class ServiceRequestController {
 		return "message";
 	}
 
-	@RequestMapping(value = "/grades", method = RequestMethod.GET)
+	@RequestMapping(value = "/gradeStudent", method = RequestMethod.GET)
 	public String goToGrade(HttpServletRequest request, HttpServletResponse response) {
-		return "grade";
+		return "gradeStudent";
 	}
 
 	@RequestMapping(value = "/profiles", method = RequestMethod.GET)
