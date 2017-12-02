@@ -3,25 +3,32 @@
 
 <!-- header here -->
 <head>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no"
-	charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" charset="utf-8">
 
 <!--icon link-->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <th:block th:replace="fragments/header ::head"></th:block>
 
-<link rel="stylesheet" th:href="@{/resources/css/jquery.dataTables.min.css}" type="text/css" />
+<!-- <link rel="stylesheet" th:href="@{/resources/css/jquery.dataTables.min.css}" type="text/css" /> -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 
-<script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+<!-- <script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script> -->
+<!-- <script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script> -->
+<!-- <script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+
+<script>
+	$(document).ready( function () {
+	    $('#studentTable').DataTable();
+	    $('#gradeTable').DataTable();
+	} );
+</script>
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" type="text/css">
@@ -136,11 +143,11 @@
 							title="Turn in at: 2/10/17">Assignment5</button>
 					</div>
 				</div>
-			</div> <br /> <br />
+			</div> 
 
 			<div role="tabpanel" class="tab-pane fade show" id="grade">
 				<div class="container container1">
-                    <h2 style="text-align:center">Grade List</h2> <br /><br /><br />
+                    <h2 style="text-align:center">Grade List</h2> <br />
                     
                     <table id="gradeTable" class="display">
                         <thead>
