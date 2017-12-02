@@ -2,15 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<th:block th:replace="fragments/header ::head"></th:block>
+
 </head>
 <body>
-    <div th:fragment="footer">
-        <div class="thick"></div>
+	<div th:fragment="footer">
+<!-- 		<div class="thick"></div> -->
         <div class="panel-footer" align="center">
-        <font size="3">Copyright @2017 <a>ezcomm.umd.com</a>, All
-            Rights Reserved.
-        </font>
-    </div>
-    </div>
+			<font size="3">Copyright @2017 <strong>ezcomm.umd.edu</strong>, All
+				Rights Reserved.
+			</font>
+		</div>
+	</div>
 </body>
 </html>

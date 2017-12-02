@@ -17,4 +17,6 @@ public interface StudentService {
 	
 	public List<Assignment> getAssignments(String userID);
 	
+	public List<Assignment> getAssignmentGrade(String userID);
+	
 }

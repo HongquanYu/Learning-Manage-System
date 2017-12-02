@@ -77,4 +77,28 @@ public class StudentServiceImpl implements StudentService{
 		
 		return assignment;
 	}
+
+	@Override
+	public List<Assignment> getAssignmentGrade(String userID) {
+		String SQL = "SELECT AL.AssignmentID, AG.Grade, C.Name " + 
+				"FROM ((AssignmentList AL " + 
+				"INNER JOIN  AssignmentGrade AG ON AG.AssignmentID = AL.AssignmentID) " + 
+				"INNER JOIN Courses C ON AL.CourseID = C.ID) " + 
+				"WHERE AG.StudentID = '" + userID + "';";
+		
+		List<Assignment> assignment = template.query(SQL, new RowMapper<Assignment>() {
+			@Override
+			public Assignment mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Assignment a = new Assignment();
+				
+				a.setId(rs.getString("AssignmentID"));
+				a.setGrade(rs.getInt("Grade"));
+				a.setCourseName(rs.getString("Name"));
+				
+				return a;
+			}
+		});
+		
+		return assignment;
+	}
 }

@@ -11,7 +11,34 @@ import java.sql.Date;
 public class Assignment {
 	private String id;
 	private Date due;
+	private int grade;
+	private String courseName;
+	private boolean isSubmitted;
 	
+	public boolean isSubmitted() {
+		return isSubmitted;
+	}
+
+	public void setSubmitted(boolean isSubmitted) {
+		this.isSubmitted = isSubmitted;
+	}
+
+	public int getGrade() {
+		return grade;
+	}
+
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+
+	public String getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
+
 	public String getId() {
 		return id;
 	}

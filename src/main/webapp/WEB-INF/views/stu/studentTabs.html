@@ -17,14 +17,14 @@
 
 <link rel="stylesheet" th:href="@{/resources/css/jquery.dataTables.min.css}" type="text/css" />
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script>
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
-	type="text/css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" type="text/css">
 
 <title>student course page</title>
 
@@ -55,14 +55,27 @@
 		<!-- assignment -->
 
 			<div class="tab-pane fade show active" id="courseInfo" role="tabpanel">
-
-				<div class="row notification">
-
-                    <form>
-                        <input type="file" accept="application/pdf" />
-                        
-                        
-                    </form>
+				<div class="login_padding">
+                    
+                    <h2>Course Syllabus</h2>
+					<object th:href="@{/resources/file/S611.pdf}" type="application/pdf" width="50%"
+						height="50%">
+						<p>
+							<a th:href="@{/resources/file/S611.pdf}">Syllabus!</a>
+						</p>
+					</object>
+					<form action="" method="post">
+					    
+						<h3 class="txt_input txt_input2">Upload syllabus:</h3>
+						<label> <input type="file" accept="application/pdf" />
+						</label> 
+						<label><input type="Submit" value="Upload"></label>
+						<label><a href="#">Cancel</a></label>
+						
+					    <h3>Download syllabus:</h3>
+                        <label> <input type="file" accept="application/pdf" />
+                        </label> <input type="Submit" value="download">
+					</form>
 
 				</div>
 				<!-- end of row notification -->
@@ -126,7 +139,7 @@
 			</div> <br /> <br />
 
 			<div role="tabpanel" class="tab-pane fade show" id="grade">
-				<div class="row">
+				<div class="container container1">
                     <h2 style="text-align:center">Grade List</h2> <br /><br /><br />
                     
                     <table id="gradeTable" class="display">
@@ -134,14 +147,15 @@
                            <tr>
                                 <th> Assignment</th>
                                 <th> Grade</th>
+                                <th> Course Name</th>
                            </tr>
                         </thead>
                         <tbody>
-                            <th:block th:each="stu : ${studentList}">
+                            <th:block th:each="assi : ${assignmentGradeList}">
                                 <tr>
-                                    <td th:text="${stu.userID}"></td>
-                                    <td th:text="${stu.name}"></td>
-                                    <td th:text="${stu.email}"></td>
+                                    <td th:text="${assi.id}"></td>
+                                    <td th:text="${assi.grade}"></td>
+                                    <td th:text="${assi.courseName}"></td>
                                 </tr>
                             </th:block>
                         </tbody>

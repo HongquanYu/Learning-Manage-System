@@ -172,6 +172,8 @@ public class ServiceRequestController {
 			HttpServletResponse response, Map<String, Object> model) {
 		String userID = (String) session.getAttribute("userID");
 		
+		List<Assignment> assignmentGradeList = new LinkedList<>();
+		
 		List<Course> courses = null;
 		List<Message> messages = null;
 		List<Assignment> assignments = null;
@@ -180,6 +182,8 @@ public class ServiceRequestController {
 			courses = userService.courseEnrolled(userID);
 			messages = userService.messageReceived(userID);
 			assignments = studentService.getAssignments(userID);
+			assignmentGradeList = studentService.getAssignmentGrade(userID);
+			
 		} catch (Exception e) {
 			log.info("data access error.");
 			model.put("dataException", true);
@@ -192,6 +196,7 @@ public class ServiceRequestController {
 		model.put("userCourses", courses);
 		model.put("userMessages", messages);
 		model.put("userAssignemnts", assignments);
+		model.put("assignmentGradeList", assignmentGradeList);
 		
 		return "/stu/studentTabs";
 	}
