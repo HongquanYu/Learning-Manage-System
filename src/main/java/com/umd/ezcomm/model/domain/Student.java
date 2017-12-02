@@ -1,5 +1,6 @@
 package com.umd.ezcomm.model.domain;
 
+import java.util.HashMap;
 import java.util.List;
 
 /** @author: Hongquan Yu
@@ -10,17 +11,18 @@ import java.util.List;
  */
 public class Student extends User{
 	
-	private String id;
 	private String name;
 	private int GPA;
-	private List<Course> courses;
-
-	public String getId() {
-		return id;
+	private List<Course> courseList;
+	private HashMap<String, String> courses;		// CourseID - StudentID
+	
+	
+	public List<Course> getCourseList() {
+		return courseList;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setCourseList(List<Course> courseList) {
+		this.courseList = courseList;
 	}
 
 	public String getName() {
@@ -39,11 +41,12 @@ public class Student extends User{
 		GPA = gPA;
 	}
 
-	public List<Course> getCourses() {
+	public HashMap<String, String> getCourses() {
 		return courses;
 	}
 
-	public void setCourses(List<Course> courses) {
+	public void setCourses(HashMap<String, String> courses) {
 		this.courses = courses;
 	}
+
 }

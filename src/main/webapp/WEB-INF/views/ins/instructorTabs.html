@@ -14,10 +14,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script>
+
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" type="text/css">
 
-<title>course</title>
+<title>instructor course page</title>
 </head>
 
 
@@ -198,24 +202,30 @@
 			</div>
 
             <div role="tabpanel" class="tab-pane fade show" id="student">
-                <div class="container container1">
-                    <table class="table table-hover">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">Student ID</th>
-                                <th scope="col">Student name</th>
-                                <th scope="col">Section</th>
-                                <th scope="col">Role</th>
 
-                            </tr>
+                <div class="container container1">
+                    <h2 style="text-align:center">Student lists</h2>
+                    
+                    <table id="studentTable" class="display" cellspacing="0">
+                        <thead>
+                           <tr>
+                                <th colspan="10" class="table-header" th:text="Hello"></th>
+                           </tr>
+                           <tr>
+                                <th> ID</th>
+                                <th> Name</th>
+                                <th> Email</th>
+<!--                                 <th> Course Name</th> -->
+                           </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">16378</th>
-                                <td>Emma</td>
-                                <td>ENPM613-0101</td>
-                                <td>Student</td>
-                            </tr>
+                            <th:block th:each="stu : ${studentList}">
+                                <td th:text="${stu.userID}"></td>
+                                <td th:text="${stu.name}"></td>
+                                <td th:text="${stu.email}"></td>
+<!--                                 <td th:text="${stu.}"></td> -->
+<!--                                 <td><a href="#">Profile</a></td> -->
+                            </th:block>
                         </tbody>
                     </table>
                 </div>

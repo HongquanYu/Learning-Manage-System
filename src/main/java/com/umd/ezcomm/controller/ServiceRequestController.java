@@ -1,5 +1,6 @@
 package com.umd.ezcomm.controller;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,13 +15,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.umd.ezcomm.model.dao.service.impl.CourseServiceImpl;
+import com.umd.ezcomm.model.dao.service.impl.InstructorServiceImpl;
 import com.umd.ezcomm.model.dao.service.impl.StudentServiceImpl;
 import com.umd.ezcomm.model.dao.service.impl.UserServiceImpl;
 import com.umd.ezcomm.model.domain.Assignment;
 import com.umd.ezcomm.model.domain.Course;
 import com.umd.ezcomm.model.domain.Message;
+import com.umd.ezcomm.model.domain.Student;
 
 /**
  * @author: Hongquan Yu
@@ -32,6 +34,8 @@ import com.umd.ezcomm.model.domain.Message;
 
 @Controller
 public class ServiceRequestController {
+	
+	private final String emailValidateRegEx = "^([0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$";
 
 	private static final Logger log = LogManager.getLogger();
 
@@ -39,13 +43,14 @@ public class ServiceRequestController {
 	UserServiceImpl userService = (UserServiceImpl) context.getBean("UserServiceImpl");
 	CourseServiceImpl courseService = (CourseServiceImpl) context.getBean("CourseServiceImpl");
 	StudentServiceImpl studentService = (StudentServiceImpl) context.getBean("StudentServiceImpl");
+	InstructorServiceImpl instructorService = (InstructorServiceImpl) context.getBean("InstructorServiceImpl");
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String portal(HttpServletRequest request, HttpServletResponse response) {
 		return "login";
 	}
 
-	@RequestMapping(value = "/studentHome", method = RequestMethod.GET)
+	@RequestMapping(value = "/stu/studentHome", method = RequestMethod.GET)
 	public String studentHomepage(HttpServletRequest request, HttpSession session, Map<String, Object> model) {
 
 		String ue = (String) session.getAttribute("userEmail");
@@ -64,7 +69,6 @@ public class ServiceRequestController {
 			model.put("dataException", true);
 		}
 
-		model.put("userID", userID);
 		model.put("courseNum", courses == null ? 0 : courses.size());
 		model.put("messageNum", messages == null ? 0 : messages.size());
 		model.put("assignmentNum", assignments == null ? 0 : assignments.size());
@@ -73,11 +77,11 @@ public class ServiceRequestController {
 		model.put("userMessages", messages);
 		model.put("userAssignemnts", assignments);
 
-		return "studentHome";
+		return "/stu/studentHome";
 	}
 	
 	
-	@RequestMapping(value = "/instructorHome", method = RequestMethod.GET)
+	@RequestMapping(value = "/ins/instructorHome", method = RequestMethod.GET)
 	public String instructorHomepage(HttpServletRequest request, HttpSession session, Map<String, Object> model) {
 
 		String ue = (String) session.getAttribute("userEmail");
@@ -85,27 +89,22 @@ public class ServiceRequestController {
 
 		List<Course> courses = null;
 		List<Message> messages = null;
-		List<Assignment> assignments = null;
 
 		try {
 			courses = userService.courseEnrolled(userID);
 			messages = userService.messageReceived(userID);
-			assignments = studentService.getAssignments(userID);
 		} catch (Exception e) {
 			log.info("data access error.");
 			model.put("dataException", true);
 		}
 
-		model.put("userID", userID);
 		model.put("courseNum", courses == null ? 0 : courses.size());
 		model.put("messageNum", messages == null ? 0 : messages.size());
-		model.put("assignmentNum", assignments == null ? 0 : assignments.size());
 
-		model.put("userCourses", courses);
-		model.put("userMessages", messages);
-		model.put("userAssignemnts", assignments);
+		model.put("insCourses", courses);
+		model.put("insMessages", messages);
 
-		return "instructorHome";
+		return "/ins/instructorHome";
 	}
 
 	/* user authentication and load data. */
@@ -123,70 +122,186 @@ public class ServiceRequestController {
 			model.put("illegalUser", true);
 			return "login";
 		} else {
+			session.setAttribute("userID", userID);
 			session.setAttribute("userEmail", ue);
 			session.setAttribute("isLegalUser", true);
-			return isStudent ? "redirect:/studentHome.html" : "redirect:/instructorHome.html";
+			return isStudent ? "redirect:stu/studentHome.html" : "redirect:ins/instructorHome.html";
 		}
 	}
 
-	@RequestMapping(value = "/instructorTabs", method = RequestMethod.GET)
-	public String goToInstructorTabs(HttpServletRequest request, HttpServletResponse response) {
-		return "instructorTabs";
+	@RequestMapping(value = "/ins/instructorTabs", method = RequestMethod.GET)
+	public String goToInstructorTabs(HttpServletRequest request, HttpSession session, 
+			HttpServletResponse response, Map<String, Object> model) {
+		
+		String userID = (String) session.getAttribute("userID");
+		List<Course> courseList = instructorService.getCourseList(userID);
+		List<Student> studentList = new LinkedList<>();
+		
+		
+		List<Course> courses = null;
+		List<Message> messages = null;
+		List<Assignment> assignments = null;
+
+//		try {
+			courses = userService.courseEnrolled(userID);
+//			messages = userService.messageReceived(userID);
+//			assignments = studentService.getAssignments(userID);
+			for (Course c : courseList) {
+				studentList.addAll(instructorService.getStudentList(c.getID()));
+			}
+			
+		System.out.println("----student list size: " + studentList.size());
+//			
+//		} catch (Exception e) {
+//			log.info("data access error.");
+//			model.put("dataException", true);
+//		}
+
+//		model.put("courseNum", courses == null ? 0 : courses.size());
+//		model.put("messageNum", messages == null ? 0 : messages.size());
+//		model.put("assignmentNum", assignments == null ? 0 : assignments.size());
+		
+		model.put("studentList", studentList);
+		model.put("userCourses", courses);
+		model.put("userMessages", messages);
+		model.put("userAssignemnts", assignments);
+		
+		return "/ins/instructorTabs";
 	}
 	
-	@RequestMapping(value = "/studentTabs", method = RequestMethod.GET)
-	public String goToStudentTabs(HttpServletRequest request, HttpServletResponse response) {
-		return "studentTabs";
-	}
+	@RequestMapping(value = "/stu/studentTabs", method = RequestMethod.GET)
+	public String goToStudentTabs(HttpServletRequest request, HttpSession session, 
+			HttpServletResponse response, Map<String, Object> model) {
+		String userID = (String) session.getAttribute("userID");
+		
+		List<Course> courses = null;
+		List<Message> messages = null;
+		List<Assignment> assignments = null;
 
-	@RequestMapping(value = "/courseDetail", method = RequestMethod.GET)
-	public String goToCourse(HttpServletRequest request, HttpServletResponse response) {
-		return "courseDetail";
-	}
+		try {
+			courses = userService.courseEnrolled(userID);
+			messages = userService.messageReceived(userID);
+			assignments = studentService.getAssignments(userID);
+		} catch (Exception e) {
+			log.info("data access error.");
+			model.put("dataException", true);
+		}
 
-	@RequestMapping(value = "/assignmentInfo", method = RequestMethod.GET)
-	public String goToAssignment(HttpServletRequest request, HttpServletResponse response) {
-		return "assignmentDetail";
-	}
+		model.put("courseNum", courses == null ? 0 : courses.size());
+		model.put("messageNum", messages == null ? 0 : messages.size());
+		model.put("assignmentNum", assignments == null ? 0 : assignments.size());
 
-	@RequestMapping(value = "/courseAssignment", method = RequestMethod.GET)
-	public String goToCourseAssignment(HttpServletRequest request, HttpServletResponse response) {
-		return "courseAssignment";
+		model.put("userCourses", courses);
+		model.put("userMessages", messages);
+		model.put("userAssignemnts", assignments);
+		
+		return "/stu/studentTabs";
 	}
 	
-	@RequestMapping(value = "/gradeProfessor", method = RequestMethod.GET)
-	public String goToInstructorGradePage(HttpServletRequest request, HttpServletResponse response) {
-		return "gradeProfessor";
+	@RequestMapping(value = "/ins/gradeProfessor", method = RequestMethod.GET)
+	public String goToInstructorGradePage(HttpServletRequest request, HttpServletResponse response, 
+			HttpSession session, Map<String, Object> model) {
+		String userID = (String) session.getAttribute("userID");
+		
+		List<Course> courses = null;
+		List<Message> messages = null;
+		List<Assignment> assignments = null;
+
+		try {
+			courses = userService.courseEnrolled(userID);
+			messages = userService.messageReceived(userID);
+			assignments = studentService.getAssignments(userID);
+		} catch (Exception e) {
+			log.info("data access error.");
+			model.put("dataException", true);
+		}
+
+		model.put("courseNum", courses == null ? 0 : courses.size());
+		model.put("messageNum", messages == null ? 0 : messages.size());
+		model.put("assignmentNum", assignments == null ? 0 : assignments.size());
+
+		model.put("userCourses", courses);
+		model.put("userMessages", messages);
+		model.put("userAssignemnts", assignments);
+		
+		return "/ins/gradeProfessor";
+	}
+
+	@RequestMapping(value = "/stu/gradeStudent", method = RequestMethod.GET)
+	public String goToGrade(HttpServletRequest request, HttpServletResponse response, 
+			HttpSession session, Map<String, Object> map) {
+		String userID = (String) session.getAttribute("userID");
+
+		List<Course> courses = null;
+		List<Message> messages = null;
+		List<Assignment> assignments = null;
+
+		try {
+			courses = userService.courseEnrolled(userID);
+			messages = userService.messageReceived(userID);
+			assignments = studentService.getAssignments(userID);
+		} catch (Exception e) {
+			log.info("data access error.");
+			map.put("dataException", true);
+		}
+		
+
+		map.put("courseNum", courses == null ? 0 : courses.size());
+		map.put("messageNum", messages == null ? 0 : messages.size());
+		map.put("assignmentNum", assignments == null ? 0 : assignments.size());
+
+		map.put("userCourses", courses);
+		map.put("userMessages", messages);
+		map.put("userAssignemnts", assignments);
+		
+		return "/stu/gradeStudent";
+	}
+
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	public String goToProfile(HttpServletRequest request, HttpServletResponse response, 
+			HttpSession session, Map<String, Object> model) {
+		String userID = (String) session.getAttribute("userID");
+		
+		List<Course> courses = null;
+		List<Message> messages = null;
+		List<Assignment> assignments = null;
+
+		try {
+			courses = userService.courseEnrolled(userID);
+			messages = userService.messageReceived(userID);
+			assignments = studentService.getAssignments(userID);
+		} catch (Exception e) {
+			log.info("data access error.");
+			model.put("dataException", true);
+		}
+
+		model.put("courseNum", courses == null ? 0 : courses.size());
+		model.put("messageNum", messages == null ? 0 : messages.size());
+		model.put("assignmentNum", assignments == null ? 0 : assignments.size());
+
+		model.put("userCourses", courses);
+		model.put("userMessages", messages);
+		model.put("userAssignemnts", assignments);
+		
+		return "/profile";
 	}
 	
-	@RequestMapping(value = "/courseGrade", method = RequestMethod.GET)
-	public String goToCourseGrade(HttpServletRequest request, HttpServletResponse response) {
-		return "courseGrade";
-	}
-
-	@RequestMapping(value = "/messages", method = RequestMethod.GET)
-	public String goToMessage(HttpServletRequest request, HttpServletResponse response) {
-		return "message";
-	}
-
-	@RequestMapping(value = "/gradeStudent", method = RequestMethod.GET)
-	public String goToGrade(HttpServletRequest request, HttpServletResponse response) {
-		return "gradeStudent";
-	}
-
-	@RequestMapping(value = "/profiles", method = RequestMethod.GET)
-	public String goToProfile(HttpServletRequest request, HttpServletResponse response) {
-		return "profile";
-	}
+//	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+//	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+//		session.invalidate();
+//		return "login";
+//	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		session.invalidate();
-		return "login";
+		return "/login";
 	}
 
 	@RequestMapping(value = "/resetPWD", method = RequestMethod.GET)
 	public String resetPassword(HttpServletRequest request, HttpServletResponse response) {
+		
+		
 		return "passwordReset";
 	}
 }

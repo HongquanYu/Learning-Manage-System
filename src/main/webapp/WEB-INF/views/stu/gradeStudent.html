@@ -2,21 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!-- header here-->
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    charset="utf-8">
+
+<!--icon link-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <th:block th:replace="fragments/header ::head"></th:block>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+    type="text/css">
 
-<title>grade</title>
+<title>student grade page</title>
+
 </head>
 
 <!-- body here -->
@@ -24,8 +28,9 @@
 	<div th:insert="fragments/header ::umdHeader" class='no-print'></div>
 
 	<div class="container">
-		<div th:replace="fragments/header ::ezcommHeader" class='no-print'></div> 
-
+	
+        <div th:replace="fragments/header ::ezcommHeader" class='no-print'></div> <br />
+		
 	<div class="row">
 		<div class="col-sm-2"></div>
 		<div class="col-sm-8">

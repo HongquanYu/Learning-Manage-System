@@ -8,18 +8,18 @@ package com.umd.ezcomm.model.domain;
  */
 public class User {
 	
-	private int userID;
+	private String userID;
 	private String name;
 	private int age;
 	private String password;
 	private String email;
 	private String jobStatus;
 	
-	public int getUserID() {
+	public String getUserID() {
 		return userID;
 	}
 
-	public void setUserID(int userID) {
+	public void setUserID(String userID) {
 		this.userID = userID;
 	}
 

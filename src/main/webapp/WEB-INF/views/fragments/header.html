@@ -39,7 +39,7 @@
 					   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					       <th:block th:each="course : ${userCourses}" class="card-body">
                                 <div style="text-align:center">
-                                    <a href="courseDetail" th:text="${course.ID}" class="card-text">CourseID</a>
+                                    <a th:href="@{studentTabs}" th:text="${course.ID}" class="card-text">CourseID</a>
                                 </div>
                             </th:block>
 						</div>
@@ -47,11 +47,11 @@
 					
 					<li class="nav-item"><a class="nav-link" href="#">Message</a> </li>
 					
-					<li class="nav-item"><a class="nav-link " href="gradeStudent">Grade</a> </li>
+					<li class="nav-item"><a class="nav-link " th:href="@{/stu/gradeStudent}">Grade</a> </li>
 					
-					<li class="nav-item"><a class="nav-link " href="profiles">Profile</a> </li>
+					<li class="nav-item"><a class="nav-link " th:href="@{/profile}">Profile</a> </li>
 					
-					<li class="nav-item"><a class="nav-link " href="logout">Logout</a> </li>
+					<li class="nav-item"><a class="nav-link " th:href="@{/logout}">Logout</a> </li>
 					
 				</ul>
 				
@@ -65,5 +65,12 @@
 			
 		</nav>
 	</div>
+	
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    
 </body>
 </html>

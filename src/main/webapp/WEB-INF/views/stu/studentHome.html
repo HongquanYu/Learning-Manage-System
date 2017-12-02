@@ -27,7 +27,7 @@
 				<div class="list-group">
 					<div th:if="${assignmentNum} > 0" class="alert alert-danger" role="alert">New Assignment!! </div>
 	                    <div th:each="assign : ${userAssignemnts}">
-							<a href="assignmentInfo" class="list-group-item list-group-item-action">
+							<a href="#" class="list-group-item list-group-item-action">
 							     <th:block th:utext="${assign.id}" class="list-group-item list-group-item-action"/> 
 								 <small th:text="${assign.due}" class="text-muted"></small>
 							</a>
@@ -57,7 +57,7 @@
 
                 <div class="list-group">
 					<div th:each="message : ${userMessages}">
-						<a href="messages" class="list-group-item list-group-item-info list-group-item-action flex-column align-items-start active">
+						<a href="#" class="list-group-item list-group-item-info list-group-item-action flex-column align-items-start active">
 							<div class="d-flex w-100 justify-content-between">
 								<h5 th:text="${message.senderName}" class="mb-2">sender name</h5>
 								<small th:text="${message.receivedDate}">message received date</small>
