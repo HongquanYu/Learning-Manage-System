@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <!-- header here-->
 <head>
@@ -9,14 +9,18 @@
 
 <th:block th:replace="fragments/instructorHeader ::head"></th:block>
 
+<link rel="stylesheet" th:href="@{/resources/css/jquery.dataTables.min.css}" type="text/css" />
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script>
+
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" type="text/css">
@@ -204,27 +208,24 @@
             <div role="tabpanel" class="tab-pane fade show" id="student">
 
                 <div class="container container1">
-                    <h2 style="text-align:center">Student lists</h2>
+                    <br /><br /><br />
+                    <h2 style="text-align:center">Student lists</h2> <br /><br /><br />
                     
-                    <table id="studentTable" class="display" cellspacing="0">
+                    <table id="studentTable" class="display">
                         <thead>
                            <tr>
-                                <th colspan="10" class="table-header" th:text="Hello"></th>
-                           </tr>
-                           <tr>
-                                <th> ID</th>
-                                <th> Name</th>
-                                <th> Email</th>
-<!--                                 <th> Course Name</th> -->
+                                <th> Student ID</th>
+                                <th> Student Name</th>
+                                <th> Student Email</th>
                            </tr>
                         </thead>
                         <tbody>
                             <th:block th:each="stu : ${studentList}">
-                                <td th:text="${stu.userID}"></td>
-                                <td th:text="${stu.name}"></td>
-                                <td th:text="${stu.email}"></td>
-<!--                                 <td th:text="${stu.}"></td> -->
-<!--                                 <td><a href="#">Profile</a></td> -->
+                                <tr>
+	                                <td th:text="${stu.userID}"></td>
+	                                <td th:text="${stu.name}"></td>
+	                                <td th:text="${stu.email}"></td>
+                                </tr>
                             </th:block>
                         </tbody>
                     </table>

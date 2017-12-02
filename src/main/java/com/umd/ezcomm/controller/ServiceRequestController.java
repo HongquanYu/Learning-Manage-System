@@ -142,7 +142,7 @@ public class ServiceRequestController {
 		List<Message> messages = null;
 		List<Assignment> assignments = null;
 
-//		try {
+		try {
 			courses = userService.courseEnrolled(userID);
 //			messages = userService.messageReceived(userID);
 //			assignments = studentService.getAssignments(userID);
@@ -150,12 +150,10 @@ public class ServiceRequestController {
 				studentList.addAll(instructorService.getStudentList(c.getID()));
 			}
 			
-		System.out.println("----student list size: " + studentList.size());
-//			
-//		} catch (Exception e) {
-//			log.info("data access error.");
-//			model.put("dataException", true);
-//		}
+		} catch (Exception e) {
+			log.info("data access error.");
+			model.put("dataException", true);
+		}
 
 //		model.put("courseNum", courses == null ? 0 : courses.size());
 //		model.put("messageNum", messages == null ? 0 : messages.size());
