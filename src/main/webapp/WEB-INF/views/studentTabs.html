@@ -32,6 +32,10 @@
 
 		<div th:replace="fragments/header ::ezcommHeader" class='no-print'></div> <br />
 
+		<div th:if="${message}">
+			<h2 th:text="${message}"></h2>
+		</div>
+
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
 			     <a class="nav-link active" href="#courseInfo" role="tab" data-toggle="tab">Course Information</a>

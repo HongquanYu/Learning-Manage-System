@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
@@ -6,6 +8,12 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no"
 	charset="utf-8">
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/resources/js/filemanager.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script>
 
 <!--icon link-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -15,18 +23,12 @@
 
 <th:block th:replace="fragments/header ::head"></th:block>
 
-<link rel="stylesheet" th:href="@{/resources/css/jquery.dataTables.min.css}" type="text/css" />
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" th:src="@{/resources/js/filemanager.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script>
-
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+	type="text/css">
 
-<title>student course page</title>
+<title>Student Course Page</title>
 
 </head>
 
@@ -124,11 +126,11 @@
 							title="Turn in at: 2/10/17">Assignment5</button>
 					</div>
 				</div>
-			</div> <br /> <br />
+			</div> 
 
 			<div role="tabpanel" class="tab-pane fade show" id="grade">
 				<div class="container container1">
-                    <h2 style="text-align:center">Grade List</h2> <br /><br /><br />
+                    <h2 style="text-align:center">Grade List</h2> <br />
                     
                     <table id="gradeTable" class="display">
                         <thead>
