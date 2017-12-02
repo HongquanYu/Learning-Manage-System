@@ -18,7 +18,7 @@
 <link rel="stylesheet" th:href="@{/resources/css/jquery.dataTables.min.css}" type="text/css" />
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<script type="text/javascript" th:src="@{/resources/js/filemanager.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script>
@@ -58,21 +58,11 @@
 				<div class="login_padding">
                     
                     <h2>Course Syllabus</h2>
-					<object th:href="@{/resources/file/S611.pdf}" type="application/pdf" width="50%"
-						height="50%">
-						<p>
-							<a th:href="@{/resources/file/S611.pdf}">Syllabus!</a>
-						</p>
-					</object>
+
 					<form action="" method="post">
-					    
-						<h3 class="txt_input txt_input2">Upload syllabus:</h3>
-						<label> <input type="file" accept="application/pdf" />
-						</label> 
-						<label><input type="Submit" value="Upload"></label>
-						<label><a href="#">Cancel</a></label>
-						
-					    <h3>Download syllabus:</h3>
+						    
+					
+						<h3 class="txt_input txt_input2">Download syllabus:</h3>					    
                         <label> <input type="file" accept="application/pdf" />
                         </label> <input type="Submit" value="download">
 					</form>
@@ -85,8 +75,6 @@
 
 			<div role="tabpanel" class="tab-pane fade show" id="assignment">
 				<div class="alert alert-warning alert-dismissible fade show" role="alert">
-					<strong>Hi Emily!</strong> you have <strong>3</strong> assignment
-					to do
 					<button type="button" class="close" data-dismiss="alert"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
