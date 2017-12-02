@@ -15,6 +15,12 @@
 
 <th:block th:replace="fragments/header ::head"></th:block>
 
+<link rel="stylesheet" th:href="@{/resources/css/jquery.dataTables.min.css}" type="text/css" />
+
+<script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script>
+
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
@@ -34,7 +40,7 @@
 
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
-			     <a class="nav-link active" href="#courseInfo" role="tab" data-toggle="tab">Information</a>
+			     <a class="nav-link active" href="#courseInfo" role="tab" data-toggle="tab">Course Information</a>
 			</li>
 			<li class="nav-item">
 			     <a class="nav-link" href="#assignment" role="tab" data-toggle="tab">Assignment</a>
@@ -52,134 +58,12 @@
 
 				<div class="row notification">
 
-					<div class="col-12 col-md-8 info">
-						<!-- for assignment detail -->
+                    <form>
+                        <input type="file" accept="application/pdf" />
+                        
+                        
+                    </form>
 
-						<div class="alert alert-info" role="alert"
-							style="margin-top: 20px">
-							<h4 class="alert-heading">Assignment 1</h4>
-							<p>Page 664 Review Questions: 20.7 20.8 Problems: 20.6, 20.7,
-								20.10, 20.13 (Part (a) only), 20.14, 20.16</p>
-							<hr>
-							<h4 class="alert-heading">Grading Detail</h4>
-							<p>
-								Points:30; <br> Review questions 20.7) 5/5. Good 20.8)
-								4.5/5. You need to mention it has no importance.15/15.Good
-								20.14) . You need to mention about fault tolerance, trusted
-								software/hardware and vulnerabilities.
-							</p>
-
-						</div>
-
-						<!-- for submission btn -->
-
-						<button type="button" class="btn btn-primary btn-lg btn-block "
-							data-toggle="modal" data-target="#submitModal">Submit</button>
-
-						<!-- Submit Modal -->
-						<div class="modal fade" id="submitModal" tabindex="-1"
-							role="dialog" aria-labelledby="exampleModalLabel"
-							aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Upload
-											File</h5>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-
-									<div class="modal-body">
-										<form action="/action_page.php">
-											<input type="file" name="file" accept="pdf/*">
-										</form>
-										<br> <br>
-										<p>
-											<strong>Note:</strong>The file shouldn't exceed 2M<br>
-											please use the form(assignmentname+ID)
-										</p>
-									</div>
-
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Cancel</button>
-										<button type="button" class="btn btn-success">Submit</button>
-									</div>
-
-								</div>
-							</div>
-						</div>
-
-
-						<!-- for submission detail -->
-
-						<h3 style="margin-top: 40px">Submission Details</h3>
-						<hr>
-						<div class="row">
-							<div class="col-md-4">
-								<button type="button" class="btn btn-info" style="width: 200px">Download
-								</button>
-							</div>
-							<div class="col-md-4">
-								<button type="button" class="btn btn-info" data-toggle="modal"
-									data-target="#reveiwModel" style="width: 200px">Review
-									Your Submission</button>
-
-								<!-- reveiw your submission Modal -->
-								<div class="modal fade" id="reveiwModel" tabindex="-1"
-									role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-
-											<div class="modal-header">
-												<h5 class="modal-title" id="ModalLabel">Submission
-													detail</h5>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-
-											<div class="modal-body">
-												<h3>File to be reviewed</h3>
-											</div>
-
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">back</button>
-												<button type="button" class="btn btn-success"
-													data-dismiss="modal">download</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-
-					<!-- for submission deadline and rubrics  -->
-					<div class="col-6 col-md-4 ban" style="margin-top: 20px">
-						<ul class="list-group">
-							<li class="list-group-item list-group-item-danger"><i
-								class="fa fa-warning" style="font-size: 24px"></i> Submission
-								constraint</li>
-							<li class="list-group-item list-group-item-warning"><i>
-							</i>Due time:12/13/2017</li>
-							<li class="list-group-item list-group-item-warning"><i>
-							</i>Points:100</li>
-							<li class="list-group-item list-group-item-warning"><i
-								class="material-icons" style="color: red">
-									do_not_disturb_alt</i> No resubmit is allowed</li>
-
-							<li class="list-group-item list-group-item-warning"><i
-								class="material-icons" style="color: red">do_not_disturb_alt</i>
-								Vestibulum at eros</li>
-						</ul>
-					</div>
 				</div>
 				<!-- end of row notification -->
 
@@ -243,62 +127,25 @@
 
 			<div role="tabpanel" class="tab-pane fade show" id="grade">
 				<div class="row">
-
-					<!-- current total score -->
-					<div class="col-6 col-md-4 info">
-						<div class="alert alert-info" role="alert">
-							<h4 class="alert-heading">
-								<i class="material-icons" style="font-size: 36px">sentiment_very_satisfied</i>
-							</h4>
-							<p>Your current score is
-							     <h4> <strong>93%</strong> </h4>
-							<hr>
-						</div>
-					</div>
-
-					<!-- detailed grade table-->
-					<div class="col-12 col-sm-6 col-md-8 table">
-
-						<table class="table table-hover">
-							<thead class="thead-light">
-								<tr>
-									<th scope="col"></th>
-									<th scope="col"><i class="fa fa-paste"
-										style="font-size: 24px"></i> Name</th>
-									<th scope="col"><i class="fa fa-pencil"
-										style="font-size: 24px"></i>Score</th>
-									<th scope="col">Class Average<i class="fa fa-percent"></i>
-
-									</th>
-									<th scope="col">Weight<i class="fa fa-percent"></i>
-
-									</th>
-									<th scope="col">Category</th>
-
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th scope="row"></th>
-									<td>test1</td>
-									<td>89/90</td>
-									<td>80%</td>
-									<td>20%</td>
-									<td>Quiz</td>
-
-								</tr>
-								<tr>
-									<th scope="row"></th>
-									<td>test2</td>
-									<td>60/90</td>
-									<td>80%</td>
-									<td>0%</td>
-									<td>Quiz</td>
-								</tr>
-							</tbody>
-						</table>
-
-					</div>
+                    <h2 style="text-align:center">Grade List</h2> <br /><br /><br />
+                    
+                    <table id="gradeTable" class="display">
+                        <thead>
+                           <tr>
+                                <th> Assignment</th>
+                                <th> Grade</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="stu : ${studentList}">
+                                <tr>
+                                    <td th:text="${stu.userID}"></td>
+                                    <td th:text="${stu.name}"></td>
+                                    <td th:text="${stu.email}"></td>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
 				</div>
 			</div>
 			

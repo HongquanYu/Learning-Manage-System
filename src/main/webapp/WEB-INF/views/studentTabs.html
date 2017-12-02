@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- header here -->
+<head>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no"
+	charset="utf-8">
+
+<!--icon link-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<th:block th:replace="fragments/header ::head"></th:block>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+	type="text/css">
+
+<title>student course page</title>
+
+</head>
+
+<!-- body here -->
+<body>
+	<div th:insert="fragments/header ::umdHeader" class='no-print'></div>
+
+	<div class="container">
+
+		<div th:replace="fragments/header ::ezcommHeader" class='no-print'></div> <br />
+
+		<ul class="nav nav-tabs">
+			<li class="nav-item">
+			     <a class="nav-link active" href="#courseInfo" role="tab" data-toggle="tab">Course Information</a>
+			</li>
+			<li class="nav-item">
+			     <a class="nav-link" href="#assignment" role="tab" data-toggle="tab">Assignment</a>
+			</li>
+			<li class="nav-item">
+			     <a class="nav-link" href="#grade" role="tab" data-toggle="tab">Grade</a>
+			</li>
+		</ul>
+
+		<div class="tab-content">
+		
+		<!-- assignment -->
+
+			<div class="tab-pane fade show active" id="courseInfo" role="tabpanel">
+
+				<div class="row notification">
+
+					<div class="col-12 col-md-8 info">
+						<!-- for assignment detail -->
+
+						<div class="alert alert-info" role="alert"
+							style="margin-top: 20px">
+							<h4 class="alert-heading">Assignment 1</h4>
+							<p>Page 664 Review Questions: 20.7 20.8 Problems: 20.6, 20.7,
+								20.10, 20.13 (Part (a) only), 20.14, 20.16</p>
+							<hr>
+							<h4 class="alert-heading">Grading Detail</h4>
+							<p>
+								Points:30; <br> Review questions 20.7) 5/5. Good 20.8)
+								4.5/5. You need to mention it has no importance.15/15.Good
+								20.14) . You need to mention about fault tolerance, trusted
+								software/hardware and vulnerabilities.
+							</p>
+
+						</div>
+
+						<!-- for submission btn -->
+
+						<button type="button" class="btn btn-primary btn-block "
+							data-toggle="modal" data-target="#submitModal">Submit</button>
+
+						<!-- Submit Modal -->
+						<div class="modal fade" id="submitModal" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Upload
+											File</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+
+									<div class="modal-body">
+										<form action="/action_page.php">
+											<input type="file" name="file" accept="pdf/*">
+										</form>
+										<br> <br>
+										<p>
+											<strong>Note:</strong>The file shouldn't exceed 2M<br>
+											please use the form(assignmentname+ID)
+										</p>
+									</div>
+
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Cancel</button>
+										<button type="button" class="btn btn-success">Submit</button>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+
+						<!-- for submission detail -->
+
+						<h3 style="margin-top: 40px">Submission Details</h3>
+						<hr>
+						<div class="row">
+							<div class="col-md-4">
+								<button type="button" class="btn btn-info" style="width: 200px">Download
+								</button>
+							</div>
+							<div class="col-md-4">
+								<button type="button" class="btn btn-info" data-toggle="modal"
+									data-target="#reveiwModel" style="width: 200px">Review
+									Your Submission</button>
+
+								<!-- reveiw your submission Modal -->
+								<div class="modal fade" id="reveiwModel" tabindex="-1"
+									role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+
+											<div class="modal-header">
+												<h5 class="modal-title" id="ModalLabel">Submission
+													detail</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+
+											<div class="modal-body">
+												<h3>File to be reviewed</h3>
+											</div>
+
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">back</button>
+												<button type="button" class="btn btn-success"
+													data-dismiss="modal">download</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<!-- for submission deadline and rubrics  -->
+					<div class="col-6 col-md-4 ban" style="margin-top: 20px">
+						<ul class="list-group">
+							<li class="list-group-item list-group-item-danger"><i
+								class="fa fa-warning" style="font-size: 24px"></i> Submission
+								constraint</li>
+							<li class="list-group-item list-group-item-warning"><i>
+							</i>Due time:12/13/2017</li>
+							<li class="list-group-item list-group-item-warning"><i>
+							</i>Points:100</li>
+							<li class="list-group-item list-group-item-warning"><i
+								class="material-icons" style="color: red">
+									do_not_disturb_alt</i> No resubmit is allowed</li>
+
+							<li class="list-group-item list-group-item-warning"><i
+								class="material-icons" style="color: red">do_not_disturb_alt</i>
+								Vestibulum at eros</li>
+						</ul>
+					</div>
+				</div>
+				<!-- end of row notification -->
+
+			</div> <br /> <br />
+			<!-- end of assignmentDetail Page -->
+
+			<div role="tabpanel" class="tab-pane fade show" id="assignment">
+				<div class="alert alert-warning alert-dismissible fade show" role="alert">
+					<strong>Hi Emily!</strong> you have <strong>3</strong> assignment
+					to do
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<!-- for coming assignment -->
+
+				<h4>
+					<i class="material-icons" style="font-size: 36px">assignment</i>Coming
+					Assignment
+				</h4>
+
+				<hr>
+
+				<!-- first line for assignment-->
+				<div class="row">
+					<div class="col  col-sm-2">
+						<button type="button" class="btn btn-outline-danger"
+							title="due: 15/11/17" onclick="goAssignmentDetailPage()">Assignment1</button>
+					</div>
+					<div class="col  col-sm-2">
+						<button type="button" class="btn btn-outline-danger"
+							title="due: 16/11/17">Assignment2</button>
+					</div>
+				</div> <br />
+
+				<!-- for former assignment -->
+				<h4>
+					<i class="material-icons" style="font-size: 36px">assignment_turned_in</i>Former
+					Assignment
+				</h4>
+				<hr>
+
+				<!-- first line for fomar assignment -->
+				<div class="row">
+					<div class="col col-sm-2">
+						<button type="button" class="btn btn-outline-success"
+							title="Turn in at: 20/10/17">Assignment5</button>
+					</div>
+					<div class="col col-sm-2">
+						<button type="button" class="btn btn-outline-success"
+							title="Turn in a: 8/10/17">Assignment5</button>
+					</div>
+					<div class="col col-sm-2">
+						<button type="button" class="btn btn-outline-success"
+							title="Turn in at: 2/10/17">Assignment5</button>
+					</div>
+				</div>
+			</div> <br /> <br />
+
+			<div role="tabpanel" class="tab-pane fade show" id="grade">
+				<div class="row">
+
+					<!-- current total score -->
+					<div class="col-6 col-md-4 info">
+						<div class="alert alert-info" role="alert">
+							<h4 class="alert-heading">
+								<i class="material-icons" style="font-size: 36px">sentiment_very_satisfied</i>
+							</h4>
+							<p>Your current score is
+							     <h4> <strong>93%</strong> </h4>
+							<hr>
+						</div>
+					</div>
+
+					<!-- detailed grade table-->
+					<div class="col-12 col-sm-6 col-md-8 table">
+
+						<table class="table table-hover">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col"></th>
+									<th scope="col"><i class="fa fa-paste"
+										style="font-size: 24px"></i> Name</th>
+									<th scope="col"><i class="fa fa-pencil"
+										style="font-size: 24px"></i>Score</th>
+									<th scope="col">Class Average<i class="fa fa-percent"></i>
+
+									</th>
+									<th scope="col">Weight<i class="fa fa-percent"></i>
+
+									</th>
+									<th scope="col">Category</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row"></th>
+									<td>test1</td>
+									<td>89/90</td>
+									<td>80%</td>
+									<td>20%</td>
+									<td>Quiz</td>
+
+								</tr>
+								<tr>
+									<th scope="row"></th>
+									<td>test2</td>
+									<td>60/90</td>
+									<td>80%</td>
+									<td>0%</td>
+									<td>Quiz</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div> <br /> <br />
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+<!-- footer here -->
+<footer>
+	<div th:insert="fragments/footer ::footer" class='no-print'></div>
+</footer>
+
+</html>
+
+
