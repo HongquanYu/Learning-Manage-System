@@ -17,6 +17,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" th:src="@{/resources/js/filemanager.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/jQuery_Alert.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script>
@@ -102,6 +103,11 @@
 
 					</div> <br />
 					
+	   				<div class="list-group">
+	   					<br><h3 class="txt_input txt_input2">Upload syllabus</h3>
+						<label> <input type="file" onchange ="uploadSyllabus();" id="fileToBeUploaded" name="file" accept="application/pdf" /></label><br>
+					</div>	
+					
 					<!--the table and score arrangement-->
 					<div class="row scheduleinfo">
 						<div class="col-12 col-sm-6 col-md-8">
@@ -161,12 +167,6 @@
 							</div>
 						</div>
 					</div> <br /> <br />
-	   				<div class="list-group">
-						<h3 class="txt_input txt_input2">Upload syllabus:</h3>
-						<label> <input type="file" id="fileToBeUploaded" name="file" accept="application/pdf" /></label> 
-						<label> <input type="Submit" onclick ="uploadSyllabus();" value="Upload"></label>
-					</div>	
-
 			</div>
 
             <div role="tabpanel" class="tab-pane fade show" id="student">
@@ -256,7 +256,7 @@
 
 							<div class="container">
 								<div class="row">
-									<button type="submit" class="btn btn-primary  publish">Creat</button>
+									<button type="submit" class="btn btn-primary  publish">Create</button>
 									<button type="submit" class="btn btn-light cancel">Cancel</button>
 								</div>
 

@@ -1,6 +1,7 @@
 package com.umd.ezcomm.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -323,6 +324,14 @@ public class ServiceRequestController {
 			// Store file
 			lReturnString = "Successfully uploaded file";
 			System.out.println(lReturnString);
+
+			int lResponseStatus = 200;
+			response.setContentType("text/html;charset=UTF-8");
+			response.setStatus(lResponseStatus);
+			PrintWriter lPrintWriter = response.getWriter();
+			lPrintWriter.write(lReturnString);
+			lPrintWriter.flush();
+			lPrintWriter.close();
 		}
 	}
 
