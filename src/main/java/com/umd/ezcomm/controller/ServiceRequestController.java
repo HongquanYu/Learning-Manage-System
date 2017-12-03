@@ -1,5 +1,7 @@
 package com.umd.ezcomm.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
@@ -312,27 +314,37 @@ public class ServiceRequestController {
 		String lReturnString = "";
 
 		if (!"application/pdf".equals(multipartFile.getContentType())) {
-
 			lReturnString = "File must be in a pdf format, please check the file type";
 		} else {
 			fileName = fileName + ".pdf";
 
 			System.out.println("File Name: " + fileName);
 			if (multipartFile.getBytes() != null) {
-				System.out.println("file content is not null");
+				File f = new File(fileName);
+				if (f.exists() && !f.isDirectory()) {
+					lReturnString = "Replaced previous syllabus with new file";
+				} else {
+					lReturnString = "Successfully uploaded syllabus";
+				}
+				writeFile(fileName, multipartFile);
 			}
-			// Store file
-			lReturnString = "Successfully uploaded file";
-			System.out.println(lReturnString);
-
-			int lResponseStatus = 200;
-			response.setContentType("text/html;charset=UTF-8");
-			response.setStatus(lResponseStatus);
-			PrintWriter lPrintWriter = response.getWriter();
-			lPrintWriter.write(lReturnString);
-			lPrintWriter.flush();
-			lPrintWriter.close();
 		}
+
+		int lResponseStatus = 200;
+		response.setContentType("text/html;charset=UTF-8");
+		response.setStatus(lResponseStatus);
+		PrintWriter lPrintWriter = response.getWriter();
+		lPrintWriter.write(lReturnString);
+		lPrintWriter.flush();
+		lPrintWriter.close();
+	}
+
+	public void writeFile(String filename, MultipartFile file) throws IOException {
+		File fileToBeWritten = new File(filename);
+		fileToBeWritten.createNewFile();
+		FileOutputStream fos = new FileOutputStream(fileToBeWritten, false);
+		fos.write(file.getBytes());
+		fos.close();
 	}
 
 	@RequestMapping(value = "/resetPWD", method = RequestMethod.GET)
