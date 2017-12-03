@@ -43,7 +43,6 @@ import com.umd.ezcomm.model.domain.Student;
 @Controller
 public class ServiceRequestController {
 
-
 	private final String courseIdRegex = "[A-Za-z]{4}\\d{1,3}[A-Za-z]?";
 	private final String emailValidateRegEx = "^([0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$";
 
@@ -134,6 +133,7 @@ public class ServiceRequestController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String userLogin(HttpServletRequest request, HttpSession session, Map<String, Object> model) {
 		String ue = request.getParameter("userEmail");
+
 		if (ue == null) {
 			return "/login";
 		} else {
@@ -175,8 +175,8 @@ public class ServiceRequestController {
 
 			try {
 				courses = userService.courseEnrolled(userID);
-				// messages = userService.messageReceived(userID);
-				// assignments = studentService.getAssignments(userID);
+				messages = userService.messageReceived(userID);
+				assignments = studentService.getAssignments(userID);
 				for (Course c : courseList) {
 					studentList.addAll(instructorService.getStudentList(c.getID()));
 				}
@@ -186,11 +186,6 @@ public class ServiceRequestController {
 				model.put("dataException", true);
 			}
 
-			// model.put("courseNum", courses == null ? 0 : courses.size());
-			// model.put("messageNum", messages == null ? 0 : messages.size());
-			// model.put("assignmentNum", assignments == null ? 0 :
-			// assignments.size());
-
 			model.put("studentList", studentList);
 			model.put("userCourses", courses);
 			model.put("userMessages", messages);
@@ -199,7 +194,7 @@ public class ServiceRequestController {
 			return "/ins/instructorTabs";
 		}
 	}
-	
+
 	@RequestMapping(value = "/ins/instructorTabs/{courseId:" + courseIdRegex + "}", method = RequestMethod.GET)
 	public String goToInstructorCourse(HttpServletRequest request, HttpSession session, HttpServletResponse response,
 			Map<String, Object> model, @PathVariable("courseId") String courseId) {
@@ -207,7 +202,7 @@ public class ServiceRequestController {
 		System.out.println("Made it to specific course");
 		String ue = (String) session.getAttribute("userEmail");
 
-		if (ue == null && courseId != null && courseId.trim().equals("")) {
+		if (ue == null || courseId == null || courseId.trim().equals("")) {
 			return "/login";
 		} else {
 
@@ -226,13 +221,21 @@ public class ServiceRequestController {
 			if (!authorizedToLookAtCourse) {
 				return "error.html";
 			}
-
 			model.put("courseId", courseId);
-
 			model.put("enrolledCourses", courseList);
 
 			return "/ins/instructorTabs";
 		}
+
+	}
+
+	@RequestMapping(value = "/ins/instructorTabs/downloadFile", method = RequestMethod.GET)
+	public String downloadFile(HttpServletRequest request, HttpSession session, HttpServletResponse response,
+			Map<String, Object> model) {
+
+		System.out.println("made it to download file");
+		System.out.println("File Name: " + request.getParameter("fileName"));
+		return "/ins/instructorTabs";
 	}
 
 	@RequestMapping(value = "/stu/studentTabs", method = RequestMethod.GET)
@@ -376,12 +379,6 @@ public class ServiceRequestController {
 		}
 	}
 
-	// @RequestMapping(value = "/logout", method = RequestMethod.GET)
-	// public String logout(HttpServletRequest request, HttpServletResponse
-	// response, HttpSession session) {
-	// session.invalidate();
-	// return "login";
-	// }
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {

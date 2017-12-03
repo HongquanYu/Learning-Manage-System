@@ -51,7 +51,8 @@
                 <a class="nav-link" href="#grades" role="tab" data-toggle="tab">Grade</a>
             </li>
         </ul>
-     	<br><h3 class="txt_input txt_input2" th:text="${courseId}"></h3>
+
+     	<br><h3 class="txt_input txt_input2" th:text="${courseId}"></h3><br>
         <div class="tab-content">
 
                 <div class="tab-pane fade show active" id="syllabus" role="tabpanel" >
@@ -101,14 +102,15 @@
 							</div>
 						</div>
 
-					</div> <br />
+					</div><br />
 					
 	   				<div class="list-group">
-	   					<br><h3 class="txt_input txt_input2">Upload syllabus</h3>
-						<label> <input type="file" onchange ="uploadSyllabus();" id="fileToBeUploaded" name="file" accept="application/pdf" /></label><br>
-						<span><a></a></span>
-					</div>	
 					
+	   					<br><h3> Upload syllabus</h3>
+						<label> <input type="file" onchange ="uploadSyllabus();" id="fileToBeUploaded" name="file" accept="application/pdf" /></label><br>
+						<span><a onclick="downloadSyllabusFile('downloadSyllabus')" href="javascript:void(0)" title="Click here to download the current syllabus for this course">Click here to download the current syllabus for this course</a></span>
+						<form id = "downloadSyllabus" action = "downloadFile"><input id="downloadFileInfo" th:value=${courseId} type="hidden" name="fileName"></form>
+					</div>	
 					
 
 					<br>
@@ -138,8 +140,9 @@
 								</tbody>
 							</table>
 						</div>
+						</div>
 					</div> <br /> <br />
-			</div>
+
 
             <div role="tabpanel" class="tab-pane fade show" id="student">
 

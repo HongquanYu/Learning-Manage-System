@@ -17,3 +17,8 @@ function uploadSyllabus(){
     	})
     }
 }
+
+function downloadSyllabusFile(file){
+	$("#" + file).submit();
+	return false;
+}
