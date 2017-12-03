@@ -204,6 +204,8 @@ public class ServiceRequestController {
 			if (!authorizedToLookAtCourse) {
 				return "error.html";
 			}
+
+			model.put("userID", userID);
 			model.put("courseId", courseId);
 			model.put("enrolledCourses", courseList);
 
@@ -216,9 +218,16 @@ public class ServiceRequestController {
 	public String downloadFile(HttpServletRequest request, HttpSession session, HttpServletResponse response,
 			Map<String, Object> model) {
 
-		System.out.println("made it to download file");
-		System.out.println("File Name: " + request.getParameter("fileName"));
-		return "/ins/instructorTabs";
+		String lFileName = request.getParameter("fileName");
+		String ue = (String) session.getAttribute("userEmail");
+
+		if (ue == null || lFileName == null || lFileName.trim().equals("")) {
+			return "/ins/instructorTabs";
+		} else {
+			System.out.println("Made it to download file");
+			System.out.println("File Name: " + lFileName);
+			return "/ins/instructorTabs";
+		}
 	}
 
 	@RequestMapping(value = "/stu/studentTabs", method = RequestMethod.GET)
@@ -355,7 +364,7 @@ public class ServiceRequestController {
 		return "/login";
 	}
 
-	@RequestMapping(value = "/ins/storeFile", method = RequestMethod.POST)
+	@RequestMapping(value = "/ins/instructorTabs/storeFile", method = RequestMethod.POST)
 	public void uploadFile(@RequestParam("file") MultipartFile multipartFile, @RequestParam("filename") String fileName,
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
 

@@ -3,7 +3,10 @@ function uploadSyllabus(){
     var file = $('#fileToBeUploaded')[0].files[0];
     if (file){
     	formData.append('file', file);
-    	var filename = 'syllabus';
+    	var syllabus = 'Syllabus';
+    	var userId = $('#userID').attr('value');
+    	var courseId = $('#courseId').attr('value');
+    	var filename = syllabus + "-" + userId + "-" + courseId;
     	formData.append('filename', filename);
     	$.ajax({
     		url:'storeFile.htm',
