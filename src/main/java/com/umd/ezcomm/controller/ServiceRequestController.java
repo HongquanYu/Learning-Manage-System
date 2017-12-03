@@ -203,7 +203,6 @@ public class ServiceRequestController {
 	public String goToInstructorCourse(HttpServletRequest request, HttpSession session, HttpServletResponse response,
 			Map<String, Object> model, @PathVariable("courseId") String courseId) {
 
-		System.out.println("Made it to specific course");
 		String ue = (String) session.getAttribute("userEmail");
 
 		if (ue == null || courseId == null || courseId.trim().equals("")) {
@@ -214,25 +213,30 @@ public class ServiceRequestController {
 			String userID = userService.getUID(ue);
 
 			boolean authorizedToLookAtCourse = false;
+			List<Student> studentList = new LinkedList<>();
 			List<Course> courseList = instructorService.getCourseList(userID);
+			List<Assignment> assignments = studentService.getAssignments(userID);
+			
 			for (Course c : courseList) {
 				if (c.getID().equals(courseId)) {
 					authorizedToLookAtCourse = true;
 				}
+				
+				studentList.addAll(instructorService.getStudentList(c.getID()));
 			}
 
 			// User does not have permission to access
 			if (!authorizedToLookAtCourse) {
 				return "error.html";
 			}
-
-			model.put("userID", userID);
+			
+			model.put("userAssignemnts", assignments);
+			model.put("studentList", studentList);
 			model.put("courseId", courseId);
 			model.put("enrolledCourses", courseList);
 
 			return "/ins/instructorTabs";
 		}
-
 	}
 
 	@RequestMapping(value = "/ins/instructorTabs/downloadSyllabus", method = RequestMethod.GET)
