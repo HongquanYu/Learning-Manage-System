@@ -2,6 +2,7 @@ package com.umd.ezcomm.model.dao.service;
 
 import java.util.List;
 import com.umd.ezcomm.model.domain.Course;
+import com.umd.ezcomm.model.domain.CourseGrade;
 import com.umd.ezcomm.model.domain.Student;
 
 /** @author: Hongquan Yu
@@ -15,4 +16,5 @@ public interface InstructorService {
 	public List<Student> getStudentList(String courseID);
 	
 	public List<Course> getCourseList(String userID);
+	public List<CourseGrade> getCourseGradebook(String userID);
 }
