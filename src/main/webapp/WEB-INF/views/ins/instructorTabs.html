@@ -48,7 +48,7 @@
                 <a class="nav-link" href="#assignment" role="tab" data-toggle="tab">Assignment</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#grades" role="tab" data-toggle="tab">Grade</a>
+                <a class="nav-link" href="#grading" role="tab" data-toggle="tab">Grading</a>
             </li>
         </ul>
 
@@ -153,7 +153,7 @@
             <div role="tabpanel" class="tab-pane fade show" id="student">
 
                 <div class="container container1">
-                    <br /><br />
+                    
                     <h2 style="text-align:center">Student lists</h2> <br /><br />
                     
                     <table id="studentTable" class="display">
@@ -188,15 +188,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">Prerequisite knowledge Quiz</th>
-                                <td>Mon Sep 4, 2017</td>
-                                <td>10%</td>
-                                <td><a href="#"> <i class="material-icons">Create</i>
-                                </a></td>
-                                <td><a href="#"> <i class="material-icons">Clear</i>
-                                </a></td>
-                            </tr>
+                            <th:block th:each="ua : ${userAssignemnts}">
+	                            <tr>
+	                                <td th:text="${ua.id}"></td>
+	                                <td th:text="${ua.due}"></td>
+	                                <td >15%</td>
+	<!--                                 <td><a href="#"> <i class="material-icons">Create</i> </a></td> -->
+	<!--                                 <td><a href="#"> <i class="material-icons">Clear</i> -->
+	<!--                                 </a></td> -->
+	                            </tr>
+                            </th:block>
                         </tbody>
                     </table>
                 </div> <br /> <br />
@@ -207,32 +208,8 @@
 						<blockquote class="card-blockquote">
 
 							<div class="form-group row">
-								<label for="example-text-input" class="col-2 col-form-label">Name</label>
-								<div class="col-10">
-									<input class="form-control" type="text" placeholder="10%"
-										value="" id="example-text-input">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="example-search-input" class="col-2 col-form-label">Detail</label>
-								<div class="col-10">
-									<input class="form-control" type="search" placeholder="......."
-										id="example-search-input">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="example-email-input" class="col-2 col-form-label">Deadline</label>
-								<div class="col-10">
-									<input class="form-control" type="email"
-										placeholder="11/12/2017" id="example-email-input">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="example-url-input" class="col-2 col-form-label">Percentage</label>
-								<div class="col-10">
-									<input class="form-control" type="url" placeholder="10%"
-										value="" id="example-url-input">
-								</div>
+								<label for="example-text-input" class="col-3 col-form-label">Upload new Assignment: </label>
+								<label> <input type="file" onchange ="uploadSyllabus();" id="fileToBeUploaded" name="file" accept="application/pdf" /></label>
 							</div>
 
 							<div class="container">
@@ -248,39 +225,61 @@
 
 			</div>
 
-            <div role="tabpanel" class="tab-pane fade show" id="grades">
+            <div role="tabpanel" class="tab-pane fade show" id="grading">
 
-                <div class="container container1">
-                    <table class="table table-hover">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">Assignment ID</th>
-                                <th scope="col">Student ID</th>
-                                <th scope="col">Student name</th>
-                                <th scope="col"><i class="fa fa-pencil"
-                                    style="font-size: 24px"></i>Score</th>
-                                <th scope="col">Comments</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row"><a href="#"> Assignment1 </a></th>
-                                <td>1148927</td>
-                                <td>Emma</td>
-                                <td>80%</td>
-                                <td>4.1--good</td>
-                                <td><a href="#"> <i class="material-icons">create</i>
-                                </a></td>
-                                <td><a href="#"> <i class="material-icons">clear</i>
-                                </a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+				<div class="container container1">
+					<div class="alert alert-info" role="alert" style="margin-top: 20px">
+					
+						<!-- assignment discription -->
+						<h4 class="alert-heading">Assignment 1</h4>
+						<p>Page 664 Review Questions: 20.7 20.8 Problems: 20.6,20.7,
+							20.10, 20.13 (Part (a) only), 20.14, 20.16</p>
+						<div class="row">
+							<div class="col-md-3">
+								<!-- get pervious student hw -->
+								<button type="button" class="btn btn-info" style="width: 200px">Previous
+									Student</button>
+							</div>
+							<div class="col-md-3">
+								<!-- instructor can search by student name -->
+								<div class="dropdown">
+									<button class="btn dropdown-toggle" type="button"
+										data-toggle="dropdown">
+										Student Name <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li><a href="#">Alice</a></li>
+										<li><a href="#">Bob</a></li>
+										<li><a href="#">Peter</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<!-- get next student hw -->
+								<button type="button" class="btn btn-info" style="width: 200px">Next
+									Student</button>
+							</div>
+						</div>
+					</div>
 
-                </div>
-            </div>
+					<div>
+						<form action="" method="post">
+						    <p>Download assignment and grading it with comments </p>
+                    			<input type="Submit" value="download">
+						</form>
+
+						<form action="" method="post">
+							Grade: <br />
+							<input type="text" name="grading" id=""><br />
+							Comments: <br>
+							<textarea rows="5" name="comments" id=""></textarea><br />
+							<input type="submit" value="Grading">
+						</form>
+                    </div>
+				</div>
+			</div>
         </div>
-    </div> <br />
+    </div>
 </body>
 
 
