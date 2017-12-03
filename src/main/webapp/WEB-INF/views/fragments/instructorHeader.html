@@ -21,7 +21,7 @@
     <div th:fragment="ezcommHeader">
         <!--navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="instructorHome"><img th:src="@{/resources/background/logo.png}"></a>
+            <a class="navbar-brand" th:href="@{/ins/instructorHome}"><img th:src="@{/resources/background/logo.png}"></a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarTogglerDemo02"
@@ -39,7 +39,7 @@
                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                            <th:block th:each="course : ${insCourses}" class="card-body">
                                 <div style="text-align:center">
-                                    <a href="courseDetail" th:text="${course.ID}" class="card-text">CourseID</a>
+                                    <a th:href="@{instructorTabs/} + ${course.ID}" th:text="${course.ID}" class="card-text">CourseID</a>
                                 </div>
                             </th:block>
                         </div>
@@ -49,9 +49,9 @@
                     
                     <li class="nav-item"><a class="nav-link " href="gradeProfessor">Grade</a> </li>
                     
-                    <li class="nav-item"><a class="nav-link " href="profiles">Profile</a> </li>
+                    <li class="nav-item"><a class="nav-link " th:href="@{/profile}">Profile</a> </li>
                     
-                    <li class="nav-item"><a class="nav-link " href="logout">Logout</a> </li>
+                    <li class="nav-item"><a class="nav-link " th:href="@{/logout}">Logout</a> </li>
                     
                 </ul>
                 

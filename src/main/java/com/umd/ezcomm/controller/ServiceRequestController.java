@@ -233,7 +233,6 @@ public class ServiceRequestController {
 
 			return "/ins/instructorTabs";
 		}
-
 	}
 
 	@RequestMapping(value = "/stu/studentTabs", method = RequestMethod.GET)
@@ -280,28 +279,33 @@ public class ServiceRequestController {
 			Map<String, Object> model) {
 		String userID = (String) session.getAttribute("userID");
 
-		List<Course> courses = null;
-		List<Message> messages = null;
-		List<Assignment> assignments = null;
+		if (userID == null) {
+			return "/login";
+		} else {
 
-		try {
-			courses = userService.courseEnrolled(userID);
-			messages = userService.messageReceived(userID);
-			assignments = studentService.getAssignments(userID);
-		} catch (Exception e) {
-			log.info("data access error.");
-			model.put("dataException", true);
+			List<Course> courses = null;
+			List<Message> messages = null;
+			List<Assignment> assignments = null;
+
+			try {
+				courses = userService.courseEnrolled(userID);
+				messages = userService.messageReceived(userID);
+				assignments = studentService.getAssignments(userID);
+			} catch (Exception e) {
+				log.info("data access error.");
+				model.put("dataException", true);
+			}
+
+			model.put("courseNum", courses == null ? 0 : courses.size());
+			model.put("messageNum", messages == null ? 0 : messages.size());
+			model.put("assignmentNum", assignments == null ? 0 : assignments.size());
+
+			model.put("userCourses", courses);
+			model.put("userMessages", messages);
+			model.put("userAssignemnts", assignments);
+
+			return "/ins/gradeProfessor";
 		}
-
-		model.put("courseNum", courses == null ? 0 : courses.size());
-		model.put("messageNum", messages == null ? 0 : messages.size());
-		model.put("assignmentNum", assignments == null ? 0 : assignments.size());
-
-		model.put("userCourses", courses);
-		model.put("userMessages", messages);
-		model.put("userAssignemnts", assignments);
-
-		return "/ins/gradeProfessor";
 	}
 
 	@RequestMapping(value = "/stu/gradeStudent", method = RequestMethod.GET)
@@ -309,28 +313,33 @@ public class ServiceRequestController {
 			Map<String, Object> map) {
 		String userID = (String) session.getAttribute("userID");
 
-		List<Course> courses = null;
-		List<Message> messages = null;
-		List<Assignment> assignments = null;
+		if (userID == null) {
+			return "/login";
+		} else {
 
-		try {
-			courses = userService.courseEnrolled(userID);
-			messages = userService.messageReceived(userID);
-			assignments = studentService.getAssignments(userID);
-		} catch (Exception e) {
-			log.info("data access error.");
-			map.put("dataException", true);
+			List<Course> courses = null;
+			List<Message> messages = null;
+			List<Assignment> assignments = null;
+
+			try {
+				courses = userService.courseEnrolled(userID);
+				messages = userService.messageReceived(userID);
+				assignments = studentService.getAssignments(userID);
+			} catch (Exception e) {
+				log.info("data access error.");
+				map.put("dataException", true);
+			}
+
+			map.put("courseNum", courses == null ? 0 : courses.size());
+			map.put("messageNum", messages == null ? 0 : messages.size());
+			map.put("assignmentNum", assignments == null ? 0 : assignments.size());
+
+			map.put("userCourses", courses);
+			map.put("userMessages", messages);
+			map.put("userAssignemnts", assignments);
+
+			return "/stu/gradeStudent";
 		}
-
-		map.put("courseNum", courses == null ? 0 : courses.size());
-		map.put("messageNum", messages == null ? 0 : messages.size());
-		map.put("assignmentNum", assignments == null ? 0 : assignments.size());
-
-		map.put("userCourses", courses);
-		map.put("userMessages", messages);
-		map.put("userAssignemnts", assignments);
-
-		return "/stu/gradeStudent";
 	}
 
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
@@ -338,28 +347,33 @@ public class ServiceRequestController {
 			Map<String, Object> model) {
 		String userID = (String) session.getAttribute("userID");
 
-		List<Course> courses = null;
-		List<Message> messages = null;
-		List<Assignment> assignments = null;
+		if (userID == null) {
+			return "/login";
+		} else {
 
-		try {
-			courses = userService.courseEnrolled(userID);
-			messages = userService.messageReceived(userID);
-			assignments = studentService.getAssignments(userID);
-		} catch (Exception e) {
-			log.info("data access error.");
-			model.put("dataException", true);
+			List<Course> courses = null;
+			List<Message> messages = null;
+			List<Assignment> assignments = null;
+
+			try {
+				courses = userService.courseEnrolled(userID);
+				messages = userService.messageReceived(userID);
+				assignments = studentService.getAssignments(userID);
+			} catch (Exception e) {
+				log.info("data access error.");
+				model.put("dataException", true);
+			}
+
+			model.put("courseNum", courses == null ? 0 : courses.size());
+			model.put("messageNum", messages == null ? 0 : messages.size());
+			model.put("assignmentNum", assignments == null ? 0 : assignments.size());
+
+			model.put("userCourses", courses);
+			model.put("userMessages", messages);
+			model.put("userAssignemnts", assignments);
+
+			return "/profile";
 		}
-
-		model.put("courseNum", courses == null ? 0 : courses.size());
-		model.put("messageNum", messages == null ? 0 : messages.size());
-		model.put("assignmentNum", assignments == null ? 0 : assignments.size());
-
-		model.put("userCourses", courses);
-		model.put("userMessages", messages);
-		model.put("userAssignemnts", assignments);
-
-		return "/profile";
 	}
 
 	// @RequestMapping(value = "/logout", method = RequestMethod.GET)
