@@ -26,33 +26,18 @@
 		<br /> <br />
 
 		<div style="text-align: center">
-			<h2>Course</h2>
+			<h2>Course(s)</h2>
 		</div> <br />
+		
 		<div class=" card-group">
-			<div class="card" style="width: 26rem;">
+			<div th:each="course : ${enrolledCourses}" class="card" style="width: 26rem;">
 				<div class="card-body">
-					<h4 class="card-title">ENPM613</h4>
-					<p class="card-text">Software Design and implementation</p>
+					<h4 class="card-title" th:text="${course.ID}"></h4>
+					<h4 class="card-title" th:text="${course.Name}"></h4>
+					<p class="card-text" th:text="${course.description}"></p>
 					<a href="instructorTabs" class="btn btn-warning">Enter the course</a>
 				</div>
 			</div>
-
-			<div class="card" style="width: 26rem;">
-				<div class="card-body">
-					<h4 class="card-title">ENPM613</h4>
-					<p class="card-text">Software Design and implementation</p>
-					<a href="instructorTabs" class="btn btn-warning">Enter the course</a>
-				</div>
-			</div>
-
-			<div class="card" style="width: 26rem;">
-				<div class="card-body">
-					<h4 class="card-title">ENPM613</h4>
-					<p class="card-text">Software Design and implementation</p>
-					<a href="instructorTabs" class="btn btn-warning">Enter the course</a>
-				</div>
-			</div>
-
 		</div><br> <br>
 		</div>
 </body>

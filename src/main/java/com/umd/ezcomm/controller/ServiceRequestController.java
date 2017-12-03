@@ -91,26 +91,34 @@ public class ServiceRequestController {
 	public String instructorHomepage(HttpServletRequest request, HttpSession session, Map<String, Object> model) {
 
 		String ue = (String) session.getAttribute("userEmail");
-		String userID = userService.getUID(ue);
 
-		List<Course> courses = null;
-		List<Message> messages = null;
+		if (ue == null) {
+			return "/login";
+		} else {
+			String userID = userService.getUID(ue);
 
-		try {
-			courses = userService.courseEnrolled(userID);
-			messages = userService.messageReceived(userID);
-		} catch (Exception e) {
-			log.info("data access error.");
-			model.put("dataException", true);
+			List<Course> courseList = instructorService.getCourseList(userID);
+
+			List<Course> courses = null;
+			List<Message> messages = null;
+
+			try {
+				courses = userService.courseEnrolled(userID);
+				messages = userService.messageReceived(userID);
+			} catch (Exception e) {
+				log.info("data access error.");
+				model.put("dataException", true);
+			}
+
+			model.put("courseNum", courses == null ? 0 : courses.size());
+			model.put("messageNum", messages == null ? 0 : messages.size());
+			model.put("insCourses", courses);
+			model.put("insMessages", messages);
+			model.put("enrolledCourses", courseList);
+
+			return "/ins/instructorHome";
 		}
 
-		model.put("courseNum", courses == null ? 0 : courses.size());
-		model.put("messageNum", messages == null ? 0 : messages.size());
-
-		model.put("insCourses", courses);
-		model.put("insMessages", messages);
-
-		return "/ins/instructorHome";
 	}
 
 	/* user authentication and load data. */
