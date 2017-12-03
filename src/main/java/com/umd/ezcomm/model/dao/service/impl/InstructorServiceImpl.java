@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.umd.ezcomm.model.dao.service.InstructorService;
 import com.umd.ezcomm.model.dao.service.UserService;
 import com.umd.ezcomm.model.domain.Course;
+import com.umd.ezcomm.model.domain.CourseGrade;
 import com.umd.ezcomm.model.domain.Student;
 
 /** @author: Hongquan Yu
@@ -87,4 +88,33 @@ public class InstructorServiceImpl implements InstructorService {
 		
 		return course;
 	}
+	
+	@Override
+    public List<CourseGrade> getCourseGradebook(String userID) {
+        String SQL = "select User.UID as sid, User.Name as cName, CL.CourseID as cid, CourseGradebook.CourseGrade as cgrade from User " +
+                "left join  CourseList CL  on User.UID = CL.UID " +
+                "left join CourseGradebook on User.UID = CourseGradebook.StudentID " +
+                "where User.JobStatus !='Instructor' and " +
+                "CL.CourseID in (SELECT C.ID FROM Courses  " +
+                "INNER JOIN CourseList CL ON C.ID = CL.CourseID WHERE  CL.UID ='" +userID+"');";
+               
+               
+       
+        List<CourseGrade> course = template.query(SQL, new RowMapper<CourseGrade>() {
+            @Override
+            public CourseGrade mapRow(ResultSet rs, int rowNum) throws SQLException {
+                CourseGrade cou = new CourseGrade();
+               
+                cou.setStudentID(rs.getString("sid"));
+                cou.setStudentName(rs.getString("cName"));
+                cou.setCourseID(rs.getString("cid"));
+                cou.setCourseGrade(rs.getInt("cgrade"));
+               
+                return cou;
+            }
+        });
+       
+        return course;
+    }
+
 }
