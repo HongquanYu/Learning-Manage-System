@@ -226,6 +226,8 @@ public class ServiceRequestController {
 				return "error.html";
 			}
 
+			boolean lPublished = fileService.isSyllabusPublished(courseId);
+			model.put("published", lPublished);
 			model.put("userID", userID);
 			model.put("courseId", courseId);
 			model.put("enrolledCourses", courseList);
@@ -240,18 +242,6 @@ public class ServiceRequestController {
 			HttpServletResponse response, Map<String, Object> model) throws IOException {
 
 		String lFileName = request.getParameter("fileName");
-		String ue = (String) session.getAttribute("userEmail");
-
-		// if (ue == null || lFileName == null || lFileName.trim().equals("")) {
-		// return "/ins/instructorTabs";
-		// } else {
-		// System.out.println("Made it to download file");
-		// System.out.println("File Name: " + lFileName);
-		//
-		// byte[] lFileData = fileService.retrieveSyllabus(lFileName);
-		//
-		// return "/ins/instructorTabs";
-		// }
 
 		HttpHeaders lHeaders = new HttpHeaders();
 		lHeaders.setContentType(MediaType.parseMediaType("application/pdf"));
@@ -260,6 +250,31 @@ public class ServiceRequestController {
 		byte[] lFileData = fileService.retrieveSyllabus(lFileName);
 
 		return new ResponseEntity<byte[]>(lFileData, lHeaders, HttpStatus.OK);
+
+	}
+
+	@RequestMapping(value = "/ins/instructorTabs/publish/{courseId:" + courseIdRegex + "}", method = RequestMethod.GET)
+	public String publishFile(HttpServletRequest request, HttpSession session, HttpServletResponse response,
+			Map<String, Object> model, @PathVariable("courseId") String courseId) throws IOException {
+
+		if (fileService.publishSyllabus(courseId)) {
+			return "Successfully Published";
+		} else {
+			return "Could not publish file. File not found.";
+		}
+
+	}
+
+	@RequestMapping(value = "/ins/instructorTabs/unPublish/{courseId:" + courseIdRegex
+			+ "}", method = RequestMethod.GET)
+	public String unPublishFile(HttpServletRequest request, HttpSession session, HttpServletResponse response,
+			Map<String, Object> model, @PathVariable("courseId") String courseId) throws IOException {
+
+		if (fileService.unPublishSyllabus(courseId)) {
+			return "Successfully unPublished";
+		} else {
+			return "Could not publish file. File not found.";
+		}
 
 	}
 
