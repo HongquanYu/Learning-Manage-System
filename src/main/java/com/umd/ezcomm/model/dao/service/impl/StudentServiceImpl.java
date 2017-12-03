@@ -58,9 +58,10 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public List<Assignment> getAssignments(String userID) {
 		
-		String SQL = "SELECT A.ID, A.DueDate FROM Assignment A " + 
+		String SQL = "SELECT A.ID, A.CreateTime, A.DueDate, AG.Grade, CL.CourseID FROM Assignment A " + 
 				"INNER JOIN AssignmentList AL  ON AL.AssignmentID = A.ID " + 
 				"INNER JOIN CourseList CL ON AL.CourseID = CL.CourseID " + 
+				"INNER JOIN  AssignmentGrade AG ON AG.AssignmentID = AL.AssignmentID " +
 				"WHERE A.Published = 1 AND CL.UID = '" + userID + "';";
 		
 		List<Assignment> assignment = template.query(SQL, new RowMapper<Assignment>() {
@@ -70,6 +71,9 @@ public class StudentServiceImpl implements StudentService{
 				
 				a.setId(rs.getString("ID"));
 				a.setDue(rs.getDate("DueDate"));
+				a.setPublishTime(rs.getDate("CreateTime"));
+				a.setCourseID(rs.getString("CourseID"));
+				a.setGrade(rs.getInt("Grade"));
 				
 				return a;
 			}

@@ -21,6 +21,14 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script>
+
 <th:block th:replace="fragments/header ::head"></th:block>
 
 <!-- Bootstrap CSS -->
@@ -77,55 +85,40 @@
 
 			<div role="tabpanel" class="tab-pane fade show" id="assignment">
 				<div class="alert alert-warning alert-dismissible fade show" role="alert">
+					You have <strong th:text="${assignmentNum}"></strong> assignments to do
 					<button type="button" class="close" data-dismiss="alert"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 
-				<!-- for coming assignment -->
+                <div class="container container1">
+                    <h2 style="text-align:center">Assignments</h2> <br />
+                    
+                    <table id="gradeTable" class="display">
+                        <thead>
+                           <tr>
+                                <th> Assignment</th>
+                                <th> Due Date</th>
+                                <th> Create Time</th>
+                                <th> Course Name</th>
+                                <th> Grade</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="assi : ${userAssignemnts}">
+                                <tr>
+                                    <td th:text="${assi.id}"></td>
+                                    <td th:text="${assi.due}"></td>
+                                    <td th:text="${assi.publishTime}"></td>
+                                    <td th:text="${assi.courseID}"></td>
+                                    <td th:text="${assi.grade}"></td>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
 
-				<h4>
-					<i class="material-icons" style="font-size: 36px">assignment</i>Coming
-					Assignment
-				</h4>
-
-				<hr>
-
-				<!-- first line for assignment-->
-				<div class="row">
-					<div class="col  col-sm-2">
-						<button type="button" class="btn btn-outline-danger"
-							title="due: 15/11/17" onclick="goAssignmentDetailPage()">Assignment1</button>
-					</div>
-					<div class="col  col-sm-2">
-						<button type="button" class="btn btn-outline-danger"
-							title="due: 16/11/17">Assignment2</button>
-					</div>
-				</div> <br />
-
-				<!-- for former assignment -->
-				<h4>
-					<i class="material-icons" style="font-size: 36px">assignment_turned_in</i>Former
-					Assignment
-				</h4>
-				<hr>
-
-				<!-- first line for fomar assignment -->
-				<div class="row">
-					<div class="col col-sm-2">
-						<button type="button" class="btn btn-outline-success"
-							title="Turn in at: 20/10/17">Assignment5</button>
-					</div>
-					<div class="col col-sm-2">
-						<button type="button" class="btn btn-outline-success"
-							title="Turn in a: 8/10/17">Assignment5</button>
-					</div>
-					<div class="col col-sm-2">
-						<button type="button" class="btn btn-outline-success"
-							title="Turn in at: 2/10/17">Assignment5</button>
-					</div>
-				</div>
 			</div> 
 
 			<div role="tabpanel" class="tab-pane fade show" id="grade">
