@@ -42,6 +42,7 @@ import com.umd.ezcomm.model.domain.Student;
 @Controller
 public class ServiceRequestController {
 
+	private final String courseIdRegex = "[A-Za-z]{4}\\d{1,3}[A-Za-z]?";
 	private final String emailValidateRegEx = "^([0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$";
 
 	private static final Logger log = LogManager.getLogger();
@@ -177,6 +178,15 @@ public class ServiceRequestController {
 		model.put("userCourses", courses);
 		model.put("userMessages", messages);
 		model.put("userAssignemnts", assignments);
+
+		return "/ins/instructorTabs";
+	}
+
+	@RequestMapping(value = "/ins/instructorTabs/{courseId:" + courseIdRegex + "}", method = RequestMethod.GET)
+	public String goToInstructorCourse(HttpServletRequest request, HttpSession session, HttpServletResponse response,
+			Map<String, Object> model) {
+
+		System.out.println("Made it to specific course");
 
 		return "/ins/instructorTabs";
 	}

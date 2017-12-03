@@ -35,7 +35,7 @@
 					<h4 class="card-title" th:text="${course.ID}"></h4>
 					<h4 class="card-title" th:text="${course.Name}"></h4>
 					<p class="card-text" th:text="${course.description}"></p>
-					<a href="instructorTabs" class="btn btn-warning">Enter the course</a>
+					<a th:href="@{instructorTabs/} + ${course.ID}" class="btn btn-warning">Enter the course</a>					
 				</div>
 			</div>
 		</div><br> <br>
