@@ -12,7 +12,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/ENPM613" />
 		<property name="username" value="root" />
-		<property name="password" value="helloworld" />
+		<property name="password" value="root" />
 	</bean>
 
 	<!-- JDBC use Spring jdbcTemplate -->
@@ -45,6 +45,9 @@
         <property name="template">
             <ref bean="jdbcTemplate" />
         </property>
+    </bean>
+
+    <bean id="FileManagementImpl" class="com.umd.ezcomm.model.dao.service.impl.FileManagementImpl">
     </bean>
 
 	<!-- transaction based on annotation -->

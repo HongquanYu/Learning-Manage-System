@@ -1,7 +1,5 @@
 package com.umd.ezcomm.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
@@ -24,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.umd.ezcomm.model.dao.service.impl.CourseServiceImpl;
+import com.umd.ezcomm.model.dao.service.impl.FileManagementImpl;
 import com.umd.ezcomm.model.dao.service.impl.InstructorServiceImpl;
 import com.umd.ezcomm.model.dao.service.impl.StudentServiceImpl;
 import com.umd.ezcomm.model.dao.service.impl.UserServiceImpl;
@@ -50,6 +49,8 @@ public class ServiceRequestController {
 
 	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 	UserServiceImpl userService = (UserServiceImpl) context.getBean("UserServiceImpl");
+	FileManagementImpl fileService = (FileManagementImpl) context.getBean("FileManagementImpl");
+
 	CourseServiceImpl courseService = (CourseServiceImpl) context.getBean("CourseServiceImpl");
 	StudentServiceImpl studentService = (StudentServiceImpl) context.getBean("StudentServiceImpl");
 	InstructorServiceImpl instructorService = (InstructorServiceImpl) context.getBean("InstructorServiceImpl");
@@ -151,8 +152,7 @@ public class ServiceRequestController {
 				session.setAttribute("userID", userID);
 				session.setAttribute("userEmail", ue);
 				session.setAttribute("isLegalUser", true);
-				return isStudent ? "redirect:stu/studentHome.html"
-						: "redirect:ins/instructorHome.html";
+				return isStudent ? "redirect:stu/studentHome.html" : "redirect:ins/instructorHome.html";
 			}
 		}
 	}
@@ -388,7 +388,6 @@ public class ServiceRequestController {
 		}
 	}
 
-
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		session.invalidate();
@@ -406,16 +405,9 @@ public class ServiceRequestController {
 		} else {
 			fileName = fileName + ".pdf";
 
+			lReturnString = fileService.storeFile(multipartFile, fileName);
 			System.out.println("File Name: " + fileName);
-			if (multipartFile.getBytes() != null) {
-				File f = new File(fileName);
-				if (f.exists() && !f.isDirectory()) {
-					lReturnString = "Replaced previous syllabus with new file";
-				} else {
-					lReturnString = "Successfully uploaded syllabus";
-				}
-				writeFile(fileName, multipartFile);
-			}
+
 		}
 
 		int lResponseStatus = 200;
@@ -425,14 +417,6 @@ public class ServiceRequestController {
 		lPrintWriter.write(lReturnString);
 		lPrintWriter.flush();
 		lPrintWriter.close();
-	}
-
-	public void writeFile(String filename, MultipartFile file) throws IOException {
-		File fileToBeWritten = new File(filename);
-		fileToBeWritten.createNewFile();
-		FileOutputStream fos = new FileOutputStream(fileToBeWritten, false);
-		fos.write(file.getBytes());
-		fos.close();
 	}
 
 	@RequestMapping(value = "/resetPWD", method = RequestMethod.GET)
