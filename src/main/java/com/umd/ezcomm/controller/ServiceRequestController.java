@@ -185,7 +185,7 @@ public class ServiceRequestController {
 		System.out.println("Made it to specific course");
 		String ue = (String) session.getAttribute("userEmail");
 
-		if (ue == null && courseId != null && courseId.trim().equals("")) {
+		if (ue == null || courseId == null || courseId.trim().equals("")) {
 			return "/login";
 		} else {
 
@@ -204,14 +204,21 @@ public class ServiceRequestController {
 			if (!authorizedToLookAtCourse) {
 				return "error.html";
 			}
-
 			model.put("courseId", courseId);
-
 			model.put("enrolledCourses", courseList);
 
 			return "/ins/instructorTabs";
 		}
 
+	}
+
+	@RequestMapping(value = "/ins/instructorTabs/downloadFile", method = RequestMethod.GET)
+	public String downloadFile(HttpServletRequest request, HttpSession session, HttpServletResponse response,
+			Map<String, Object> model) {
+
+		System.out.println("made it to download file");
+		System.out.println("File Name: " + request.getParameter("fileName"));
+		return "/ins/instructorTabs";
 	}
 
 	@RequestMapping(value = "/stu/studentTabs", method = RequestMethod.GET)
