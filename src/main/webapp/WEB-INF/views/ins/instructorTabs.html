@@ -108,7 +108,7 @@
 	   					<br><h3> Upload Syllabus</h3>
 						<label> <input type="file" onchange ="uploadSyllabus();" id="fileToBeUploaded" name="file" accept="application/pdf" /></label><br>
 						<span><a onclick="downloadSyllabusFile('downloadSyllabus')" href="javascript:void(0)" title="Click here to download the current syllabus for this course">Click here to download the current syllabus for this course</a></span>
-						<form id = "downloadSyllabus" action = "downloadFile"><input id="downloadFileInfo" th:value=${courseId} type="hidden" name="fileName"></form>
+						<form id = "downloadSyllabus" action = "downloadSyllabus"><input id="downloadSyllabusInfo" th:value=${courseId} type="hidden" name="fileName"></form>
 						<input type="hidden" id=userID name=userID th:value=${userID}></input>
 						<input type="hidden" id=courseId name=courseId th:value=${courseId}></input>
 					</div>	

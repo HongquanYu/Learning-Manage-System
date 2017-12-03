@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface FileManagement {
 
-	public String storeFile(MultipartFile multipartFile, String fileName) throws IOException;
+	public String storeSyllabus(MultipartFile multipartFile, String fileName) throws IOException;
 
-	public boolean retrieveFile(String fileName);
+	public byte[] retrieveSyllabus(String fileName) throws IOException;
 }

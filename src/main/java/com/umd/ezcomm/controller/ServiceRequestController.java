@@ -14,6 +14,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -231,20 +235,32 @@ public class ServiceRequestController {
 
 	}
 
-	@RequestMapping(value = "/ins/instructorTabs/downloadFile", method = RequestMethod.GET)
-	public String downloadFile(HttpServletRequest request, HttpSession session, HttpServletResponse response,
-			Map<String, Object> model) {
+	@RequestMapping(value = "/ins/instructorTabs/downloadSyllabus", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> downloadFile(HttpServletRequest request, HttpSession session,
+			HttpServletResponse response, Map<String, Object> model) throws IOException {
 
 		String lFileName = request.getParameter("fileName");
 		String ue = (String) session.getAttribute("userEmail");
 
-		if (ue == null || lFileName == null || lFileName.trim().equals("")) {
-			return "/ins/instructorTabs";
-		} else {
-			System.out.println("Made it to download file");
-			System.out.println("File Name: " + lFileName);
-			return "/ins/instructorTabs";
-		}
+		// if (ue == null || lFileName == null || lFileName.trim().equals("")) {
+		// return "/ins/instructorTabs";
+		// } else {
+		// System.out.println("Made it to download file");
+		// System.out.println("File Name: " + lFileName);
+		//
+		// byte[] lFileData = fileService.retrieveSyllabus(lFileName);
+		//
+		// return "/ins/instructorTabs";
+		// }
+
+		HttpHeaders lHeaders = new HttpHeaders();
+		lHeaders.setContentType(MediaType.parseMediaType("application/pdf"));
+		lHeaders.setContentDispositionFormData("Syllabus-" + lFileName + ".pdf", "Syllabus-" + lFileName + ".pdf");
+		lHeaders.setCacheControl("must revalidate, post-check=0, pre-check=0");
+		byte[] lFileData = fileService.retrieveSyllabus(lFileName);
+
+		return new ResponseEntity<byte[]>(lFileData, lHeaders, HttpStatus.OK);
+
 	}
 
 	@RequestMapping(value = "/stu/studentTabs", method = RequestMethod.GET)
@@ -405,7 +421,7 @@ public class ServiceRequestController {
 		} else {
 			fileName = fileName + ".pdf";
 
-			lReturnString = fileService.storeFile(multipartFile, fileName);
+			lReturnString = fileService.storeSyllabus(multipartFile, fileName);
 			System.out.println("File Name: " + fileName);
 
 		}

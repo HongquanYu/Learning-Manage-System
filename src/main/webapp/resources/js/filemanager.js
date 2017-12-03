@@ -4,9 +4,8 @@ function uploadSyllabus(){
     if (file){
     	formData.append('file', file);
     	var syllabus = 'Syllabus';
-    	var userId = $('#userID').attr('value');
     	var courseId = $('#courseId').attr('value');
-    	var filename = syllabus + "-" + userId + "-" + courseId;
+    	var filename = syllabus + "-" + courseId;
     	formData.append('filename', filename);
     	$.ajax({
     		url:'storeFile.htm',
