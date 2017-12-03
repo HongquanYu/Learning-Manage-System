@@ -51,7 +51,7 @@
                 <a class="nav-link" href="#grades" role="tab" data-toggle="tab">Grade</a>
             </li>
         </ul>
-
+     	<br><h3 class="txt_input txt_input2" th:text="${courseId}"></h3>
         <div class="tab-content">
 
                 <div class="tab-pane fade show active" id="syllabus" role="tabpanel" >
@@ -106,30 +106,9 @@
 	   				<div class="list-group">
 	   					<br><h3 class="txt_input txt_input2">Upload syllabus</h3>
 						<label> <input type="file" onchange ="uploadSyllabus();" id="fileToBeUploaded" name="file" accept="application/pdf" /></label><br>
+						<span><a></a></span>
 					</div>	
 					
-					<!--the table and score arrangement-->
-					<div class="row scheduleinfo">
-						<div class="col-12 col-sm-6 col-md-8">
-							<h4>
-								<i class="fa fa-file-text-o"></i> Syllabus
-							</h4>
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th scope="col">Date</th>
-										<th scope="col">Info</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">Mon Sep 4, 2017</th>
-										<td>Prerequisite knowledge Quiz</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						</div>
 
 					<br>
 					<!--the table and score arrangement-->

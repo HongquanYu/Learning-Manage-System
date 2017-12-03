@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -169,11 +170,6 @@ public class ServiceRequestController {
 			model.put("dataException", true);
 		}
 
-		// model.put("courseNum", courses == null ? 0 : courses.size());
-		// model.put("messageNum", messages == null ? 0 : messages.size());
-		// model.put("assignmentNum", assignments == null ? 0 :
-		// assignments.size());
-
 		model.put("studentList", studentList);
 		model.put("userCourses", courses);
 		model.put("userMessages", messages);
@@ -184,11 +180,38 @@ public class ServiceRequestController {
 
 	@RequestMapping(value = "/ins/instructorTabs/{courseId:" + courseIdRegex + "}", method = RequestMethod.GET)
 	public String goToInstructorCourse(HttpServletRequest request, HttpSession session, HttpServletResponse response,
-			Map<String, Object> model) {
+			Map<String, Object> model, @PathVariable("courseId") String courseId) {
 
 		System.out.println("Made it to specific course");
+		String ue = (String) session.getAttribute("userEmail");
 
-		return "/ins/instructorTabs";
+		if (ue == null && courseId != null && courseId.trim().equals("")) {
+			return "/login";
+		} else {
+
+			// check user access
+			String userID = userService.getUID(ue);
+
+			boolean authorizedToLookAtCourse = false;
+			List<Course> courseList = instructorService.getCourseList(userID);
+			for (Course c : courseList) {
+				if (c.getID().equals(courseId)) {
+					authorizedToLookAtCourse = true;
+				}
+			}
+
+			// User does not have permission to access
+			if (!authorizedToLookAtCourse) {
+				return "error.html";
+			}
+
+			model.put("courseId", courseId);
+
+			model.put("enrolledCourses", courseList);
+
+			return "/ins/instructorTabs";
+		}
+
 	}
 
 	@RequestMapping(value = "/stu/studentTabs", method = RequestMethod.GET)
