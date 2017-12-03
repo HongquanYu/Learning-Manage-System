@@ -15,8 +15,12 @@
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/resources/js/filemanager.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/jQuery_Alert.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script>
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
@@ -49,39 +53,34 @@
 					<!-- end of row -->
 
 					<!-- Table Here -->
-					<table class="table" style="margin-top: 50px">
-						<thead>
-							<tr class="active">
-								<th>Student ID</th>
-								<th>Grade</th>
-							</tr>
-						</thead>
+					<div role="tabpanel" class="tab-pane fade show" id="student">
 
-
-						<tbody>
-							<tr>
-								<td>1234567</td>
-								<td>A+</td>
-							</tr>
-							<tr>
-								<td>7654321</td>
-								<td>A</td>
-							</tr>
-							<tr>
-								<td>2323565</td>
-								<td>B</td>
-							</tr>
-							<tr>
-								<td>1297547</td>
-								<td>C</td>
-							</tr>
-							<tr>
-								<td>8665978</td>
-								<td>B+</td>
-							</tr>
-
-						</tbody>
-					</table>
+                <div class="container container1">
+                    
+                    <h2 style="text-align:center">Student lists</h2> <br /><br />
+                    
+                    <table id="studentGradeTableList" class="display">
+                        <thead>
+                           <tr>
+                                <th> Student ID</th>
+                                <th> Student Name</th>
+                                <th> Course ID</th>
+                                <th> Course Grade</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="cgl : ${courseGradeList}">
+                                <tr>
+	                                <td th:text="${cgl.studentID}"></td>
+	                                <td th:text="${cgl.studentName}"></td>
+	                                <td th:text="${cgl.courseID}"></td>
+	                                <td th:text="${cgl.courseGrade}"></td>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 				</div>
 				<!-- end of col-sm-8 -->
 				<div class="col-sm-2"></div>
