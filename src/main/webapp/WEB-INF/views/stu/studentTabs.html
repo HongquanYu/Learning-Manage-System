@@ -1,39 +1,41 @@
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <!-- header here -->
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no"
+	charset="utf-8">
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/resources/js/filemanager.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script>
 
 <!--icon link-->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script>
 
 <th:block th:replace="fragments/header ::head"></th:block>
 
-<!-- <link rel="stylesheet" th:href="@{/resources/css/jquery.dataTables.min.css}" type="text/css" /> -->
-
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
-<!-- <script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script> -->
-<!-- <script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script> -->
-<!-- <script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-
-<script>
-	$(document).ready( function () {
-	    $('#studentTable').DataTable();
-	    $('#gradeTable').DataTable();
-	} );
-</script>
-
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+	type="text/css">
 
-<title>student course page</title>
+<title>Student Course Page</title>
 
 </head>
 
@@ -65,21 +67,11 @@
 				<div class="login_padding">
                     
                     <h2>Course Syllabus</h2>
-					<object th:href="@{/resources/file/S611.pdf}" type="application/pdf" width="50%"
-						height="50%">
-						<p>
-							<a th:href="@{/resources/file/S611.pdf}">Syllabus!</a>
-						</p>
-					</object>
+
 					<form action="" method="post">
-					    
-						<h3 class="txt_input txt_input2">Upload syllabus:</h3>
-						<label> <input type="file" accept="application/pdf" />
-						</label> 
-						<label><input type="Submit" value="Upload"></label>
-						<label><a href="#">Cancel</a></label>
-						
-					    <h3>Download syllabus:</h3>
+						    
+					
+						<h3 class="txt_input txt_input2">Download syllabus:</h3>					    
                         <label> <input type="file" accept="application/pdf" />
                         </label> <input type="Submit" value="download">
 					</form>
@@ -92,8 +84,7 @@
 
 			<div role="tabpanel" class="tab-pane fade show" id="assignment">
 				<div class="alert alert-warning alert-dismissible fade show" role="alert">
-					<strong>Hi Emily!</strong> you have <strong>3</strong> assignment
-					to do
+					You have <strong th:text="${assignmentNum}"></strong> assignments to do
 					<button type="button" class="close" data-dismiss="alert"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>

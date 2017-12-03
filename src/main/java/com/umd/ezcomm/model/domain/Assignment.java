@@ -10,11 +10,29 @@ import java.sql.Date;
  */
 public class Assignment {
 	private String id;
+	private Date publishTime;
 	private Date due;
 	private int grade;
 	private String courseName;
+	private String courseID;
 	private boolean isSubmitted;
 	
+	public String getCourseID() {
+		return courseID;
+	}
+
+	public void setCourseID(String courseID) {
+		this.courseID = courseID;
+	}
+
+	public Date getPublishTime() {
+		return publishTime;
+	}
+
+	public void setPublishTime(Date publishTime) {
+		this.publishTime = publishTime;
+	}
+
 	public boolean isSubmitted() {
 		return isSubmitted;
 	}

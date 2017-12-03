@@ -16,7 +16,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<script type="text/javascript" th:src="@{/resources/js/filemanager.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/jQuery_Alert.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script>
@@ -25,7 +26,7 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" type="text/css">
 
-<title>instructor course page</title>
+<title>Instructor Course Page</title>
 </head>
 
 
@@ -50,7 +51,7 @@
                 <a class="nav-link" href="#grades" role="tab" data-toggle="tab">Grade</a>
             </li>
         </ul>
-
+     	<br><h3 class="txt_input txt_input2" th:text="${courseId}"></h3>
         <div class="tab-content">
 
                 <div class="tab-pane fade show active" id="syllabus" role="tabpanel" >
@@ -102,28 +103,13 @@
 
 					</div> <br />
 					
-					<!--the table and score arrangement-->
-					<div class="row scheduleinfo">
-						<div class="col-12 col-sm-6 col-md-8">
-							<h4>
-								<i class="fa fa-file-text-o"></i> Syllabus
-							</h4>
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th scope="col">Date</th>
-										<th scope="col">Info</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">Mon Sep 4, 2017</th>
-										<td>Prerequisite knowledge Quiz</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						</div>
+	   				<div class="list-group">
+	   					<br><h3 class="txt_input txt_input2">Upload syllabus</h3>
+						<label> <input type="file" onchange ="uploadSyllabus();" id="fileToBeUploaded" name="file" accept="application/pdf" /></label><br>
+						<span><a></a></span>
+					</div>	
+					
+					
 
 					<br>
 					<!--the table and score arrangement-->
@@ -152,57 +138,7 @@
 								</tbody>
 							</table>
 						</div>
-
-						<!--graph-->
-						<div class="col-6 col-md-4 teacher">
-							<div class="text-center">
-								<img src="/Resource/img/Grade_Distribution_Pie_Chart.png"
-									class="distribution" alt="grades">
-							</div>
-						</div>
 					</div> <br /> <br />
-
-					<div class="card">
-						<div class="card-header">Creat new Syllabus</div>
-						<div class="card-block">
-							<blockquote class="card-blockquote">
-	
-								<div class="form-group row">
-									<label for="example-text-input" class="col-2 col-form-label">Course
-										Description</label>
-									<div class="col-10">
-										<input class="form-control" type="text" placeholder="10%"
-											value="" id="example-text-input">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label for="example-search-input" class="col-2 col-form-label">Teacher
-										Info</label>
-									<div class="col-10">
-										<input class="form-control" type="search" placeholder="......."
-											id="example-search-input">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label for="example-email-input" class="col-2 col-form-label">Schedule</label>
-									<div class="col-10">
-										<input class="form-control" type="email"
-											placeholder="11/12/2017" id="example-email-input">
-									</div>
-								</div>
-	
-	
-								<div class="container">
-									<div class="row">
-										<button type="submit" class="btn btn-primary  publish">Creat</button>
-										<button type="submit" class="btn btn-light cancel">Cancel</button>
-									</div>
-	
-								</div>
-							</blockquote>
-						</div>
-					</div>
-
 			</div>
 
             <div role="tabpanel" class="tab-pane fade show" id="student">
@@ -247,9 +183,9 @@
                                 <th scope="row">Prerequisite knowledge Quiz</th>
                                 <td>Mon Sep 4, 2017</td>
                                 <td>10%</td>
-                                <td><a href="#"> <i class="material-icons">create</i>
+                                <td><a href="#"> <i class="material-icons">Create</i>
                                 </a></td>
-                                <td><a href="#"> <i class="material-icons">clear</i>
+                                <td><a href="#"> <i class="material-icons">Clear</i>
                                 </a></td>
                             </tr>
                         </tbody>
@@ -292,7 +228,7 @@
 
 							<div class="container">
 								<div class="row">
-									<button type="submit" class="btn btn-primary  publish">Creat</button>
+									<button type="submit" class="btn btn-primary  publish">Create</button>
 									<button type="submit" class="btn btn-light cancel">Cancel</button>
 								</div>
 
