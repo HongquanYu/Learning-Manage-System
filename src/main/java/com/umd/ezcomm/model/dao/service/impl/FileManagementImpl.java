@@ -39,13 +39,17 @@ public class FileManagementImpl implements FileManagement {
 	}
 
 	@Override
-	public byte[] retrieveSyllabus(String fileName) throws IOException {
+	public byte[] retrieveSyllabus(String fileName) {
 
 		byte[] lFileData = null;
 		try {
-			Path lPath = Paths.get("Syllabus-" + fileName + ".pdf");
-			lFileData = Files.readAllBytes(lPath);
-
+			if (isSyllabusPublished(fileName)) {
+				Path lPath = Paths.get("Syllabus-" + fileName + "-1.pdf");
+				lFileData = Files.readAllBytes(lPath);
+			} else {
+				Path lPath = Paths.get("Syllabus-" + fileName + ".pdf");
+				lFileData = Files.readAllBytes(lPath);
+			}
 		} catch (Exception e) {
 			System.out.println("Error finding file");
 		}
@@ -65,9 +69,9 @@ public class FileManagementImpl implements FileManagement {
 		// save to db
 		File f = new File("Syllabus-" + fileName + "-1.pdf");
 		if (f.exists() && !f.isDirectory()) {
-			return false;
-		} else {
 			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -84,6 +88,17 @@ public class FileManagementImpl implements FileManagement {
 
 	@Override
 	public boolean unPublishSyllabus(String fileName) {
+		File f = new File("Syllabus-" + fileName + "-1.pdf");
+		if (f.exists() && !f.isDirectory()) {
+			f.renameTo(new File("Syllabus-" + fileName + ".pdf"));
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean doesFileExist(String fileName) {
 		File f = new File("Syllabus-" + fileName + "-1.pdf");
 		if (f.exists() && !f.isDirectory()) {
 			f.renameTo(new File("Syllabus-" + fileName + ".pdf"));

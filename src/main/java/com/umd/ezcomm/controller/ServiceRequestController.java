@@ -201,7 +201,7 @@ public class ServiceRequestController {
 
 	@RequestMapping(value = "/ins/instructorTabs/{courseId:" + courseIdRegex + "}", method = RequestMethod.GET)
 	public String goToInstructorCourse(HttpServletRequest request, HttpSession session, HttpServletResponse response,
-			Map<String, Object> model, @PathVariable("courseId") String courseId) {
+			Map<String, Object> model, @PathVariable("courseId") String courseId) throws IOException {
 
 		String ue = (String) session.getAttribute("userEmail");
 
@@ -216,12 +216,12 @@ public class ServiceRequestController {
 			List<Student> studentList = new LinkedList<>();
 			List<Course> courseList = instructorService.getCourseList(userID);
 			List<Assignment> assignments = studentService.getAssignments(userID);
-			
+
 			for (Course c : courseList) {
 				if (c.getID().equals(courseId)) {
 					authorizedToLookAtCourse = true;
 				}
-				
+
 				studentList.addAll(instructorService.getStudentList(c.getID()));
 			}
 
@@ -229,16 +229,19 @@ public class ServiceRequestController {
 			if (!authorizedToLookAtCourse) {
 				return "error.html";
 			}
-<<<<<<< HEAD
 
 			boolean lPublished = fileService.isSyllabusPublished(courseId);
+			System.out.println(lPublished + ": goToInstructorCourse");
+
+			byte[] lFileData = fileService.retrieveSyllabus(courseId);
+			if (lFileData != null) {
+				model.put("fileExists", true);
+			}
+
 			model.put("published", lPublished);
 			model.put("userID", userID);
-=======
-			
 			model.put("userAssignemnts", assignments);
 			model.put("studentList", studentList);
->>>>>>> cab0edbdc71e0151170cdcd75527da801bed55ac
 			model.put("courseId", courseId);
 			model.put("enrolledCourses", courseList);
 
@@ -266,11 +269,16 @@ public class ServiceRequestController {
 	public String publishFile(HttpServletRequest request, HttpSession session, HttpServletResponse response,
 			Map<String, Object> model, @PathVariable("courseId") String courseId) throws IOException {
 
+		String lReturnString = "";
 		if (fileService.publishSyllabus(courseId)) {
-			return "Successfully Published";
+			lReturnString = "Successfully Published";
 		} else {
-			return "Could not publish file. File not found.";
+			lReturnString = "Could not publish file. File not found.";
 		}
+
+		System.out.println("Publish: " + lReturnString);
+
+		return "redirect:/ins/instructorTabs/" + courseId;
 
 	}
 
@@ -279,12 +287,15 @@ public class ServiceRequestController {
 	public String unPublishFile(HttpServletRequest request, HttpSession session, HttpServletResponse response,
 			Map<String, Object> model, @PathVariable("courseId") String courseId) throws IOException {
 
+		String lReturnString = "";
 		if (fileService.unPublishSyllabus(courseId)) {
-			return "Successfully unPublished";
+			lReturnString = "Successfully unPublished";
 		} else {
-			return "Could not publish file. File not found.";
+			lReturnString = "Could not unpublish file. File not found.";
 		}
 
+		System.out.println("Unpublish: " + lReturnString);
+		return "redirect:/ins/instructorTabs/" + courseId;
 	}
 
 	@RequestMapping(value = "/stu/studentTabs", method = RequestMethod.GET)

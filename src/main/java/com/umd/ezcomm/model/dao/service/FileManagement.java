@@ -8,11 +8,13 @@ public interface FileManagement {
 
 	public String storeSyllabus(MultipartFile multipartFile, String fileName) throws IOException;
 
-	public byte[] retrieveSyllabus(String fileName) throws IOException;
+	public byte[] retrieveSyllabus(String fileName);
 
 	public boolean isSyllabusPublished(String fileName);
 
 	public boolean publishSyllabus(String fileName);
 
 	public boolean unPublishSyllabus(String fileName);
+
+	public boolean doesFileExist(String fileName);
 }

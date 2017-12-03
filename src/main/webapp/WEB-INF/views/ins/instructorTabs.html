@@ -107,16 +107,16 @@
 	   				<div class="list-group">
 	   					<br><h3> Upload Syllabus</h3>
 						<label> <input type="file" onchange ="uploadSyllabus();" id="fileToBeUploaded" name="file" accept="application/pdf" /></label><br>
-						<span><a th:if="${published}" onclick="downloadSyllabusFile('downloadSyllabus')" href="javascript:void(0)" title="Click here to download the current syllabus for this course">Click here to download the current syllabus for this course</a></span>
+						<span><a th:if="${fileExists}" onclick="downloadSyllabusFile('downloadSyllabus')" href="javascript:void(0)" title="Click here to download the current syllabus for this course">Click here to download the current syllabus for this course</a></span>
 						<form id = "downloadSyllabus" action = "downloadSyllabus"><input id="downloadSyllabusInfo" th:value=${courseId} type="hidden" name="fileName"></form>
 						<input type="hidden" id=userID name=userID th:value=${userID}></input>
 						<input type="hidden" id=courseId name=courseId th:value=${courseId}></input>
 					</div>	
 					
-	   				<div class="list-group">
+	   				<div th:if=${fileExists} class="list-group">
 	   					<br><h3> Publish/Unpublish Syllabus</h3>
-						<a th:if="!${published}" th:href="@{publish/} + ${courseId}" class="btn btn-warning" style="width: fit-content;">Publish</a>
-						<a th:if="${published}" th:href="@{unPublish/} + ${courseId}" class="btn btn-warning" style="width: fit-content;">UnPublish</a>
+						<a th:if="!${published}" th:href="@{/ins/instructorTabs/publish/} + ${courseId}" class="btn btn-warning" style="width: fit-content;">Publish (Currently unpublished)</a>
+						<a th:if="${published}" th:href="@{/ins/instructorTabs/unPublish/} + ${courseId}" class="btn btn-warning" style="width: fit-content;">UnPublish (Currently published)</a>
 						<input type="hidden" id=userID name=userID th:value=${userID}></input>
 					</div>
 					<br><br><br>
