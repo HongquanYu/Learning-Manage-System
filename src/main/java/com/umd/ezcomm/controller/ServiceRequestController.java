@@ -265,6 +265,27 @@ public class ServiceRequestController {
 
 	}
 
+	@RequestMapping(value = "/stu/studentTabs/downloadSyllabus", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> downloadFileStudent(HttpServletRequest request, HttpSession session,
+			HttpServletResponse response, Map<String, Object> model) throws IOException {
+
+		HttpHeaders lHeaders = new HttpHeaders();
+
+		String lFileName = request.getParameter("fileName");
+		if (!fileService.isSyllabusPublished(lFileName)) {
+			lHeaders.add("Location", "error.html");
+			return new ResponseEntity<byte[]>(null, lHeaders, HttpStatus.FOUND);
+		}
+
+		lHeaders.setContentType(MediaType.parseMediaType("application/pdf"));
+		lHeaders.setContentDispositionFormData("Syllabus-" + lFileName + ".pdf", "Syllabus-" + lFileName + ".pdf");
+		lHeaders.setCacheControl("must revalidate, post-check=0, pre-check=0");
+		byte[] lFileData = fileService.retrieveSyllabus(lFileName);
+
+		return new ResponseEntity<byte[]>(lFileData, lHeaders, HttpStatus.OK);
+
+	}
+
 	@RequestMapping(value = "/ins/instructorTabs/publish/{courseId:" + courseIdRegex + "}", method = RequestMethod.GET)
 	public String publishFile(HttpServletRequest request, HttpSession session, HttpServletResponse response,
 			Map<String, Object> model, @PathVariable("courseId") String courseId) throws IOException {
@@ -296,6 +317,49 @@ public class ServiceRequestController {
 
 		System.out.println("Unpublish: " + lReturnString);
 		return "redirect:/ins/instructorTabs/" + courseId;
+	}
+
+	@RequestMapping(value = "/stu/studentTabs/{courseId:" + courseIdRegex + "}", method = RequestMethod.GET)
+	public String goToStudentTabs(HttpServletRequest request, HttpSession session, HttpServletResponse response,
+			Map<String, Object> model, @PathVariable("courseId") String courseId) throws IOException {
+
+		String userID = (String) session.getAttribute("userID");
+
+		if (userID == null) {
+			return "/login";
+		} else {
+
+			List<Assignment> assignmentGradeList = new LinkedList<>();
+
+			List<Course> courses = null;
+			List<Message> messages = null;
+			List<Assignment> assignments = null;
+
+			try {
+				courses = userService.courseEnrolled(userID);
+				messages = userService.messageReceived(userID);
+				assignments = studentService.getAssignments(userID);
+				assignmentGradeList = studentService.getAssignmentGrade(userID);
+
+			} catch (Exception e) {
+				log.info("data access error.");
+				model.put("dataException", true);
+			}
+
+			model.put("courseNum", courses == null ? 0 : courses.size());
+			model.put("messageNum", messages == null ? 0 : messages.size());
+			model.put("assignmentNum", assignments == null ? 0 : assignments.size());
+
+			boolean lPublished = fileService.isSyllabusPublished(courseId);
+			model.put("published", lPublished);
+			model.put("courseId", courseId);
+			model.put("userCourses", courses);
+			model.put("userMessages", messages);
+			model.put("userAssignemnts", assignments);
+			model.put("assignmentGradeList", assignmentGradeList);
+
+			return "/stu/studentTabs";
+		}
 	}
 
 	@RequestMapping(value = "/stu/studentTabs", method = RequestMethod.GET)

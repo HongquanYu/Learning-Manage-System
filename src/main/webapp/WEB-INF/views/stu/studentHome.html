@@ -43,7 +43,7 @@
 						<div th:each="course : ${userCourses}" class="card-body">
 							<h4 th:text="${course.ID}" class="card-title">Course ID</h4>
 							<p th:text="${course.Name}" class="card-text">Course Name</p>
-							<a href="studentTabs" class="btn btn-warning">Enter the course</a>
+							<a th:href="@{studentTabs/} + ${course.ID}" class="btn btn-warning">Enter the course</a>							
 						</div>
 					</div>
 				</div>

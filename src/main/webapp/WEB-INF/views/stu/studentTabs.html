@@ -24,7 +24,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-
+<script type="text/javascript" th:src="@{/resources/js/filemanager.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
 <script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script>
@@ -65,18 +65,12 @@
 		<!-- assignment -->
 
 			<div class="tab-pane fade show active" id="courseInfo" role="tabpanel">
-				<div class="login_padding">
-                    
-                    <h2>Course Syllabus</h2>
-
-					<form action="" method="post">
-						    
-					
-						<h3 class="txt_input txt_input2">Download syllabus:</h3>					    
-                        <label> <input type="file" accept="application/pdf" />
-                        </label> <input type="Submit" value="download">
-					</form>
-
+				<div>
+                    <br><br><br><h2>Course Syllabus</h2>
+             		<span><a th:if="${published}" onclick="downloadSyllabusFile('downloadSyllabus')" href="javascript:void(0)" title="Click here to download the current syllabus for this course">Click here to download the current syllabus for this course</a></span>
+             		<span th:if="!${published}">No Syllabus available for this course.</span>					
+					<form id = "downloadSyllabus" action = "downloadSyllabus"><input id="downloadSyllabusInfo" th:value=${courseId} type="hidden" name="fileName"></form>
+					<input type="hidden" id=courseId name=courseId th:value=${courseId}></input>                    
 				</div>
 				<!-- end of row notification -->
 
