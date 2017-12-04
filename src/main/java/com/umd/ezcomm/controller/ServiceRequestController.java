@@ -3,6 +3,7 @@ package com.umd.ezcomm.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,7 @@ import com.umd.ezcomm.model.dao.service.impl.StudentServiceImpl;
 import com.umd.ezcomm.model.dao.service.impl.UserServiceImpl;
 import com.umd.ezcomm.model.domain.Assignment;
 import com.umd.ezcomm.model.domain.Course;
+import com.umd.ezcomm.model.domain.CourseGrade;
 import com.umd.ezcomm.model.domain.Message;
 import com.umd.ezcomm.model.domain.Student;
 
@@ -111,6 +113,7 @@ public class ServiceRequestController {
 			String userID = userService.getUID(ue);
 
 			List<Course> courseList = instructorService.getCourseList(userID);
+			
 
 			List<Course> courses = null;
 			List<Message> messages = null;
@@ -556,5 +559,30 @@ public class ServiceRequestController {
 	public String resetPassword(HttpServletRequest request, HttpServletResponse response) {
 
 		return "passwordReset";
+	}
+	
+	
+	@RequestMapping(value = "/gradeProfessor", method = RequestMethod.GET)
+	public String goToGradeBook(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			Map<String, Object> model) {
+		String ue = (String) session.getAttribute("userEmail");
+
+		if (ue == null) {
+			return "/login";
+		} else {
+			String userID = userService.getUID(ue);
+
+			
+
+			
+			List<CourseGrade> courseGradeList =instructorService.getCourseGradebook(userID);
+
+			
+
+					
+			model.put("courseGradeList", courseGradeList);
+			
+			return "ins/gradeProfessor";
+		}
 	}
 }

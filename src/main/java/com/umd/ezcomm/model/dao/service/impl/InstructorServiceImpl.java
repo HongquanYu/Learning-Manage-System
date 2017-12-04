@@ -95,7 +95,7 @@ public class InstructorServiceImpl implements InstructorService {
                 "left join  CourseList CL  on User.UID = CL.UID " +
                 "left join CourseGradebook on User.UID = CourseGradebook.StudentID " +
                 "where User.JobStatus !='Instructor' and " +
-                "CL.CourseID in (SELECT C.ID FROM Courses  " +
+                "CL.CourseID in (SELECT C.ID FROM Courses C " +
                 "INNER JOIN CourseList CL ON C.ID = CL.CourseID WHERE  CL.UID ='" +userID+"');";
                
                
