@@ -55,32 +55,37 @@
 					<!-- Table Here -->
 					<div role="tabpanel" class="tab-pane fade show" id="student">
 
-                <div class="container container1">
-                    
-                    <h2 style="text-align:center">Student lists</h2> <br /><br />
-                    
-                    <table id="studentGradeTableList" class="display">
-                        <thead>
-                           <tr>
-                                <th> Student ID</th>
-                                <th> Student Name</th>
-                                <th> Course ID</th>
-                                <th> Course Grade</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                            <th:block th:each="cgl : ${courseGradeList}">
-                                <tr>
-	                                <td th:text="${cgl.studentID}"></td>
-	                                <td th:text="${cgl.studentName}"></td>
-	                                <td th:text="${cgl.courseID}"></td>
-	                                <td th:text="${cgl.courseGrade}"></td>
-                                </tr>
-                            </th:block>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+						<div class="container container1">
+
+							<h2 style="text-align: center">Student lists</h2>
+							<br />
+							<br />
+
+							<table id="studentGradeTableList" class="table table-hover">
+								<thead>
+									<tr>
+										<th>Student ID</th>
+										<th>Student Name</th>
+										<th>Course ID</th>
+										<th>Course Grade</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:each="cgl : ${courseGradeList}">
+										<tr>
+											<td th:text="${cgl.studentID}"></td>
+											<td th:text="${cgl.studentName}"></td>
+											<td th:text="${cgl.courseID}"></td>
+											<td th:text="${cgl.courseGrade}"></td>
+										</tr>
+									</th:block>
+								</tbody>
+							</table>
+							
+
+
+						</div>
+					</div>
 				</div>
 				<!-- end of col-sm-8 -->
 				<div class="col-sm-2"></div>
