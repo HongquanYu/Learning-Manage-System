@@ -184,7 +184,7 @@
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Due Time</th>
-                                <th scope="col">Percentage</th>
+                                <th scope="col">download</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -192,10 +192,9 @@
 	                            <tr>
 	                                <td th:text="${ua.id}"></td>
 	                                <td th:text="${ua.due}"></td>
-	                                <td >15%</td>
-	<!--                                 <td><a href="#"> <i class="material-icons">Create</i> </a></td> -->
-	<!--                                 <td><a href="#"> <i class="material-icons">Clear</i> -->
-	<!--                                 </a></td> -->
+	                                <td >
+	                                   <label> <input type="file" onchange ="uploadSyllabus();" id="fileToBeUploaded" name="file" accept="application/pdf" /></label><br>
+	                                </td>
 	                            </tr>
                             </th:block>
                         </tbody>
@@ -203,24 +202,15 @@
                 </div> <br /> <br />
 
 				<div class="card">
-					<div class="card-header">Creat new assignment</div>
-					<div class="card-block">
-						<blockquote class="card-blockquote">
-
-							<div class="form-group row">
-								<label for="example-text-input" class="col-3 col-form-label">Upload new Assignment: </label>
-								<label> <input type="file" onchange ="uploadSyllabus();" id="fileToBeUploaded" name="file" accept="application/pdf" /></label>
-							</div>
-
-							<div class="container">
-								<div class="row">
-									<button type="submit" class="btn btn-primary  publish">Create</button>
-									<button type="submit" class="btn btn-light cancel">Cancel</button>
-								</div>
-
-							</div>
-						</blockquote>
-					</div>
+					<div>Create new assignment</div><br>
+					
+					    <form action="" method="post">
+					       <div>Upload new Assignment: </div>
+                            <label> <input type="file" onchange ="uploadSyllabus();" id="fileToBeUploaded" name="file" accept="application/pdf" /></label><br>
+                            <p>File Name:  <input type="text" name="AssignmentName" /> </p>
+                            <p>Due Date:  <input type="text" name="AssignmentDue" /></p>
+                            <input type="Submit" value="submit">
+                        </form>
 				</div>
 
 			</div>

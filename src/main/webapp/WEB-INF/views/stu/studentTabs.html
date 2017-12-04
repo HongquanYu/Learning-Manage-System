@@ -24,10 +24,6 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-<script type="text/javascript" th:src="@{/resources/js/filemanager.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/jquery.dataTables.min.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/dataTable.js}"></script>
 
 <th:block th:replace="fragments/header ::head"></th:block>
 
@@ -79,7 +75,8 @@
 
 			<div role="tabpanel" class="tab-pane fade show" id="assignment">
 				<div class="alert alert-warning alert-dismissible fade show" role="alert">
-					You have <strong th:text="${assignmentNum}"></strong> assignments to do
+					<strong th:text="${todoAssignNum}"></strong> new assignments; 
+					<strong th:text="${doneAssignNum}"></strong> completed assignments.
 					<button type="button" class="close" data-dismiss="alert"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -87,25 +84,46 @@
 				</div>
 
                 <div class="container container1">
-                    <h2 style="text-align:center">Assignments</h2> <br />
+                    <h2 style="text-align:center; color:red">Upcoming Assignment(s)</h2> <br />
                     
-                    <table id="gradeTable" class="display">
+                    <table class="table table-hover">
                         <thead>
                            <tr>
                                 <th> Assignment</th>
+                                <th> Published Date</th>
                                 <th> Due Date</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                            <th:block th:each="assi : ${todoAssignments}">
+                                <tr>
+                                    <td th:text="${assi.id}"></td>
+                                    <td th:text="${assi.publishTime}"></td>
+                                    <td th:text="${assi.due}"></td>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="container container1">
+                    <h2 style="text-align:center">Completed Assignment(s)</h2> <br />
+                    
+                    <table class="table table-hover">
+                        <thead>
+                           <tr>
+                                <th> Assignment</th>
                                 <th> Create Time</th>
-                                <th> Course Name</th>
+                                <th> Due Date</th>
                                 <th> Grade</th>
                            </tr>
                         </thead>
                         <tbody>
-                            <th:block th:each="assi : ${userAssignemnts}">
+                            <th:block th:each="assi : ${doneAssignments}">
                                 <tr>
                                     <td th:text="${assi.id}"></td>
-                                    <td th:text="${assi.due}"></td>
                                     <td th:text="${assi.publishTime}"></td>
-                                    <td th:text="${assi.courseID}"></td>
+                                    <td th:text="${assi.due}"></td>
                                     <td th:text="${assi.grade}"></td>
                                 </tr>
                             </th:block>

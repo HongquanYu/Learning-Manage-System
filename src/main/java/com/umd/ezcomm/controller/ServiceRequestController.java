@@ -2,10 +2,11 @@ package com.umd.ezcomm.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -198,6 +199,22 @@ public class ServiceRequestController {
 			return "/ins/instructorTabs";
 		}
 	}
+	
+	@RequestMapping(value = "/insertAssignment", method = RequestMethod.GET)
+	public String insertAssignment(HttpServletRequest request, HttpSession session, HttpServletResponse response,
+			Map<String, Object> model) {
+		
+		String userID = (String) session.getAttribute("userID");
+		
+		String assignName = request.getParameter("AssignmentName");
+		String assignDue = request.getParameter("AssignmentDue");
+		String courseId = request.getParameter("courseId");
+		
+		studentService.insertAssignment(userID, courseId, assignName, assignDue);
+		
+		return "/ins/instructorTabs/" + courseId;
+	}
+	
 
 	@RequestMapping(value = "/ins/instructorTabs/{courseId:" + courseIdRegex + "}", method = RequestMethod.GET)
 	public String goToInstructorCourse(HttpServletRequest request, HttpSession session, HttpServletResponse response,
@@ -332,12 +349,12 @@ public class ServiceRequestController {
 			List<Assignment> assignmentGradeList = new LinkedList<>();
 
 			List<Course> courses = null;
-			List<Message> messages = null;
 			List<Assignment> assignments = null;
+			Set<Assignment> todoAssign = studentService.getTodoAssignmentByCourseID(userID, courseId);
+			Set<Assignment> doneAssign = studentService.getDoneAssignmentByCourseID(userID, courseId);
 
 			try {
 				courses = userService.courseEnrolled(userID);
-				messages = userService.messageReceived(userID);
 				assignments = studentService.getAssignments(userID);
 				assignmentGradeList = studentService.getAssignmentGrade(userID);
 
@@ -347,15 +364,16 @@ public class ServiceRequestController {
 			}
 
 			model.put("courseNum", courses == null ? 0 : courses.size());
-			model.put("messageNum", messages == null ? 0 : messages.size());
-			model.put("assignmentNum", assignments == null ? 0 : assignments.size());
+			model.put("todoAssignNum", todoAssign == null ? 0 : todoAssign.size());
+			model.put("doneAssignNum", doneAssign == null ? 0 : doneAssign.size());
 
 			boolean lPublished = fileService.isSyllabusPublished(courseId);
 			model.put("published", lPublished);
 			model.put("courseId", courseId);
 			model.put("userCourses", courses);
-			model.put("userMessages", messages);
 			model.put("userAssignemnts", assignments);
+			model.put("todoAssignments", todoAssign);
+			model.put("doneAssignments", doneAssign);
 			model.put("assignmentGradeList", assignmentGradeList);
 
 			return "/stu/studentTabs";

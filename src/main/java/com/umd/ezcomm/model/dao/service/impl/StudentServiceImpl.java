@@ -1,8 +1,11 @@
 package com.umd.ezcomm.model.dao.service.impl;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.dao.DataAccessException;
@@ -59,9 +62,9 @@ public class StudentServiceImpl implements StudentService{
 	public List<Assignment> getAssignments(String userID) {
 		
 		String SQL = "SELECT A.ID, A.CreateTime, A.DueDate, AG.Grade, CL.CourseID FROM Assignment A " + 
-				"INNER JOIN AssignmentList AL  ON AL.AssignmentID = A.ID " + 
+				"INNER JOIN AssignmentList AL ON AL.AssignmentID = A.ID " + 
 				"INNER JOIN CourseList CL ON AL.CourseID = CL.CourseID " + 
-				"INNER JOIN  AssignmentGrade AG ON AG.AssignmentID = AL.AssignmentID " +
+				"INNER JOIN AssignmentGrade AG ON AG.AssignmentID = AL.AssignmentID " +
 				"WHERE A.Published = 1 AND CL.UID = '" + userID + "';";
 		
 		List<Assignment> assignment = template.query(SQL, new RowMapper<Assignment>() {
@@ -104,5 +107,83 @@ public class StudentServiceImpl implements StudentService{
 		});
 		
 		return assignment;
+	}
+
+	@Override
+	public Set<Assignment> getTodoAssignmentByCourseID(String userID, String courseID) {
+		String SQL = "SELECT A.ID, A.CreateTime, A.DueDate " + 
+				"FROM Assignment A " + 
+				"INNER JOIN AssignmentList AL ON AL.AssignmentID = A.ID " + 
+				"INNER JOIN CourseList CL ON AL.CourseID = CL.CourseID " + 
+				"WHERE  A.Published = 1 AND CL.UID = '" + userID + 
+				"' AND CL.CourseID= '" + courseID + "' AND A.isSubmitted= '0';";
+		
+		List<Assignment> assignment = template.query(SQL, new RowMapper<Assignment>() {
+			@Override
+			public Assignment mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Assignment a = new Assignment();
+				
+				a.setId(rs.getString("ID"));
+				a.setPublishTime(rs.getDate("CreateTime"));
+				a.setDue(rs.getDate("DueDate"));
+				
+				return a;
+			}
+		});
+		Set<Assignment> resultSet = new HashSet<>();
+		resultSet.addAll(assignment);
+		
+		return resultSet;
+	}
+	
+	
+	@Override
+	public Set<Assignment> getDoneAssignmentByCourseID(String userID, String courseID) {
+		String SQL = "SELECT A.ID, A.CreateTime, A.DueDate, AG.Grade " + 
+				"FROM Assignment A " + 
+				"INNER JOIN AssignmentList AL ON AL.AssignmentID = A.ID " + 
+				"INNER JOIN CourseList CL ON AL.CourseID = CL.CourseID " + 
+				"INNER JOIN AssignmentGrade AG ON AG.AssignmentID = A.ID " +
+				"WHERE  A.Published = '1' AND CL.UID = '" + userID + 
+				"' AND CL.CourseID= '" + courseID + 
+				"' AND A.isSubmitted= '1';";
+		
+		List<Assignment> assignment = template.query(SQL, new RowMapper<Assignment>() {
+			@Override
+			public Assignment mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Assignment a = new Assignment();
+				
+				a.setId(rs.getString("ID"));
+				a.setPublishTime(rs.getDate("CreateTime"));
+				a.setDue(rs.getDate("DueDate"));
+				a.setGrade(rs.getInt("Grade"));
+				
+				return a;
+			}
+		});
+		
+		Set<Assignment> resultSet = new HashSet<>();
+		resultSet.addAll(assignment);
+		
+		return resultSet;
+	}
+	
+	/* Insert a new assgnment name and  */
+	
+	@Override
+	public boolean insertAssignment(String userID, String courseID, String assiName, String due) {
+		String query = "INSERT INTO Assignment (ID, isSubmitted, Published, CreateTime, DueDate) " + 
+				"VALUES ('" + assiName + "', '" + assiName + "', 1, CURDATE(), CURDATE());";
+		
+		return template.update(query) == 1;
+	}
+
+	/* Insert a grade for a new assignment  */
+	
+	@Override
+	public boolean insertGrade(String userID, String assignmentID, int grade) {
+		String query = "INSERT INTO AssignmentGrade (StudentID, AssignmentID, Grade) " + 
+				"VALUES ('" + userID + "', '" + assignmentID + "', '" + grade +"');";
+		return false;
 	}
 }
