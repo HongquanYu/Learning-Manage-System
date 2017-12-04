@@ -2,6 +2,7 @@ package com.umd.ezcomm.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -543,7 +544,7 @@ public class ServiceRequestController {
 	}
 	
 	
-	@RequestMapping(value = "/in/gradeProfessor", method = RequestMethod.GET)
+	@RequestMapping(value = "/gradeProfessor", method = RequestMethod.GET)
 	public String goToGradeBook(HttpServletRequest request, HttpServletResponse response, HttpSession session,
 			Map<String, Object> model) {
 		String ue = (String) session.getAttribute("userEmail");
@@ -554,14 +555,16 @@ public class ServiceRequestController {
 			String userID = userService.getUID(ue);
 
 			
-			List<CourseGrade> courseGradeList = instructorService.getCourseGradebook(userID);
+
+			
+			List<CourseGrade> courseGradeList =instructorService.getCourseGradebook(userID);
 
 			
 
 					
 			model.put("courseGradeList", courseGradeList);
 			
-			return "/in/gradeProfessor";
+			return "ins/gradeProfessor";
 		}
 	}
 }
