@@ -2,12 +2,11 @@ package com.umd.ezcomm.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -113,7 +112,6 @@ public class ServiceRequestController {
 			String userID = userService.getUID(ue);
 
 			List<Course> courseList = instructorService.getCourseList(userID);
-			
 
 			List<Course> courses = null;
 			List<Message> messages = null;
@@ -179,13 +177,13 @@ public class ServiceRequestController {
 
 			List<Course> courses = null;
 			List<Message> messages = null;
-//			List<Assignment> assignments = null;
+			// List<Assignment> assignments = null;
 			List<String> assign = null;
 
 			try {
 				courses = userService.courseEnrolled(userID);
 				messages = userService.messageReceived(userID);
-//				assignments = studentService.getAssignments(userID);
+				// assignments = studentService.getAssignments(userID);
 				assign = fileService.retrieveAssignment();
 				for (Course c : courseList) {
 					studentList.addAll(instructorService.getStudentList(c.getID()));
@@ -204,22 +202,21 @@ public class ServiceRequestController {
 			return "/ins/instructorTabs";
 		}
 	}
-	
+
 	@RequestMapping(value = "/insertAssignment", method = RequestMethod.GET)
 	public String insertAssignment(HttpServletRequest request, HttpSession session, HttpServletResponse response,
 			Map<String, Object> model) {
-		
+
 		String userID = (String) session.getAttribute("userID");
-		
+
 		String assignName = request.getParameter("AssignmentName");
 		String assignDue = request.getParameter("AssignmentDue");
 		String courseId = request.getParameter("courseId");
-		
+
 		studentService.insertAssignment(userID, courseId, assignName, assignDue);
-		
+
 		return "/ins/instructorTabs/" + courseId;
 	}
-	
 
 	@RequestMapping(value = "/ins/instructorTabs/{courseId:" + courseIdRegex + "}", method = RequestMethod.GET)
 	public String goToInstructorCourse(HttpServletRequest request, HttpSession session, HttpServletResponse response,
@@ -237,7 +234,8 @@ public class ServiceRequestController {
 			boolean authorizedToLookAtCourse = false;
 			List<Student> studentList = new LinkedList<>();
 			List<Course> courseList = instructorService.getCourseList(userID);
-//			List<Assignment> assignments = studentService.getAssignments(userID);
+			// List<Assignment> assignments =
+			// studentService.getAssignments(userID);
 			List<String> assign = fileService.retrieveAssignment();
 
 			for (Course c : courseList) {
@@ -559,16 +557,41 @@ public class ServiceRequestController {
 		lPrintWriter.close();
 	}
 
+	@RequestMapping(value = "/ins/instructorTabs/storeAssignment", method = RequestMethod.POST)
+	public void uploadAssignment(@RequestParam("file") MultipartFile multipartFile,
+			@RequestParam("filename") String fileName, HttpServletRequest request, HttpServletResponse response,
+			HttpSession session) throws IOException {
+
+		String lReturnString = "";
+
+		if (!"application/pdf".equals(multipartFile.getContentType())) {
+			lReturnString = "File must be in a pdf format, please check the file type";
+		} else {
+			fileName = fileName + ".pdf";
+
+			lReturnString = fileService.storeSyllabus(multipartFile, fileName);
+			System.out.println("File Name: " + fileName);
+
+		}
+
+		int lResponseStatus = 200;
+		response.setContentType("text/html;charset=UTF-8");
+		response.setStatus(lResponseStatus);
+		PrintWriter lPrintWriter = response.getWriter();
+		lPrintWriter.write(lReturnString);
+		lPrintWriter.flush();
+		lPrintWriter.close();
+	}
+
 	@RequestMapping(value = "/resetPWD", method = RequestMethod.GET)
 	public String resetPassword(HttpServletRequest request, HttpServletResponse response) {
 
 		return "passwordReset";
 	}
-	
-	
+
 	@RequestMapping(value = "/gradeProfessor", method = RequestMethod.GET)
-	public String goToGradeBook(HttpServletRequest request, HttpServletResponse response,
-			HttpSession session, Map<String, Object> model) {
+	public String goToGradeBook(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			Map<String, Object> model) {
 		String ue = (String) session.getAttribute("userEmail");
 
 		if (ue == null) {

@@ -198,19 +198,15 @@
                         </tbody>
                     </table>
                 </div> <br /> <br />
-
+				<script type="text/javascript" th:src="@{/resources/js/filemanager.js}"></script>
+				
 				<div class="card">
-					<div>Create new assignment</div><br>
-					
-					    <form action="" method="post">
-					       <div>Upload New Assignment: </div>
-                            <label> <input type="file" onchange ="uploadSyllabus();" id="fileToBeUploaded" name="file" accept="application/pdf" /></label><br>
-                            <p>File Name:  <input type="text" name="AssignmentName" /> </p>
-                            <p>Due Date:  <input type="text" name="AssignmentDue" /></p>
-                            <input type="Submit" value="submit">
-                        </form>
+					<div><h3>Create new assignment</h3></div><br>
+					<label> <input type="file" onchange ="uploadAssignment();" id="fileToBeUploaded2" name="file" accept="application/pdf" /></label><br>
+                    <p>Assignment Name:  <input id=AssignmentName value=AssignmentName type="text" name="AssignmentName" /> </p>					
+					<input type="hidden" id=userID name=userID th:value=${userID}></input>
+					<input type="hidden" id=courseId name=courseId th:value=${courseId}></input>
 				</div>
-
 			</div>
 
             <div role="tabpanel" class="tab-pane fade show" id="grading">

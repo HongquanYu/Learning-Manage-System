@@ -41,6 +41,24 @@ public class FileManagementImpl implements FileManagement {
 	}
 
 	@Override
+	public String storeAssignment(MultipartFile multipartFile, String fileName) throws IOException {
+
+		String lReturnString = "";
+
+		// save to db
+		if (multipartFile.getBytes() != null) {
+			File f = new File(fileName);
+			if (f.exists() && !f.isDirectory()) {
+				lReturnString = "Replaced Previous Assignment with new file";
+			} else {
+				lReturnString = "Successfully Uploaded Assignment";
+			}
+			writeFile(fileName, multipartFile);
+		}
+		return lReturnString;
+	}
+
+	@Override
 	public byte[] retrieveSyllabus(String fileName) {
 
 		byte[] lFileData = null;
