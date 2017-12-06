@@ -184,17 +184,15 @@
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Due Time</th>
-                                <th scope="col">download</th>
+                                <th scope="col">Link</th>
                             </tr>
                         </thead>
                         <tbody>
                             <th:block th:each="ua : ${userAssignemnts}">
 	                            <tr>
-	                                <td th:text="${ua.id}"></td>
-	                                <td th:text="${ua.due}"></td>
-	                                <td >
-	                                   <label> <input type="file" onchange ="uploadSyllabus();" id="fileToBeUploaded" name="file" accept="application/pdf" /></label><br>
-	                                </td>
+	                                <td th:text="${ua}"></td>
+	                                <td> 12/06/2017</td>
+                                    <td> <a href="" style="color: blue"> Link</a></td>
 	                            </tr>
                             </th:block>
                         </tbody>

@@ -1,7 +1,7 @@
 package com.umd.ezcomm.model.dao.service;
 
 import java.io.IOException;
-
+import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface FileManagement {
@@ -17,4 +17,6 @@ public interface FileManagement {
 	public boolean unPublishSyllabus(String fileName);
 
 	public boolean doesFileExist(String fileName);
+	
+	public List<String> retrieveAssignment();
 }

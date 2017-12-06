@@ -235,7 +235,12 @@ public class ServiceRequestController {
 			boolean authorizedToLookAtCourse = false;
 			List<Student> studentList = new LinkedList<>();
 			List<Course> courseList = instructorService.getCourseList(userID);
-			List<Assignment> assignments = studentService.getAssignments(userID);
+//			List<Assignment> assignments = studentService.getAssignments(userID);
+			List<String> assign = fileService.retrieveAssignment();
+			
+			for (String s : assign) {
+				System.out.println(s);
+			}
 
 			for (Course c : courseList) {
 				if (c.getID().equals(courseId)) {
@@ -260,7 +265,7 @@ public class ServiceRequestController {
 
 			model.put("published", lPublished);
 			model.put("userID", userID);
-			model.put("userAssignemnts", assignments);
+			model.put("userAssignemnts", assign);
 			model.put("studentList", studentList);
 			model.put("courseId", courseId);
 			model.put("enrolledCourses", courseList);
