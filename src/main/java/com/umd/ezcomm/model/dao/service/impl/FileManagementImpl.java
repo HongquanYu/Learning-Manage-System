@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -112,32 +113,32 @@ public class FileManagementImpl implements FileManagement {
 	@Override
 	public List<String> retrieveAssignment() {
 		List<String> assignments = new LinkedList<>();
-		
-		File [] files = new File("/Users/Yu/git/EZComm").listFiles();
-		
+
+		File[] files = new File(".").listFiles();
+
 		for (File f : files) {
 			if (!f.isDirectory() && filePrefix(f, "ENPM613-")) {
 				assignments.add(middleName(f.getName()));
 			}
 		}
-		
+
 		return assignments;
 	}
-	
+
 	private boolean filePrefix(File f, String pre) {
 
-//		return pre.equals(f.getName().substring(0, pre.length()));
-		
+		// return pre.equals(f.getName().substring(0, pre.length()));
+
 		for (int i = 0; i < 8; ++i)
 			if (f.getName().charAt(i) != pre.charAt(i))
 				return false;
-		
+
 		return true;
 	}
 
 	private String middleName(String name) {
 		String mid = "";
-		
+
 		for (int i = 8; i < name.length(); ++i) {
 			if (name.charAt(i) != '-') {
 				mid += name.charAt(i);
@@ -145,7 +146,7 @@ public class FileManagementImpl implements FileManagement {
 				break;
 			}
 		}
-		
-		return mid ;
+
+		return mid;
 	}
 }
