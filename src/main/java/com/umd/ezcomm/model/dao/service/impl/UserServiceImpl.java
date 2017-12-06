@@ -145,4 +145,13 @@ public class UserServiceImpl implements UserService {
 
 		return cnt != null && cnt > 0;
 	}
+	
+	@Override
+	public boolean isInstructor(String uID) {
+		String SQL = "SELECT COUNT(*) FROM Instructor WHERE UID = " + uID + ";";
+		
+		Integer cnt = template.queryForObject(SQL, Integer.class);
+
+		return cnt != null && cnt > 0;
+	}
 }
