@@ -179,12 +179,14 @@ public class ServiceRequestController {
 
 			List<Course> courses = null;
 			List<Message> messages = null;
-			List<Assignment> assignments = null;
+//			List<Assignment> assignments = null;
+			List<String> assign = null;
 
 			try {
 				courses = userService.courseEnrolled(userID);
 				messages = userService.messageReceived(userID);
-				assignments = studentService.getAssignments(userID);
+//				assignments = studentService.getAssignments(userID);
+				assign = fileService.retrieveAssignment();
 				for (Course c : courseList) {
 					studentList.addAll(instructorService.getStudentList(c.getID()));
 				}
@@ -197,7 +199,7 @@ public class ServiceRequestController {
 			model.put("studentList", studentList);
 			model.put("userCourses", courses);
 			model.put("userMessages", messages);
-			model.put("userAssignemnts", assignments);
+			model.put("userAssignemnts", assign);
 
 			return "/ins/instructorTabs";
 		}
@@ -237,10 +239,6 @@ public class ServiceRequestController {
 			List<Course> courseList = instructorService.getCourseList(userID);
 //			List<Assignment> assignments = studentService.getAssignments(userID);
 			List<String> assign = fileService.retrieveAssignment();
-			
-			for (String s : assign) {
-				System.out.println(s);
-			}
 
 			for (Course c : courseList) {
 				if (c.getID().equals(courseId)) {
@@ -355,6 +353,7 @@ public class ServiceRequestController {
 		} else {
 
 			List<Assignment> assignmentGradeList = new LinkedList<>();
+			List<String> assi = fileService.retrieveAssignment();
 
 			List<Course> courses = null;
 			List<Assignment> assignments = null;
@@ -372,7 +371,7 @@ public class ServiceRequestController {
 			}
 
 			model.put("courseNum", courses == null ? 0 : courses.size());
-			model.put("todoAssignNum", todoAssign == null ? 0 : todoAssign.size());
+			model.put("todoAssignNum", todoAssign == null ? 0 : assi.size());
 			model.put("doneAssignNum", doneAssign == null ? 0 : doneAssign.size());
 
 			boolean lPublished = fileService.isSyllabusPublished(courseId);
@@ -380,7 +379,7 @@ public class ServiceRequestController {
 			model.put("courseId", courseId);
 			model.put("userCourses", courses);
 			model.put("userAssignemnts", assignments);
-			model.put("todoAssignments", todoAssign);
+			model.put("todoAssignments", assi);
 			model.put("doneAssignments", doneAssign);
 			model.put("assignmentGradeList", assignmentGradeList);
 
@@ -568,25 +567,17 @@ public class ServiceRequestController {
 	
 	
 	@RequestMapping(value = "/gradeProfessor", method = RequestMethod.GET)
-	public String goToGradeBook(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-			Map<String, Object> model) {
+	public String goToGradeBook(HttpServletRequest request, HttpServletResponse response,
+			HttpSession session, Map<String, Object> model) {
 		String ue = (String) session.getAttribute("userEmail");
 
 		if (ue == null) {
 			return "/login";
 		} else {
 			String userID = userService.getUID(ue);
-
-			
-
-			
-			List<CourseGrade> courseGradeList =instructorService.getCourseGradebook(userID);
-
-			
-
-					
+			List<CourseGrade> courseGradeList = instructorService.getCourseGradebook(userID);
 			model.put("courseGradeList", courseGradeList);
-			
+
 			return "ins/gradeProfessor";
 		}
 	}
