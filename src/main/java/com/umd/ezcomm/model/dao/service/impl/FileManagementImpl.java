@@ -95,6 +95,16 @@ public class FileManagementImpl implements FileManagement {
 		}
 	}
 
+	public boolean isAssignmentPublished(String fileName) {
+		// save to db
+		File f = new File(fileName + "-1.pdf");
+		if (f.exists() && !f.isDirectory()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	@Override
 	public boolean publishSyllabus(String fileName) {
 		File f = new File("Syllabus-" + fileName + ".pdf");
@@ -128,19 +138,22 @@ public class FileManagementImpl implements FileManagement {
 		}
 	}
 
-	@Override
-	public List<String> retrieveAssignment() {
-		List<String> assignments = new LinkedList<>();
-
-		File[] files = new File(".").listFiles();
-
-		for (File f : files) {
-			if (!f.isDirectory() && filePrefix(f, "ENPM613-")) {
-				assignments.add(middleName(f.getName()));
+	public byte[] retrieveAssignment(String fileName) {
+		byte[] lFileData = null;
+		try {
+			
+			System.out.println("File Name: " + fileName);
+			if (isAssignmentPublished(fileName)) {
+				Path lPath = Paths.get(fileName + "-1.pdf");
+				lFileData = Files.readAllBytes(lPath);
+			} else {
+				Path lPath = Paths.get(fileName + ".pdf");
+				lFileData = Files.readAllBytes(lPath);
 			}
+		} catch (Exception e) {
+			System.out.println("Error finding file");
 		}
-
-		return assignments;
+		return lFileData;
 	}
 
 	private boolean filePrefix(File f, String pre) {
@@ -167,4 +180,20 @@ public class FileManagementImpl implements FileManagement {
 
 		return mid;
 	}
+
+	@Override
+	public List<String> retrieveAssignment() {
+		List<String> assignments = new LinkedList<>();
+
+		File[] files = new File(".").listFiles();
+
+		for (File f : files) {
+			if (!f.isDirectory() && filePrefix(f, "ENPM613-")) {
+				assignments.add(middleName(f.getName()));
+			}
+		}
+
+		return assignments;
+	}
+
 }

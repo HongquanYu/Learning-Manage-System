@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,21 +88,21 @@ public class AssignmentController {
 		lPrintWriter.close();
 	}
 
-	@RequestMapping(value = "/ins/instructorTabs/downloadAssignment/{courseId:" + courseIdRegex
-			+ "}", method = RequestMethod.GET)
+	@RequestMapping(value = "/ins/instructorTabs/downloadAssignment", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> downloadFile(HttpServletRequest request, HttpSession session,
-			HttpServletResponse response, Map<String, Object> model, @PathVariable("courseId") String courseId)
-			throws IOException {
+			HttpServletResponse response, Map<String, Object> model,
+			@ModelAttribute(value = "filename") String filename, @ModelAttribute(value = "courseId") String courseId,
+			@ModelAttribute(value = "userId") String userId) throws IOException {
 
-		String lFileName = request.getParameter("fileName");
-		System.out.println("Downloading Assignment by Instructor " + lFileName);
+		System.out.println(
+				"Downloading Assignment by Instructor " + filename + " , courseId " + courseId + " , userId " + userId);
 
+		String lFileName = courseId + "-" + filename + "-" + userId;
 		HttpHeaders lHeaders = new HttpHeaders();
 		lHeaders.setContentType(MediaType.parseMediaType("application/pdf"));
-		lHeaders.setContentDispositionFormData("Syllabus-" + lFileName + ".pdf", "Syllabus-" + lFileName + ".pdf");
+		lHeaders.setContentDispositionFormData(lFileName + ".pdf", lFileName + ".pdf");
 		lHeaders.setCacheControl("must revalidate, post-check=0, pre-check=0");
-		byte[] lFileData = fileService.retrieveSyllabus(lFileName);
-
+		byte[] lFileData = fileService.retrieveAssignment(lFileName);
 		return new ResponseEntity<byte[]>(lFileData, lHeaders, HttpStatus.OK);
 
 	}

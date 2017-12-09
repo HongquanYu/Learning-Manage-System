@@ -192,7 +192,7 @@
 	                            <tr>
 	                                <td th:text="${ua}"></td>
 	                                <td> 12/06/2017</td>
-                                    <td> <a href="" style="color: blue"> Link</a></td>
+                                    <td> <a th:href="@{/ins/instructorTabs/downloadAssignment(userId=${userID},courseId=${courseId},filename=${ua})}" style="color: blue"> Link</a></td>
 	                            </tr>
                             </th:block>
                         </tbody>

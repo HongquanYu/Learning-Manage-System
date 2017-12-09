@@ -21,5 +21,8 @@ public interface FileManagement {
 
 	public boolean doesFileExist(String fileName);
 
+	public byte[] retrieveAssignment(String fileName);
+
 	public List<String> retrieveAssignment();
+
 }
