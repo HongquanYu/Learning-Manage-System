@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.umd.ezcomm.model.dao.service.impl.CourseServiceImpl;
 import com.umd.ezcomm.model.dao.service.impl.FileManagementImpl;
 import com.umd.ezcomm.model.dao.service.impl.InstructorServiceImpl;
@@ -457,6 +457,22 @@ public class ServiceRequestController {
 			return "/ins/gradeProfessor";
 		}
 	}
+	
+	@RequestMapping(value = "/ins/grade", method = RequestMethod.GET)
+	public String gradeAssignment(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirect, 
+			Map<String, Object> model) {
+				int grade = Integer.parseInt(request.getParameter("assignGrade"));
+				String comme = request.getParameter("assignComments");
+				String cID = request.getParameter("courseId");
+				String uID = request.getParameter("userID");	
+				String assignName = request.getParameter("");
+				
+				instructorService.insertAssignment(assignName);
+				instructorService.gradeAssignment(cID, uID, assignName, grade, comme);
+				
+			return "redirect:/ins/instructorTabs/"+cID;
+	}
+	
 
 	@RequestMapping(value = "/stu/gradeStudent", method = RequestMethod.GET)
 	public String goToGrade(HttpServletRequest request, HttpServletResponse response, HttpSession session,

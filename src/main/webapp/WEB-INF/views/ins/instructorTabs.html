@@ -247,16 +247,16 @@
 					</div>
 
 					<div>
-						<form action="" method="post">
+						<form th:action="@{/ins/grade}" method="post">
 						    <p>Download assignment and grading it with comments </p>
                     			<input type="Submit" value="download">
 						</form>
 
-						<form action="" method="post">
+						<form th:action="@{/ins/grade}" method="post">
 							Grade: <br />
-							<input type="text" name="grading" id=""><br />
+							<input type="text" name="assignGrade" id=""><br />
 							Comments: <br>
-							<textarea rows="5" name="comments" id=""></textarea><br />
+							<textarea rows="5" name="assignComments" id=""></textarea><br />
 							<input type="submit" value="Grading">
 						</form>
                     </div>

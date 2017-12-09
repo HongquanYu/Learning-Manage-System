@@ -116,4 +116,20 @@ public class InstructorServiceImpl implements InstructorService {
        
         return course;
     }
+	
+	@Override
+	public void gradeAssignment(String courseID, String stuID, String assignName, int grade, String comment) {
+        String SQL = "INSERT INTO AssignmentGrade (StudentID, AssignmentID, Grade, comments) " + 
+        		"VALUES('" + stuID + "', '" + assignName + "', " + grade + ", '" + comment + "');";
+
+        template.update(SQL);
+	}
+
+	@Override
+	public void insertAssignment(String assignID) {
+        String SQL = "INSERT INTO Assignment (ID, isSubmitted, Published, CreateTime, DueDate) " + 
+        		"VALUES('" + assignID + "', 1, 1, current_timestamp, current_timestamp);";
+
+        template.update(SQL);
+	}
 }

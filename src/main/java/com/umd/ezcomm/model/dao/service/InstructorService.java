@@ -17,4 +17,6 @@ public interface InstructorService {
 	
 	public List<Course> getCourseList(String userID);
 	public List<CourseGrade> getCourseGradebook(String userID);
+	public void insertAssignment(String assignID);
+	public void gradeAssignment(String courseID, String stuID, String assignName, int grade, String comment);
 }
