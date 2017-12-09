@@ -573,32 +573,6 @@ public class ServiceRequestController {
 		lPrintWriter.close();
 	}
 
-	@RequestMapping(value = "/ins/instructorTabs/storeAssignment", method = RequestMethod.POST)
-	public void uploadAssignment(@RequestParam("file") MultipartFile multipartFile,
-			@RequestParam("filename") String fileName, HttpServletRequest request, HttpServletResponse response,
-			HttpSession session) throws IOException {
-
-		String lReturnString = "";
-
-		if (!"application/pdf".equals(multipartFile.getContentType())) {
-			lReturnString = "File must be in a pdf format, please check the file type";
-		} else {
-			fileName = fileName + ".pdf";
-
-			lReturnString = fileService.storeSyllabus(multipartFile, fileName);
-			System.out.println("File Name: " + fileName);
-
-		}
-
-		int lResponseStatus = 200;
-		response.setContentType("text/html;charset=UTF-8");
-		response.setStatus(lResponseStatus);
-		PrintWriter lPrintWriter = response.getWriter();
-		lPrintWriter.write(lReturnString);
-		lPrintWriter.flush();
-		lPrintWriter.close();
-	}
-
 	@RequestMapping(value = "/resetPWD", method = RequestMethod.GET)
 	public String resetPassword(HttpServletRequest request, HttpServletResponse response) {
 

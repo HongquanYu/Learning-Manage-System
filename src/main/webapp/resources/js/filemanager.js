@@ -37,15 +37,12 @@ function uploadAssignment(){
     	formData.append('file', file);
     	var courseId = $('#courseId').attr('value');
     	var userId = $('#userID').attr('value');
-    	
-    	
     	var assignmentName = document.getElementById('AssignmentName').value;
-
-    	//var assignmentName = $('#AssignmentName').attr('value');
     	var filename = courseId + "-" + assignmentName + "-" + userId;
+    	console.log("File name: " + filename);
     	formData.append('filename', filename);
     	$.ajax({
-    		url:'storeAssignment.htm',
+    		url:'storeAssignment',
     		data: formData,
     		processData: false,
     		contentType: false,

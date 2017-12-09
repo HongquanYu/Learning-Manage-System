@@ -93,6 +93,8 @@
                                 <th> Published Date</th>
                                 <th> Due Date</th>
                                 <th> Link</th>
+                                <th> Submit</th>
+                                
                            </tr>
                         </thead>
                         <tbody>
@@ -101,7 +103,7 @@
                                     <td th:text="${ass}"></td>
                                     <td >12/03/2017</td>
                                     <td >12/06/2017</td>
-                                    <td > <a href="">Go to</a></td>
+                                    <td > <a th:href="@{/stu/studentTabs/downloadAssignment(courseId=${courseId},filename=${ass})}" style="color: blue">Download</a></td>
                                 </tr>
                             </th:block>
                         </tbody>
