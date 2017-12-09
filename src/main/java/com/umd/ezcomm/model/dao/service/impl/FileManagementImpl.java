@@ -105,6 +105,16 @@ public class FileManagementImpl implements FileManagement {
 		}
 	}
 
+	public boolean isStudentAssignmentPublished(String fileName) {
+		// save to db
+		File f = new File(fileName + "-1.pdf");
+		if (f.exists() && !f.isDirectory()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	@Override
 	public boolean publishSyllabus(String fileName) {
 		File f = new File("Syllabus-" + fileName + ".pdf");
@@ -141,7 +151,7 @@ public class FileManagementImpl implements FileManagement {
 	public byte[] retrieveAssignment(String fileName) {
 		byte[] lFileData = null;
 		try {
-			
+
 			System.out.println("File Name: " + fileName);
 			if (isAssignmentPublished(fileName)) {
 				Path lPath = Paths.get(fileName + "-1.pdf");
@@ -194,6 +204,35 @@ public class FileManagementImpl implements FileManagement {
 		}
 
 		return assignments;
+	}
+
+	public byte[] retrieveAssignment(String string, String lFileName) {
+		byte[] lFileData = null;
+		try {
+
+			System.out.println("Finding files starting with " + lFileName);
+			File[] foundFiles = new File(".").listFiles();
+			for (int i = 0; i < foundFiles.length; i++) {
+				if (foundFiles[i].getName().startsWith(lFileName)) {
+
+					System.out.println("filename in loop:" + foundFiles[i].getName());
+					lFileName = foundFiles[i].getName();
+					break;
+				}
+			}
+			System.out.println("Found file in student retrieve assignment " + lFileName);
+			System.out.println("Student download assignment File Name: " + lFileName);
+			if (isStudentAssignmentPublished(lFileName)) {
+				Path lPath = Paths.get(lFileName + "-1");
+				lFileData = Files.readAllBytes(lPath);
+			} else {
+				Path lPath = Paths.get(lFileName + "");
+				lFileData = Files.readAllBytes(lPath);
+			}
+		} catch (Exception e) {
+			System.out.println("Error finding file");
+		}
+		return lFileData;
 	}
 
 }

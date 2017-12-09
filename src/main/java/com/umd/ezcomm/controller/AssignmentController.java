@@ -92,7 +92,7 @@ public class AssignmentController {
 	public ResponseEntity<byte[]> downloadFile(HttpServletRequest request, HttpSession session,
 			HttpServletResponse response, Map<String, Object> model,
 			@ModelAttribute(value = "filename") String filename, @ModelAttribute(value = "courseId") String courseId,
-			@ModelAttribute(value = "userId") String userId) throws IOException {
+			@ModelAttribute(value = "userId") String userId) {
 
 		System.out.println(
 				"Downloading Assignment by Instructor " + filename + " , courseId " + courseId + " , userId " + userId);
@@ -109,22 +109,19 @@ public class AssignmentController {
 
 	@RequestMapping(value = "/stu/studentTabs/downloadAssignment", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> downloadFileStudent(HttpServletRequest request, HttpSession session,
-			HttpServletResponse response, Map<String, Object> model) throws IOException {
+			HttpServletResponse response, Map<String, Object> model,
+			@ModelAttribute(value = "filename") String lFileName, @ModelAttribute(value = "courseId") String courseId) {
 
-		String lFileName = request.getParameter("fileName");
-		System.out.println("Downloading Assignment by Student " + lFileName);
+		System.out.println("Downloading Assignment by Student filename: " + lFileName);
+		System.out.println("Downloading Assignment by Student courseId: " + courseId);
 
 		HttpHeaders lHeaders = new HttpHeaders();
 
-		if (!fileService.isSyllabusPublished(lFileName)) {
-			lHeaders.add("Location", "error.html");
-			return new ResponseEntity<byte[]>(null, lHeaders, HttpStatus.FOUND);
-		}
-
+		lFileName = courseId + "-" + lFileName;
 		lHeaders.setContentType(MediaType.parseMediaType("application/pdf"));
-		lHeaders.setContentDispositionFormData("Syllabus-" + lFileName + ".pdf", "Syllabus-" + lFileName + ".pdf");
+		lHeaders.setContentDispositionFormData(lFileName + ".pdf", lFileName + ".pdf");
 		lHeaders.setCacheControl("must revalidate, post-check=0, pre-check=0");
-		byte[] lFileData = fileService.retrieveSyllabus(lFileName);
+		byte[] lFileData = fileService.retrieveAssignment("", lFileName);
 
 		return new ResponseEntity<byte[]>(lFileData, lHeaders, HttpStatus.OK);
 
